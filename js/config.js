@@ -24,7 +24,7 @@ const CONFIG = {
   // --- NASA API key -----------------------------------------------------------
   // "DEMO_KEY" works out of the box but is rate-limited. Get a free key in
   // 30 seconds at https://api.nasa.gov and paste it here for higher limits.
-  NASA_API_KEY: "DEMO_KEY",
+  NASA_API_KEY: "7xZYdBtLGKnhEp9kyari6hgEKrccj9hoaY6DJCOk",
 
   // --- Behaviour tuning -------------------------------------------------------
   SKY_REFRESH_SECONDS: 60,         // how often the live sky redraws
