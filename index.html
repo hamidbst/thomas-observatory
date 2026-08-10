@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Observatory</title>
+  <meta name="description" content="A live astronomy dashboard — the sky right now, tonight's planets and Moon, upcoming events, the ISS, and the latest space news." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23ffcf6b'/><circle cx='50' cy='50' r='42' fill='none' stroke='%237db4ff' stroke-width='6'/></svg>" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+
+  <div class="wrap">
+    <header class="site">
+      <div class="brand">
+        <div class="logo"></div>
+        <h1 id="brand-title">Observatory<span class="sub">Live Sky Dashboard</span></h1>
+      </div>
+      <div class="clock">
+        <div class="t" id="clock-time">--:--:--</div>
+        <div class="d" id="clock-date">—</div>
+        <div class="loc" id="clock-loc" title="Click to change location">📍 locating…</div>
+      </div>
+    </header>
+
+    <!-- rotating deep-space fact -->
+    <div class="factbar">
+      <div class="spark">✦</div>
+      <div class="txt" id="fact-text">Loading a cosmic fact…</div>
+      <button class="btn small next" id="fact-next">Another →</button>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button data-tab="sky" class="active">🌌 Live Sky</button>
+      <button data-tab="tonight">🔭 Tonight</button>
+      <button data-tab="events">📅 Events</button>
+      <button data-tab="iss">🛰️ ISS</button>
+      <button data-tab="news">📰 News &amp; APOD</button>
+    </nav>
+
+    <!-- ===================== LIVE SKY ===================== -->
+    <section class="tab-page active" id="tab-sky">
+      <div class="grid cols-2" style="grid-template-columns: 1.55fr 1fr;">
+        <div class="panel sky-shell">
+          <canvas id="skymap" width="800" height="800"></canvas>
+          <div id="sky-tip"></div>
+          <div class="sky-controls">
+            <span class="chip on" data-toggle="lines"><span class="dot"></span>Constellation lines</span>
+            <span class="chip on" data-toggle="labels"><span class="dot"></span>Names</span>
+            <span class="chip on" data-toggle="dsos"><span class="dot"></span>Deep-sky objects</span>
+            <span class="chip on" data-toggle="mw"><span class="dot"></span>Milky Way</span>
+            <span class="chip on" data-toggle="planets"><span class="dot"></span>Planets</span>
+          </div>
+          <div class="sky-controls">
+            <button class="btn small" id="sky-now">● Now</button>
+            <input type="range" id="sky-time" class="grow" min="-720" max="720" value="0" step="5" />
+            <span class="small muted" id="sky-time-label">now</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="section-title">The sky above you</div>
+          <p class="small muted" id="sky-intro">This is a live map of the real sky from your location. The edge of the circle is the horizon; the centre is straight up (the zenith). North is at the top.</p>
+          <div id="sky-visible"></div>
+          <div class="section-title" style="margin-top:18px;">Legend</div>
+          <div class="small muted" id="sky-legend">
+            ● Stars (size = brightness) &nbsp; · &nbsp;
+            <span style="color:var(--accent-3)">●</span> Planets &nbsp; · &nbsp;
+            <span style="color:var(--accent-2)">◇</span> Galaxies &amp; nebulae
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TONIGHT ===================== -->
+    <section class="tab-page" id="tab-tonight">
+      <div class="grid cols-2">
+        <div class="panel">
+          <div class="section-title">The Moon right now</div>
+          <div class="moon-wrap">
+            <canvas id="moon-canvas" width="120" height="120"></canvas>
+            <div style="flex:1" id="moon-info"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="section-title">Sun</div>
+          <div id="sun-info"></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:18px;">
+        <div class="section-title">Planets tonight — where &amp; when</div>
+        <div id="planet-list"><div class="loading"><span class="spinner"></span> computing planet positions…</div></div>
+        <p class="small muted" style="margin-top:12px;">“Up” means the object is currently above your horizon. Altitude is height above the horizon (90° = straight overhead); azimuth is the compass direction (0° = N, 90° = E, 180° = S, 270° = W).</p>
+      </div>
+    </section>
+
+    <!-- ===================== EVENTS ===================== -->
+    <section class="tab-page" id="tab-events">
+      <div class="panel">
+        <div class="section-title">Upcoming astronomical events</div>
+        <div class="sky-controls" style="margin-bottom:16px;">
+          <span class="chip on" data-evfilter="all">All</span>
+          <span class="chip" data-evfilter="eclipse">Eclipses</span>
+          <span class="chip" data-evfilter="moon">Moon phases</span>
+          <span class="chip" data-evfilter="planet">Planets</span>
+          <span class="chip" data-evfilter="meteor">Meteor showers</span>
+          <span class="chip" data-evfilter="season">Seasons</span>
+        </div>
+        <div id="events-list"><div class="loading"><span class="spinner"></span> computing eclipses, phases, oppositions…</div></div>
+      </div>
+    </section>
+
+    <!-- ===================== ISS ===================== -->
+    <section class="tab-page" id="tab-iss">
+      <div class="grid cols-2" style="grid-template-columns: 1.5fr 1fr;">
+        <div class="panel">
+          <div class="section-title">International Space Station — live position</div>
+          <div id="iss-map-wrap"><canvas id="iss-canvas" width="720" height="360"></canvas></div>
+          <div class="iss-stats" id="iss-stats"></div>
+        </div>
+        <div class="panel">
+          <div class="section-title">Next visible passes over you</div>
+          <div id="iss-passes"><div class="loading"><span class="spinner"></span> computing orbital passes…</div></div>
+          <p class="small muted" style="margin-top:10px;">A “pass” is when the ISS flies over your sky. The best ones are after dusk or before dawn, when the station is lit by the Sun but your sky is dark.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== NEWS ===================== -->
+    <section class="tab-page" id="tab-news">
+      <div class="panel">
+        <div class="section-title">NASA — Astronomy Picture of the Day</div>
+        <div class="apod" id="apod"><div class="loading"><span class="spinner"></span> fetching today's picture…</div></div>
+      </div>
+      <div class="panel" style="margin-top:18px;">
+        <div class="section-title">Latest space news</div>
+        <div id="news-list"><div class="loading"><span class="spinner"></span> loading headlines…</div></div>
+      </div>
+    </section>
+
+    <footer class="site">
+      Built with real open data — stars from the d3-celestial catalog, positions from Astronomy Engine,
+      orbits from satellite.js, pictures &amp; news from NASA and the Spaceflight News API.<br/>
+      <span id="foot-owner"></span>
+    </footer>
+  </div>
+
+  <!-- vendored libraries -->
+  <script src="vendor/astronomy.browser.min.js"></script>
+  <script src="vendor/satellite.min.js"></script>
+
+  <!-- app modules -->
+  <script src="js/config.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/location.js"></script>
+  <script src="js/facts.js"></script>
+  <script src="js/skymap.js"></script>
+  <script src="js/tonight.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/iss.js"></script>
+  <script src="js/news.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
