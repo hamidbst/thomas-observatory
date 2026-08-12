@@ -38,11 +38,27 @@ const LOC = {
     const locEl = U.el("clock-loc");
     if (locEl) locEl.innerHTML = "📍 " + t("loc.locating");
     navigator.geolocation.getCurrentPosition(
-      (pos) => this._apply({ name: t("loc.device"), lat: pos.coords.latitude, lon: pos.coords.longitude,
-                             elevation: pos.coords.altitude || 0 }, "device", false),
-      () => { if (!silent) this._toast(t("loc.denied")); this._render(); },
+      async (pos) => {
+        const lat = pos.coords.latitude, lon = pos.coords.longitude;
+        const name = (await this._reverseName(lat, lon)) || t("loc.device");
+        this._apply({ name, lat, lon, elevation: pos.coords.altitude || 0 }, "device", false);
+      },
+      () => { if (!silent) this._toast(t("loc.denied")); this._render(); },   // denied → keep the fallback city
       { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 }
     );
+  },
+
+  // coordinates → a human city name (free, no API key)
+  async _reverseName(lat, lon) {
+    try {
+      const lang = (window.I18N && I18N.lang) || "en";
+      const r = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=${lang}`);
+      if (!r.ok) return null;
+      const j = await r.json();
+      const city = j.city || j.locality || j.principalSubdivision;
+      if (!city) return null;
+      return (j.countryCode && city !== j.countryName) ? `${city}, ${j.countryCode}` : city;
+    } catch (e) { return null; }
   },
 
   setPlace(p) {
