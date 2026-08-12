@@ -7,7 +7,7 @@
   <meta name="description" content="A live astronomy dashboard — the sky right now, tonight's planets and Moon, upcoming events, the ISS, and the latest space news." />
   <!-- The ?v=NN below is a "cache-buster": bump this number by 1 after any update
        so browsers fetch the fresh files instead of old cached ones. -->
-  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/styles.css?v=5" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23ffcf6b'/><circle cx='50' cy='50' r='42' fill='none' stroke='%237db4ff' stroke-width='6'/></svg>" />
 </head>
 <body>
@@ -41,6 +41,7 @@
       <button data-tab="tonight">🔭 <span data-i18n="nav.tonight">Tonight</span></button>
       <button data-tab="events">📅 <span data-i18n="nav.events">Events</span></button>
       <button data-tab="iss">🛰️ <span data-i18n="nav.iss">ISS</span></button>
+      <button data-tab="live">🚀 <span data-i18n="nav.live">Space Live</span></button>
       <button data-tab="news">📰 <span data-i18n="nav.news">News &amp; APOD</span></button>
       <button data-tab="quiz">🧠 <span data-i18n="nav.quiz">Quiz</span></button>
     </nav>
@@ -128,6 +129,25 @@
       </div>
     </section>
 
+    <!-- ===================== SPACE LIVE ===================== -->
+    <section class="tab-page" id="tab-live">
+      <div class="grid cols-2" style="grid-template-columns: 1.1fr 1fr;">
+        <div class="panel">
+          <div class="section-title" data-i18n="live.launchesTitle">Next rocket launches</div>
+          <div id="launch-list"><div class="loading"><span class="spinner"></span> <span data-i18n="live.loadingLaunches">fetching upcoming launches…</span></div></div>
+        </div>
+        <div class="panel">
+          <div class="section-title" data-i18n="live.sunTitle">The Sun right now</div>
+          <div class="sun-viewer">
+            <img id="sun-img" alt="The Sun now" />
+            <div class="sky-controls" id="sun-channels" style="margin-top:12px;"></div>
+            <div id="sun-activity"></div>
+            <p class="small muted" style="margin-top:10px;" data-i18n="live.sunCaption"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== NEWS ===================== -->
     <section class="tab-page" id="tab-news">
       <div class="panel">
@@ -145,6 +165,22 @@
       <div id="quiz-app"></div>
     </section>
 
+    <!-- location picker -->
+    <div id="loc-modal" class="loc-modal" hidden>
+      <div class="loc-box">
+        <button class="loc-x" id="loc-close" aria-label="close">✕</button>
+        <div class="loc-title" data-i18n="loc.title">Choose a viewing location</div>
+        <p class="small muted" data-i18n="loc.intro" style="margin:6px 0 14px;"></p>
+        <button class="btn" id="loc-mine" style="width:100%;margin-bottom:14px;" data-i18n="loc.useMine">📍 Use my location</button>
+        <div class="loc-search">
+          <input id="loc-input" type="text" autocomplete="off" data-i18n-ph="loc.searchPh" />
+          <button class="btn small" id="loc-go" data-i18n="loc.search">Search</button>
+        </div>
+        <div id="loc-results"></div>
+        <div class="loc-current small muted" id="loc-current" style="margin-top:14px;"></div>
+      </div>
+    </div>
+
     <footer class="site">
       Built with real open data — stars from the d3-celestial catalog, positions from Astronomy Engine,
       orbits from satellite.js, pictures &amp; news from NASA and the Spaceflight News API.<br/>
@@ -153,21 +189,22 @@
   </div>
 
   <!-- vendored libraries -->
-  <script src="vendor/astronomy.browser.min.js?v=3"></script>
-  <script src="vendor/satellite.min.js?v=3"></script>
+  <script src="vendor/astronomy.browser.min.js?v=5"></script>
+  <script src="vendor/satellite.min.js?v=5"></script>
 
   <!-- app modules  (bump ?v=NN after any update to force fresh files) -->
-  <script src="js/config.js?v=3"></script>
-  <script src="js/i18n.js?v=3"></script>
-  <script src="js/util.js?v=3"></script>
-  <script src="js/location.js?v=3"></script>
-  <script src="js/facts.js?v=3"></script>
-  <script src="js/skymap.js?v=3"></script>
-  <script src="js/tonight.js?v=3"></script>
-  <script src="js/events.js?v=3"></script>
-  <script src="js/iss.js?v=3"></script>
-  <script src="js/news.js?v=3"></script>
-  <script src="js/quiz.js?v=3"></script>
-  <script src="js/app.js?v=3"></script>
+  <script src="js/config.js?v=5"></script>
+  <script src="js/i18n.js?v=5"></script>
+  <script src="js/util.js?v=5"></script>
+  <script src="js/location.js?v=5"></script>
+  <script src="js/facts.js?v=5"></script>
+  <script src="js/skymap.js?v=5"></script>
+  <script src="js/tonight.js?v=5"></script>
+  <script src="js/events.js?v=5"></script>
+  <script src="js/iss.js?v=5"></script>
+  <script src="js/news.js?v=5"></script>
+  <script src="js/live.js?v=5"></script>
+  <script src="js/quiz.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>

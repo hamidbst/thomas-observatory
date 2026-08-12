@@ -12,11 +12,16 @@ const I18N = {
     en: {
       brand: { sub: "Live Sky Dashboard" },
       lang:  { en: "EN", fr: "FR", switch: "Français" },
-      loc:   { locating: "locating…", useDevice: "use my location", useHome: "use home",
-               home: "Home", device: "My location" },
+      loc:   { locating: "locating…", home: "Home", device: "My location",
+               title: "Choose a viewing location",
+               intro: "See the sky from your own spot, or explore it from anywhere on Earth.",
+               useMine: "📍 Use my location", searchPh: "Search a city or place…",
+               search: "Search", searching: "searching…",
+               noResults: "No places found — try another spelling.",
+               current: "Currently showing", change: "change", denied: "Location unavailable — using the default city." },
       fact:  { loading: "Loading a cosmic fact…", another: "Another →" },
       nav:   { sky: "Live Sky", tonight: "Tonight", events: "Events", iss: "ISS",
-               news: "News & APOD", quiz: "Quiz" },
+               live: "Space Live", news: "News & APOD", quiz: "Quiz" },
 
       common:{ up: "UP", down: "down", telescope: "telescope", min: "min", now: "now",
                rises: "rises", sets: "sets", altitude: "Altitude", lit: "lit", loadingGeneric: "loading…" },
@@ -125,6 +130,19 @@ const I18N = {
         imageCredit: "Image: NASA"
       },
 
+      live: {
+        launchesTitle: "Next rocket launches",
+        sunTitle: "The Sun right now",
+        loadingLaunches: "fetching upcoming launches…",
+        loadingSun: "loading the latest solar images…",
+        launchError: "Couldn't load the launch schedule ({msg}). Try again later.",
+        sunError: "Couldn't load solar activity ({msg}).",
+        liftoff: "Liftoff! 🚀", estimated: "date estimated", noLaunch: "No upcoming launches found right now.",
+        ch_193: "Corona", ch_304: "Chromosphere", ch_surface: "Sunspots", ch_magnetic: "Magnetic field",
+        activity: "Solar activity", flare: "Latest X-ray flare", kp: "Geomagnetic activity (Kp)",
+        sunCaption: "Live images from NASA's Solar Dynamics Observatory, refreshed through the day."
+      },
+
       quiz: {
         title: "Astronomy Challenge",
         pickIntro: "Choose your mission difficulty, then test your cosmic knowledge. Each round is 10 questions.",
@@ -143,11 +161,16 @@ const I18N = {
     fr: {
       brand: { sub: "Tableau de bord du ciel en direct" },
       lang:  { en: "EN", fr: "FR", switch: "English" },
-      loc:   { locating: "localisation…", useDevice: "ma position", useHome: "domicile",
-               home: "Domicile", device: "Ma position" },
+      loc:   { locating: "localisation…", home: "Domicile", device: "Ma position",
+               title: "Choisir un lieu d'observation",
+               intro: "Observe le ciel depuis chez toi, ou explore-le depuis n'importe où sur Terre.",
+               useMine: "📍 Utiliser ma position", searchPh: "Rechercher une ville ou un lieu…",
+               search: "Rechercher", searching: "recherche…",
+               noResults: "Aucun lieu trouvé — essaie une autre orthographe.",
+               current: "Affichage actuel", change: "changer", denied: "Position indisponible — utilisation de la ville par défaut." },
       fact:  { loading: "Chargement d'un fait cosmique…", another: "Un autre →" },
       nav:   { sky: "Ciel en direct", tonight: "Ce soir", events: "Événements", iss: "ISS",
-               news: "Actus & Image", quiz: "Quiz" },
+               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz" },
 
       common:{ up: "AU-DESSUS", down: "sous l'horizon", telescope: "télescope", min: "min", now: "maintenant",
                rises: "se lève", sets: "se couche", altitude: "Hauteur", lit: "éclairée", loadingGeneric: "chargement…" },
@@ -256,6 +279,19 @@ const I18N = {
         imageCredit: "Image : NASA"
       },
 
+      live: {
+        launchesTitle: "Prochains lancements de fusées",
+        sunTitle: "Le Soleil en ce moment",
+        loadingLaunches: "récupération des prochains lancements…",
+        loadingSun: "chargement des dernières images solaires…",
+        launchError: "Impossible de charger le calendrier des lancements ({msg}). Réessaie plus tard.",
+        sunError: "Impossible de charger l'activité solaire ({msg}).",
+        liftoff: "Décollage ! 🚀", estimated: "date estimée", noLaunch: "Aucun lancement à venir trouvé pour le moment.",
+        ch_193: "Couronne", ch_304: "Chromosphère", ch_surface: "Taches solaires", ch_magnetic: "Champ magnétique",
+        activity: "Activité solaire", flare: "Dernière éruption (rayons X)", kp: "Activité géomagnétique (Kp)",
+        sunCaption: "Images en direct du Solar Dynamics Observatory de la NASA, actualisées au fil de la journée."
+      },
+
       quiz: {
         title: "Défi Astronomie",
         pickIntro: "Choisis la difficulté de ta mission, puis teste tes connaissances cosmiques. Chaque manche compte 10 questions.",
@@ -308,6 +344,7 @@ const I18N = {
   applyStatic() {
     document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = this.t(el.getAttribute("data-i18n")); });
     document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = this.t(el.getAttribute("data-i18n-html")); });
+    document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.setAttribute("placeholder", this.t(el.getAttribute("data-i18n-ph"))); });
   },
 
   setLang(lang) {

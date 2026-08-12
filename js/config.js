@@ -10,10 +10,10 @@ const CONFIG = {
   // Shown in the title and header, e.g. "Aria's Observatory".
   OWNER_NAME: "Thomas Nima",       // <-- CHANGE to your son's name
 
-  // --- Home location ----------------------------------------------------------
-  // Default place used for the sky map and ISS passes when the browser
-  // location is not available (or the "Home" button is pressed).
-  // Find your coordinates at https://www.latlong.net if you want to be precise.
+  // --- Fallback location ------------------------------------------------------
+  // The site now defaults to the visitor's REAL location. This city is only the
+  // fallback, used when the browser can't or won't share the location.
+  // Find coordinates at https://www.latlong.net if you want to change it.
   HOME: {
     name: "La Colle-sur-Loup",     // <-- CHANGE to your city name
     lat: 43.6847,                  // <-- CHANGE latitude  (North = +, South = -)

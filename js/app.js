@@ -17,8 +17,8 @@ const App = {
     I18N.applyStatic();        // translate all static [data-i18n] nodes
     I18N.wireToggle();         // language switch button
 
-    // location label toggles home / device
-    U.el("clock-loc").addEventListener("click", () => LOC.toggle());
+    // location label opens the location picker
+    LOC.wire();
     LOC._render();
 
     // Sky map loads its catalogs and draws (default active tab)
@@ -80,6 +80,7 @@ const App = {
       case "tonight": this._tonightShown = true; Tonight.render(); break;
       case "events":  if (!Events.shown) Events.render(); break;
       case "iss":     ISS.init().then(() => ISS.start()); break;
+      case "live":    Live.enter(); break;
       case "news":    News.loadAll(); break;
       case "quiz":    Quiz.enter(); break;
     }
