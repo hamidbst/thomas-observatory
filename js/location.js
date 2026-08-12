@@ -31,11 +31,11 @@ const LOC = {
       return this.useHome();
     }
     const locEl = U.el("clock-loc");
-    if (locEl) locEl.textContent = "📍 locating…";
+    if (locEl) locEl.textContent = "📍 " + t("loc.locating");
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         this._apply({
-          name: "My location",
+          name: t("loc.device"),
           lat: pos.coords.latitude,
           lon: pos.coords.longitude,
           elevation: pos.coords.altitude || 0
@@ -53,10 +53,11 @@ const LOC = {
     const el = U.el("clock-loc");
     if (!el) return;
     const l = this.current;
+    const cw = (window.I18N && I18N.lang === "fr") ? "O" : "W";
     const latTxt = `${Math.abs(l.lat).toFixed(2)}°${l.lat >= 0 ? "N" : "S"}`;
-    const lonTxt = `${Math.abs(l.lon).toFixed(2)}°${l.lon >= 0 ? "E" : "W"}`;
+    const lonTxt = `${Math.abs(l.lon).toFixed(2)}°${l.lon >= 0 ? "E" : cw}`;
     el.innerHTML = `📍 ${U.esc(l.name)} · ${latTxt} ${lonTxt} ` +
-      `<span class="small">(${this.mode === "home" ? "use my location" : "use home"})</span>`;
+      `<span class="small">(${this.mode === "home" ? t("loc.useDevice") : t("loc.useHome")})</span>`;
   }
 };
 

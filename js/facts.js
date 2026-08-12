@@ -1,9 +1,10 @@
 /* =============================================================================
-   facts.js  —  a rotating "did you know" banner.
+   facts.js  —  a rotating "did you know" banner (English + French).
    Real, substantive astronomy — written for someone who already knows the basics.
+   The two arrays are parallel: index i is the same fact in each language.
    ============================================================================= */
 
-const FACTS = [
+const FACTS_EN = [
   "A <b>neutron star</b> packs more mass than the Sun into a sphere the size of a city. A sugar-cube of its material would weigh about a billion tonnes on Earth.",
   "The <b>Andromeda Galaxy</b> is blueshifted — it's falling toward us at ~110 km/s and will merge with the Milky Way in roughly 4.5 billion years.",
   "Light from the Sun takes <b>8 minutes 20 seconds</b> to reach us, but a photon born in the Sun's core can take over 100,000 years to random-walk its way to the surface first.",
@@ -34,23 +35,56 @@ const FACTS = [
   "The universe's <b>expansion is accelerating</b>, driven by dark energy, which makes up ~68% of everything — and we still don't know what it is.",
 ];
 
+const FACTS_FR = [
+  "Une <b>étoile à neutrons</b> concentre plus de masse que le Soleil dans une sphère de la taille d'une ville. Un sucre de cette matière pèserait environ un milliard de tonnes sur Terre.",
+  "La <b>galaxie d'Andromède</b> est décalée vers le bleu — elle fonce vers nous à ~110 km/s et fusionnera avec la Voie lactée dans environ 4,5 milliards d'années.",
+  "La lumière du Soleil met <b>8 minutes 20 secondes</b> pour nous atteindre, mais un photon né dans le cœur du Soleil peut mettre plus de 100 000 ans à rejoindre la surface en zigzaguant.",
+  "La densité moyenne de <b>Saturne</b> est inférieure à celle de l'eau. Avec une baignoire assez grande, Saturne flotterait.",
+  "L'horizon des événements d'un <b>trou noir</b> n'est pas une surface solide — c'est la distance où la vitesse de libération égale celle de la lumière. Rien de spécial ne s'y passe localement… jusqu'à ce que les forces de marée t'attrapent.",
+  "Le fond diffus cosmologique est la <b>plus vieille lumière de l'univers</b> — émise 380 000 ans après le Big Bang. Une partie de la neige d'une vieille télé analogique était littéralement ce rayonnement.",
+  "<b>Bételgeuse</b> est si grande que, si elle remplaçait le Soleil, sa surface dépasserait l'orbite de Mars. Elle pourrait exploser en supernova à tout moment dans les ~100 000 prochaines années.",
+  "Il y a plus d'<b>étoiles dans l'univers observable</b> (~10²³) que de grains de sable sur toutes les plages de la Terre.",
+  "<b>Vénus</b> tourne à l'envers et si lentement que son jour (243 jours terrestres) est plus long que son année (225 jours).",
+  "La sonde <b>Voyager 1</b>, lancée en 1977, est maintenant dans l'espace interstellaire à plus de 24 milliards de km — son signal radio met plus de 22 heures à nous parvenir.",
+  "Une <b>cuillère du cœur du Soleil</b> libérerait l'énergie d'une bombe nucléaire — pourtant la puissance du Soleil par mètre cube est inférieure à celle d'un tas de compost. Il est juste immense.",
+  "La Grande Tache Rouge de <b>Jupiter</b> est une tempête plus large que la Terre qui dure depuis au moins 350 ans — même si elle rétrécit ces dernières décennies.",
+  "Comme l'univers est en expansion, il existe des galaxies dont la lumière ne <b>nous atteindra jamais</b> — elles s'éloignent plus vite que la lumière ne peut combler l'écart.",
+  "Le <b>Vide du Bouvier</b> est une région de ~330 millions d'années-lumière presque sans galaxies. Si la Voie lactée en occupait le centre, on n'aurait pas su que d'autres galaxies existaient avant les années 1960.",
+  "Les <b>fusions d'étoiles à neutrons</b> forgent une grande partie de l'or et du platine de l'univers. L'or de tes bijoux est probablement né d'une collision d'étoiles mortes.",
+  "Un jour sur <b>Mercure</b> (d'un lever de Soleil au suivant) dure 176 jours terrestres — deux de ses années.",
+  "Le <b>Soleil</b> perd environ 4 millions de tonnes de masse chaque seconde, converties en énergie via E=mc². Il fait cela depuis 4,6 milliards d'années et n'est qu'à la moitié de sa vie.",
+  "<b>Olympus Mons</b> sur Mars est le plus haut volcan connu — environ 22 km de haut, presque trois fois l'Everest, avec une base grande comme l'Arizona.",
+  "La <b>Voie lactée</b> et tout ce qu'elle contient filent à ~600 km/s vers une région appelée le Grand Attracteur, pour des raisons encore mal comprises.",
+  "Un <b>pulsar</b> peut tourner des centaines de fois par seconde, balayant l'espace de faisceaux avec une précision d'horloge — certains sont de meilleurs garde-temps que les horloges atomiques.",
+  "L'espace n'est pas totalement vide : le <b>milieu interstellaire</b> contient environ un atome par centimètre cube, et même les vides les plus vides brillent faiblement de la lueur de la création.",
+  "<b>Titan</b>, la plus grande lune de Saturne, a des lacs et des rivières — mais de méthane et d'éthane liquides, sous une épaisse atmosphère orange d'azote.",
+  "Si tu pouvais plier une feuille de papier <b>103 fois</b>, son épaisseur dépasserait le diamètre de l'univers observable (chaque pli double l'épaisseur).",
+  "La <b>collision Andromède–Voie lactée</b> ne perturbera presque aucune étoile — les galaxies sont surtout du vide, donc les étoiles ne se heurtent quasiment jamais.",
+  "<b>Sagittarius A*</b>, le trou noir au centre de la Voie lactée, a 4 millions de fois la masse du Soleil — pourtant son « ombre », imagée en 2022, paraît plus petite qu'un beignet posé sur la Lune vu depuis la Terre.",
+  "L'<b>endroit le plus froid connu</b> de l'univers n'est pas l'espace lointain — c'est la nébuleuse du Boomerang, à environ 1 kelvin, plus froide que le fond cosmique, refroidie par son propre gaz en expansion rapide.",
+  "L'<b>exoplanète HD 189733b</b> a des vents de 8 700 km/h et il y pleut probablement du verre en fusion — à l'horizontale.",
+  "L'<b>expansion de l'univers accélère</b>, poussée par l'énergie noire, qui représente ~68 % de tout — et on ignore encore ce que c'est.",
+];
+
 const Facts = {
   order: [],
   i: 0,
   init() {
-    this.order = FACTS.map((_, i) => i);
+    this.order = FACTS_EN.map((_, i) => i);
     for (let i = this.order.length - 1; i > 0; i--) {   // shuffle
       const j = Math.floor(Math.random() * (i + 1));
       [this.order[i], this.order[j]] = [this.order[j], this.order[i]];
     }
     this.show();
     U.el("fact-next").addEventListener("click", () => this.next());
+    document.addEventListener("language-changed", () => this.show());
     setInterval(() => this.next(), 22000);
   },
+  arr() { return (window.I18N && I18N.lang === "fr") ? FACTS_FR : FACTS_EN; },
   show() {
     const el = U.el("fact-text");
     el.style.opacity = 0;
-    setTimeout(() => { el.innerHTML = FACTS[this.order[this.i]]; el.style.opacity = 1; }, 180);
+    setTimeout(() => { el.innerHTML = this.arr()[this.order[this.i]]; el.style.opacity = 1; }, 180);
   },
   next() { this.i = (this.i + 1) % this.order.length; this.show(); }
 };

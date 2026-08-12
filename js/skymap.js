@@ -59,7 +59,7 @@ const Sky = {
     });
     U.el("sky-now").addEventListener("click", () => {
       this.offsetMin = 0; slider.value = 0;
-      U.el("sky-time-label").textContent = "now"; this.render();
+      U.el("sky-time-label").textContent = t("common.now"); this.render();
     });
 
     // hover
@@ -68,6 +68,7 @@ const Sky = {
 
     window.addEventListener("resize", () => { this.resize(); this.render(); });
     document.addEventListener("location-changed", () => this.render());
+    document.addEventListener("language-changed", () => this.render());
 
     this.resize();
     this.render();
@@ -75,7 +76,7 @@ const Sky = {
   },
 
   offsetLabel() {
-    if (this.offsetMin === 0) return "now";
+    if (this.offsetMin === 0) return t("common.now");
     const sign = this.offsetMin > 0 ? "+" : "−";
     const m = Math.abs(this.offsetMin);
     const h = Math.floor(m / 60), mm = m % 60;
@@ -156,10 +157,11 @@ const Sky = {
     ctx.font = "600 14px " + "Segoe UI, sans-serif";
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     const m = 16;
-    ctx.fillText("N", this.cx, m - 2);
-    ctx.fillText("S", this.cx, this.size - m + 2);
-    ctx.fillText("E", m - 2, this.cy);
-    ctx.fillText("W", this.size - m + 2, this.cy);
+    const c = (window.I18N && I18N.cardinals[I18N.lang]) || ["N","E","S","W"];
+    ctx.fillText(c[0], this.cx, m - 2);              // North (top)
+    ctx.fillText(c[2], this.cx, this.size - m + 2);  // South (bottom)
+    ctx.fillText(c[1], m - 2, this.cy);              // East (left)
+    ctx.fillText(c[3], this.size - m + 2, this.cy);  // West (right)
   },
 
   drawMilkyWay(lat, lst) {
@@ -231,7 +233,7 @@ const Sky = {
         const nm = this.data.names[f.id] && this.data.names[f.id].name;
         if (nm) {
           this.drawn.push({ x: p.x, y: p.y, name: nm,
-            meta: `Star · mag ${mag.toFixed(2)} · alt ${h.alt.toFixed(0)}° ${U.compass(h.az)}` });
+            meta: `${t("sky.star")} · mag ${mag.toFixed(2)} · ${h.alt.toFixed(0)}° ${U.compass(h.az)}` });
           if (this.toggles.labels && mag < 1.8) {
             ctx.fillStyle = "rgba(215,225,255,0.75)";
             ctx.font = "11px Segoe UI, sans-serif";
@@ -261,8 +263,8 @@ const Sky = {
       ctx.stroke();
       ctx.restore();
       let short = name;
-      this.drawn.push({ x: p.x, y: p.y, name: name || "Deep-sky object",
-        meta: `${this.dsoType(pr.type)} · alt ${h.alt.toFixed(0)}° ${U.compass(h.az)}` });
+      this.drawn.push({ x: p.x, y: p.y, name: name || t("sky.dso"),
+        meta: `${this.dsoType(pr.type)} · ${h.alt.toFixed(0)}° ${U.compass(h.az)}` });
       if (this.toggles.labels && short) {
         ctx.fillStyle = "rgba(200,170,255,0.7)";
         ctx.font = "10px Segoe UI, sans-serif";
@@ -272,11 +274,11 @@ const Sky = {
     }
   },
 
-  dsoType(t) {
+  dsoType(type) {
     const map = { gg:"Galaxy", g:"Galaxy", gc:"Globular cluster", oc:"Open cluster",
       pn:"Planetary nebula", dn:"Nebula", bn:"Nebula", sfr:"Star-forming region",
       snr:"Supernova remnant" };
-    return map[t] || "Deep-sky object";
+    return I18N.dsotypeName(map[type] || "Deep-sky object");
   },
 
   drawConNames(lat, lst) {
@@ -309,8 +311,8 @@ const Sky = {
       const hs = place("Sun");
       if (hs.alt > 0) {
         const p = this.project(hs.alt, hs.az);
-        if (p) { this.disk(p, 9, "#ffd66b", "#ffb43a"); this.label(p, "Sun", 9);
-          this.drawn.push({ x:p.x, y:p.y, name:"Sun", meta:`alt ${hs.alt.toFixed(0)}° ${U.compass(hs.az)}` }); }
+        if (p) { this.disk(p, 9, "#ffd66b", "#ffb43a"); this.label(p, I18N.body("Sun"), 9);
+          this.drawn.push({ x:p.x, y:p.y, name:I18N.body("Sun"), meta:`${hs.alt.toFixed(0)}° ${U.compass(hs.az)}` }); }
       }
     } catch(e){}
 
@@ -322,9 +324,9 @@ const Sky = {
         if (p) {
           const ill = Astronomy.Illumination(Astronomy.Body.Moon, date);
           this.moonGlyph(p, 8, ill.phase_fraction, ill.phase_angle);
-          this.label(p, "Moon", 8);
-          this.drawn.push({ x:p.x, y:p.y, name:"Moon",
-            meta:`${Math.round(ill.phase_fraction*100)}% lit · alt ${hm.alt.toFixed(0)}° ${U.compass(hm.az)}` });
+          this.label(p, I18N.body("Moon"), 8);
+          this.drawn.push({ x:p.x, y:p.y, name:I18N.body("Moon"),
+            meta:`${Math.round(ill.phase_fraction*100)}% ${t("common.lit")} · ${hm.alt.toFixed(0)}° ${U.compass(hm.az)}` });
         }
       }
     } catch(e){}
@@ -338,9 +340,9 @@ const Sky = {
         if (!p) continue;
         const rad = (body === "Jupiter" || body === "Venus") ? 5 : (body === "Uranus" || body === "Neptune" ? 3 : 4);
         this.disk(p, rad, color, color);
-        this.drawn.push({ x:p.x, y:p.y, name:body,
-          meta:`Planet · alt ${h.alt.toFixed(0)}° ${U.compass(h.az)}` });
-        if (this.toggles.labels) this.label(p, body, rad);
+        this.drawn.push({ x:p.x, y:p.y, name:I18N.body(body),
+          meta:`${t("sky.planet")} · ${h.alt.toFixed(0)}° ${U.compass(h.az)}` });
+        if (this.toggles.labels) this.label(p, I18N.body(body), rad);
       } catch(e){}
     }
   },
@@ -413,12 +415,12 @@ const Sky = {
         if (h.alt > 0) rows.push(`<div class="kv"><span class="k">${label}</span><span class="v">${h.alt.toFixed(0)}° · ${U.compass(h.az)}</span></div>`);
       } catch(e){}
     };
-    check("Moon", "🌙 Moon");
-    ["Venus","Mars","Jupiter","Saturn","Mercury","Uranus","Neptune"].forEach(b => check(b, planetEmoji(b) + " " + b));
+    check("Moon", "🌙 " + I18N.body("Moon"));
+    ["Venus","Mars","Jupiter","Saturn","Mercury","Uranus","Neptune"].forEach(b => check(b, planetEmoji(b) + " " + I18N.body(b)));
     const host = U.el("sky-visible");
     if (host) host.innerHTML = rows.length
-      ? `<div class="section-title" style="margin-top:14px;">Up right now</div>${rows.join("")}`
-      : `<p class="small muted" style="margin-top:14px;">No planets above the horizon at this moment — try dragging the time slider.</p>`;
+      ? `<div class="section-title" style="margin-top:14px;">${t("sky.upNow")}</div>${rows.join("")}`
+      : `<p class="small muted" style="margin-top:14px;">${t("sky.none")}</p>`;
   }
 };
 

@@ -21,12 +21,12 @@ const Tonight = {
   phaseName(angle) {
     // angle: 0 new, 90 first quarter, 180 full, 270 last quarter
     const names = [
-      [0, "New Moon"], [45, "Waxing Crescent"], [90, "First Quarter"], [135, "Waxing Gibbous"],
-      [180, "Full Moon"], [225, "Waning Gibbous"], [270, "Last Quarter"], [315, "Waning Crescent"], [360, "New Moon"]
+      [0, "new"], [45, "waxcres"], [90, "first"], [135, "waxgib"],
+      [180, "full"], [225, "wangib"], [270, "last"], [315, "wancres"], [360, "new"]
     ];
     let best = names[0];
     for (const n of names) if (Math.abs(angle - n[0]) < Math.abs(angle - best[0])) best = n;
-    return best[1];
+    return t("phase." + best[1]);
   },
 
   render() {
@@ -56,12 +56,12 @@ const Tonight = {
 
     U.el("moon-info").innerHTML = `
       <div style="font-size:18px;font-weight:700;margin-bottom:6px;">${this.phaseName(angle)}</div>
-      <div class="kv"><span class="k">Illuminated</span><span class="v">${Math.round(frac*100)}%</span></div>
-      <div class="kv"><span class="k">Distance</span><span class="v">${Math.round(distKm).toLocaleString()} km</span></div>
-      <div class="kv"><span class="k">Moonrise</span><span class="v">${rise ? U.timeHMS(rise).slice(0,5) : "—"}</span></div>
-      <div class="kv"><span class="k">Moonset</span><span class="v">${set ? U.timeHMS(set).slice(0,5) : "—"}</span></div>
-      <div class="kv"><span class="k">Next full</span><span class="v">${nextFull ? U.dateShort(nextFull) : "—"}</span></div>
-      <div class="kv"><span class="k">Next new</span><span class="v">${nextNew ? U.dateShort(nextNew) : "—"}</span></div>`;
+      <div class="kv"><span class="k">${t("tonight.illuminated")}</span><span class="v">${Math.round(frac*100)}%</span></div>
+      <div class="kv"><span class="k">${t("tonight.distance")}</span><span class="v">${Math.round(distKm).toLocaleString(U.locale())} km</span></div>
+      <div class="kv"><span class="k">${t("tonight.moonrise")}</span><span class="v">${rise ? U.timeHMS(rise).slice(0,5) : "—"}</span></div>
+      <div class="kv"><span class="k">${t("tonight.moonset")}</span><span class="v">${set ? U.timeHMS(set).slice(0,5) : "—"}</span></div>
+      <div class="kv"><span class="k">${t("tonight.nextFull")}</span><span class="v">${nextFull ? U.dateShort(nextFull) : "—"}</span></div>
+      <div class="kv"><span class="k">${t("tonight.nextNew")}</span><span class="v">${nextNew ? U.dateShort(nextNew) : "—"}</span></div>`;
   },
 
   nextQuarter(from, wantQuarter) {
@@ -120,12 +120,12 @@ const Tonight = {
     } catch(e){}
 
     U.el("sun-info").innerHTML = `
-      <div class="kv"><span class="k">Sunrise</span><span class="v">${rise ? U.timeHMS(rise).slice(0,5) : "—"}</span></div>
-      <div class="kv"><span class="k">Sunset</span><span class="v">${set ? U.timeHMS(set).slice(0,5) : "—"}</span></div>
-      <div class="kv"><span class="k">Day length</span><span class="v">${dayLen}</span></div>
-      <div class="kv"><span class="k">Dark sky begins</span><span class="v">${darkStart ? U.timeHMS(darkStart.date).slice(0,5) : "—"}</span></div>
-      <div class="kv"><span class="k">Dawn (dark ends)</span><span class="v">${darkEnd ? U.timeHMS(darkEnd.date).slice(0,5) : "—"}</span></div>
-      <p class="small muted" style="margin-top:10px;">“Dark sky” is astronomical twilight’s end — the Sun is 18° below the horizon and the faintest stars and the Milky Way become visible.</p>`;
+      <div class="kv"><span class="k">${t("tonight.sunrise")}</span><span class="v">${rise ? U.timeHMS(rise).slice(0,5) : "—"}</span></div>
+      <div class="kv"><span class="k">${t("tonight.sunset")}</span><span class="v">${set ? U.timeHMS(set).slice(0,5) : "—"}</span></div>
+      <div class="kv"><span class="k">${t("tonight.dayLength")}</span><span class="v">${dayLen}</span></div>
+      <div class="kv"><span class="k">${t("tonight.darkBegins")}</span><span class="v">${darkStart ? U.timeHMS(darkStart.date).slice(0,5) : "—"}</span></div>
+      <div class="kv"><span class="k">${t("tonight.dawnEnds")}</span><span class="v">${darkEnd ? U.timeHMS(darkEnd.date).slice(0,5) : "—"}</span></div>
+      <p class="small muted" style="margin-top:10px;">${t("tonight.darkNote")}</p>`;
   },
 
   renderPlanets(now) {
@@ -148,12 +148,12 @@ const Tonight = {
         <div class="body-row">
           <div class="ico" style="background:${colors[b]}"></div>
           <div>
-            <div class="nm">${b} ${naked ? "" : '<span class="small muted">(telescope)</span>'}</div>
-            <div class="st">${up ? `Altitude ${alt.toFixed(0)}° · ${U.compass(az)} (${az.toFixed(0)}°)` : `Below horizon · rises ${rise ? U.timeHMS(rise).slice(0,5) : "—"}`}
+            <div class="nm">${I18N.body(b)} ${naked ? "" : `<span class="small muted">(${t("common.telescope")})</span>`}</div>
+            <div class="st">${up ? `${t("common.altitude")} ${alt.toFixed(0)}° · ${U.compass(az)} (${az.toFixed(0)}°)` : t("tonight.belowRises", { t: rise ? U.timeHMS(rise).slice(0,5) : "—" })}
               ${mag !== null ? ` · mag ${mag.toFixed(1)}` : ""}</div>
           </div>
           <div class="st" style="text-align:right;">↑ ${rise ? U.timeHMS(rise).slice(0,5) : "—"}<br>↓ ${set ? U.timeHMS(set).slice(0,5) : "—"}</div>
-          <div><span class="badge ${up ? "up" : "down"}">${up ? "UP" : "down"}</span></div>
+          <div><span class="badge ${up ? "up" : "down"}">${up ? t("common.up") : t("common.down")}</span></div>
         </div>`;
     });
     U.el("planet-list").innerHTML = rows.join("");

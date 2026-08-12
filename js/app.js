@@ -1,21 +1,21 @@
 /* =============================================================================
-   app.js  —  boots the site: branding, clock, starfield, tab navigation.
+   app.js  —  boots the site: i18n, branding, clock, starfield, tab navigation.
    ============================================================================= */
 
 const App = {
   init() {
-    // Branding from config
-    const name = (CONFIG.OWNER_NAME || "").trim();
-    const title = name ? `${name}'s Observatory` : "Observatory";
-    document.title = title + " · Live Sky";
-    U.el("brand-title").innerHTML = `${U.esc(title)}<span class="sub">Live Sky Dashboard</span>`;
-    U.el("foot-owner").textContent = title;
+    I18N.init();               // pick language (saved / browser) before anything renders
+
+    this.renderBranding();
 
     LOC.init();
     Facts.init();
     this.starfield();
     this.clock();
     this.tabs();
+
+    I18N.applyStatic();        // translate all static [data-i18n] nodes
+    I18N.wireToggle();         // language switch button
 
     // location label toggles home / device
     U.el("clock-loc").addEventListener("click", () => LOC.toggle());
@@ -29,18 +29,36 @@ const App = {
       if (this._tonightShown) Tonight.render();
     });
 
+    // Re-render language-dependent panels when the language changes
+    document.addEventListener("language-changed", () => {
+      this.renderBranding();
+      LOC._render();
+      if (this._tick) this._tick();
+      if (this._tonightShown) Tonight.render();
+      if (Events.shown) Events.render();
+      // Sky, ISS, Facts, Quiz react via their own language-changed listeners
+    });
+
     // Facts opacity transition helper
     const ft = U.el("fact-text"); ft.style.transition = "opacity .18s ease";
   },
 
+  renderBranding() {
+    const name = (CONFIG.OWNER_NAME || "").trim();
+    const title = name ? `${name}'s Observatory` : "Observatory";
+    document.title = title;
+    U.el("brand-title").innerHTML = `${U.esc(title)}<span class="sub">${t("brand.sub")}</span>`;
+    U.el("foot-owner").textContent = title;
+  },
+
   clock() {
     const t = U.el("clock-time"), d = U.el("clock-date");
-    const tick = () => {
+    this._tick = () => {
       const now = new Date();
       t.textContent = U.timeHMS(now);
       d.textContent = U.dateLong(now);
     };
-    tick(); setInterval(tick, 1000);
+    this._tick(); setInterval(this._tick, 1000);
   },
 
   tabs() {
@@ -60,9 +78,10 @@ const App = {
     switch (tab) {
       case "sky":     Sky.resize(); Sky.render(); break;
       case "tonight": this._tonightShown = true; Tonight.render(); break;
-      case "events":  if (!this._eventsShown) { this._eventsShown = true; Events.render(); } break;
+      case "events":  if (!Events.shown) Events.render(); break;
       case "iss":     ISS.init().then(() => ISS.start()); break;
       case "news":    News.loadAll(); break;
+      case "quiz":    Quiz.enter(); break;
     }
   },
 

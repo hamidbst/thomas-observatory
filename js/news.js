@@ -23,12 +23,12 @@ const News = {
           <div class="title">${U.esc(d.title)}</div>
           <div class="small muted">${U.esc(d.date)}</div>
           <div class="expl">${U.esc(d.explanation)}</div>
-          ${d.copyright ? `<div class="credit">© ${U.esc(d.copyright.trim())}</div>` : `<div class="credit">Image: NASA</div>`}
+          ${d.copyright ? `<div class="credit">© ${U.esc(d.copyright.trim())}</div>` : `<div class="credit">${t("news.imageCredit")}</div>`}
         </div>`;
       this.loadedAPOD = true;
     } catch (e) {
-      host.innerHTML = `<p class="err">Couldn't load today's NASA picture (${U.esc(e.message)}).<br>
-        <span class="muted small">If this keeps happening, the free DEMO_KEY may be rate-limited — get a personal key at api.nasa.gov and paste it into <b>js/config.js</b>.</span></p>`;
+      host.innerHTML = `<p class="err">${t("news.apodError", { msg: U.esc(e.message) })}<br>
+        <span class="muted small">${t("news.apodKeyHint")}</span></p>`;
     }
   },
 
@@ -49,7 +49,7 @@ const News = {
         </a>`).join("");
       this.loadedNews = true;
     } catch (e) {
-      host.innerHTML = `<p class="err">Couldn't load space headlines (${U.esc(e.message)}).</p>`;
+      host.innerHTML = `<p class="err">${t("news.newsError", { msg: U.esc(e.message) })}</p>`;
     }
   }
 };

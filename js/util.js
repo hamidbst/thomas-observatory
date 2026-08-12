@@ -31,9 +31,9 @@ const U = {
     return { alt: alt * U.RAD, az: az * U.RAD };
   },
 
-  // Compass label for an azimuth in degrees.
+  // Compass label for an azimuth in degrees (localized).
   compass(az) {
-    const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+    const dirs = (window.I18N ? I18N.compass() : ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]);
     return dirs[Math.round(U.norm360(az) / 22.5) % 16];
   },
 
@@ -72,21 +72,27 @@ const U = {
   },
   timeHMS(date) { return `${U.pad(date.getHours())}:${U.pad(date.getMinutes())}:${U.pad(date.getSeconds())}`; },
 
+  locale() { return window.I18N ? I18N.locale() : undefined; },
+
   dateLong(d) {
-    return d.toLocaleDateString(undefined, { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+    return d.toLocaleDateString(U.locale(), { weekday:"long", year:"numeric", month:"long", day:"numeric" });
   },
   dateShort(d) {
-    return d.toLocaleDateString(undefined, { month:"short", day:"numeric" });
+    return d.toLocaleDateString(U.locale(), { month:"short", day:"numeric" });
+  },
+  monthShort(d) {
+    return d.toLocaleDateString(U.locale(), { month:"short" });
   },
 
-  // Human "in 3d 4h", "in 2h 10m", "in 45m", "now"
+  // Human "3d 4h", "2h 10m", "45m", "now" (day unit localized: d / j)
   countdown(target, from = new Date()) {
     let s = Math.round((target - from) / 1000);
-    if (s <= 0) return "now";
+    const dayU = (window.I18N && I18N.lang === "fr") ? "j" : "d";
+    if (s <= 0) return window.I18N ? I18N.t("common.now") : "now";
     const d = Math.floor(s/86400); s -= d*86400;
     const h = Math.floor(s/3600);  s -= h*3600;
     const m = Math.floor(s/60);
-    if (d > 0) return `${d}d ${h}h`;
+    if (d > 0) return `${d}${dayU} ${h}h`;
     if (h > 0) return `${h}h ${m}m`;
     return `${m}m`;
   },

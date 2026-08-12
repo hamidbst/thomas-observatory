@@ -19,6 +19,7 @@ const ISS = {
     try { this.land = await U.json("data/land.geojson"); } catch(e) { this.land = null; }
     window.addEventListener("resize", () => this.draw());
     document.addEventListener("location-changed", () => { this.draw(); this.computePasses(); });
+    document.addEventListener("language-changed", () => { if (this.last) this.stats(); this.paintPasses(this.lastPasses || []); });
   },
 
   start() {
@@ -39,7 +40,7 @@ const ISS = {
       this.draw();
       this.stats();
     } catch (e) {
-      U.el("iss-stats").innerHTML = `<div class="err" style="grid-column:1/-1">Couldn't reach the live ISS feed. Check the internet connection.</div>`;
+      U.el("iss-stats").innerHTML = `<div class="err" style="grid-column:1/-1">${t("iss.feedError")}</div>`;
     }
   },
 
@@ -47,10 +48,10 @@ const ISS = {
     if (!this.last) return;
     const l = this.last;
     U.el("iss-stats").innerHTML = `
-      <div class="stat"><div class="num">${l.lat.toFixed(1)}°</div><div class="lbl">Latitude</div></div>
-      <div class="stat"><div class="num">${l.lon.toFixed(1)}°</div><div class="lbl">Longitude</div></div>
-      <div class="stat"><div class="num">${Math.round(l.alt)}</div><div class="lbl">Altitude km</div></div>
-      <div class="stat"><div class="num">${Math.round(l.vel).toLocaleString()}</div><div class="lbl">Speed km/h</div></div>`;
+      <div class="stat"><div class="num">${l.lat.toFixed(1)}°</div><div class="lbl">${t("iss.lat")}</div></div>
+      <div class="stat"><div class="num">${l.lon.toFixed(1)}°</div><div class="lbl">${t("iss.lon")}</div></div>
+      <div class="stat"><div class="num">${Math.round(l.alt)}</div><div class="lbl">${t("iss.alt")}</div></div>
+      <div class="stat"><div class="num">${Math.round(l.vel).toLocaleString(U.locale())}</div><div class="lbl">${t("iss.speed")}</div></div>`;
   },
 
   // equirectangular projection
@@ -121,7 +122,7 @@ const ISS = {
       this.satrec = satellite.twoline2satrec(lines[i1], lines[i1+1]);
       this.computePasses();
     } catch (e) {
-      U.el("iss-passes").innerHTML = `<p class="muted small">Pass predictions need orbital data from Celestrak, which couldn't be reached right now. The live map above still works. (It may be blocked on some networks — try again later.)</p>`;
+      U.el("iss-passes").innerHTML = `<p class="muted small">${t("iss.tleError")}</p>`;
     }
   },
 
@@ -148,6 +149,7 @@ const ISS = {
       else if (el >= horizon && inPass) { if (el > cur.maxEl) { cur.maxEl = el; cur.maxAz = az; } }
       else if (el < horizon && inPass) { inPass = false; cur.end = date; cur.endAz = az; passes.push(cur); if (passes.length >= 6) break; }
     }
+    this.lastPasses = passes;
     this.paintPasses(passes);
   },
 
@@ -162,19 +164,22 @@ const ISS = {
 
   paintPasses(passes) {
     const host = U.el("iss-passes");
-    if (!passes.length) { host.innerHTML = `<p class="muted small">No passes above 10° in the next 3 days from this location.</p>`; return; }
+    if (!host) return;
+    if (!passes.length) { host.innerHTML = `<p class="muted small">${t("iss.noPasses")}</p>`; return; }
     host.innerHTML = passes.map(p => {
       const durMin = Math.round((p.end - p.start)/60000);
       const sun = this.sunAlt(p.start);
       const visible = sun < -6 && p.maxEl > 15;
-      const day = p.start.toLocaleDateString(undefined,{weekday:"short", month:"short", day:"numeric"});
+      const day = p.start.toLocaleDateString(U.locale(),{weekday:"short", month:"short", day:"numeric"});
+      const line = t("iss.passLine", { a1: U.compass(p.startAz), el: p.maxEl.toFixed(0), a2: U.compass(p.maxAz), a3: U.compass(p.endAz) });
+      const tag = visible ? ` · <span style='color:var(--good)'>${t("iss.visible")}</span>` : ` · ${t("iss.daylight")}`;
       return `
         <div class="pass">
           <div>
             <div class="when">${visible ? "✨ " : ""}${day} · ${U.timeHMS(p.start).slice(0,5)}</div>
-            <div class="info">Rises ${U.compass(p.startAz)} → peak ${p.maxEl.toFixed(0)}° ${U.compass(p.maxAz)} → sets ${U.compass(p.endAz)}${visible ? " · <span style='color:var(--good)'>visible!</span>" : " · daylight pass"}</div>
+            <div class="info">${line}${tag}</div>
           </div>
-          <div class="dur">${durMin} min</div>
+          <div class="dur">${durMin} ${t("common.min")}</div>
         </div>`;
     }).join("");
   }
