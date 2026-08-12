@@ -127,17 +127,15 @@ const I18N = {
 
       quiz: {
         title: "Astronomy Challenge",
-        intro: "Ten questions across the whole cosmos — from the solar system to the edge of the observable universe. Ready?",
-        start: "Start challenge", next: "Next question →", finish: "See results",
+        pickIntro: "Choose your mission difficulty, then test your cosmic knowledge. Each round is 10 questions.",
+        play: "Launch ▶", questions: "questions",
+        next: "Next question →", finish: "See results",
         question: "Question", of: "of", score: "Score", streak: "Streak",
         correct: "Correct!", wrong: "Not quite.", theAnswer: "Answer",
-        again: "Play again", newSet: "New questions",
-        resultTitle: "Challenge complete!",
-        resultLine: "You scored {s} / {n}.",
-        r_perfect: "Perfect score — you're a real astronomer! 🌟",
-        r_great: "Brilliant work — the cosmos has no secrets from you. 🚀",
-        r_good: "Nicely done — keep exploring! 🔭",
-        r_ok: "Good effort — every astronomer starts here. Try again! ✨",
+        again: "Play again", backToLevels: "← Choose level",
+        tryNext: "Next level: {name} →",
+        resultTitle: "Mission complete!",
+        onLevel: "Level: {name}",
         bestStreak: "Best streak"
       }
     },
@@ -260,17 +258,15 @@ const I18N = {
 
       quiz: {
         title: "Défi Astronomie",
-        intro: "Dix questions à travers tout le cosmos — du système solaire jusqu'au bord de l'univers observable. Prêt ?",
-        start: "Commencer le défi", next: "Question suivante →", finish: "Voir les résultats",
+        pickIntro: "Choisis la difficulté de ta mission, puis teste tes connaissances cosmiques. Chaque manche compte 10 questions.",
+        play: "Décoller ▶", questions: "questions",
+        next: "Question suivante →", finish: "Voir les résultats",
         question: "Question", of: "sur", score: "Score", streak: "Série",
         correct: "Correct !", wrong: "Presque…", theAnswer: "Réponse",
-        again: "Rejouer", newSet: "Nouvelles questions",
-        resultTitle: "Défi terminé !",
-        resultLine: "Ton score : {s} / {n}.",
-        r_perfect: "Score parfait — un vrai astronome ! 🌟",
-        r_great: "Brillant — le cosmos n'a plus de secrets pour toi. 🚀",
-        r_good: "Bien joué — continue d'explorer ! 🔭",
-        r_ok: "Bel effort — tout astronome commence ici. Réessaie ! ✨",
+        again: "Rejouer", backToLevels: "← Choisir un niveau",
+        tryNext: "Niveau suivant : {name} →",
+        resultTitle: "Mission accomplie !",
+        onLevel: "Niveau : {name}",
         bestStreak: "Meilleure série"
       }
     }
