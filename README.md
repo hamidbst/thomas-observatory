@@ -30,6 +30,17 @@ Optional: get a free NASA key at <https://api.nasa.gov> (takes 30 seconds) and p
 it into `NASA_API_KEY` for higher picture/news limits. The built-in `DEMO_KEY` works
 too, just with a lower hourly limit.
 
+### Switch on the "Write to me" box (About page)
+
+The About page has a friendly message box that emails visitors' notes to a parent —
+no server needed, and the email address is never shown on the page. To turn it on:
+
+1. Go to <https://web3forms.com>, enter the parent's email, press **Create Access Key**.
+2. Copy the key they email you.
+3. Paste it into `CONTACT_KEY` in `js/config.js` and re-upload.
+
+Until a key is added, the form politely says it isn't switched on yet.
+
 ---
 
 ## 2. Run it on your computer

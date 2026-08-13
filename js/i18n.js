@@ -21,7 +21,7 @@ const I18N = {
                current: "Currently showing", change: "change", denied: "Location unavailable — using the default city." },
       fact:  { loading: "Loading a cosmic fact…", another: "Another →" },
       nav:   { sky: "Live Sky", tonight: "Tonight", events: "Events", iss: "ISS",
-               live: "Space Live", news: "News & APOD", quiz: "Quiz" },
+               live: "Space Live", news: "News & APOD", quiz: "Quiz", about: "About Me" },
 
       common:{ up: "UP", down: "down", telescope: "telescope", min: "min", now: "now",
                rises: "rises", sets: "sets", altitude: "Altitude", lit: "lit", loadingGeneric: "loading…" },
@@ -155,6 +155,31 @@ const I18N = {
         resultTitle: "Mission complete!",
         onLevel: "Level: {name}",
         bestStreak: "Best streak"
+      },
+
+      about: {
+        hi: "Hi, I'm Thomas Nima! 👋",
+        bday: "I was born on Valentine's Day — the 14th of February, 2018 — so my birthday is the day full of hearts ❤️.",
+        love: "I LOVE space and astronomy. Planets, stars, black holes, rockets… I want to know it all!",
+        why: "I built this website so I could follow what's happening up in the sky — and so other kids like me have a fun place to explore it too.",
+        coverTitle: "What you can do here",
+        cover: [
+          "🌌 See the real sky above you right now",
+          "🔭 Find tonight's Moon and planets",
+          "📅 Check upcoming space events, like meteor showers and eclipses",
+          "🛰️ Track the Space Station as it flies over you",
+          "🚀 Watch live rocket launches and the Sun",
+          "📰 Read the latest space news and NASA's picture of the day",
+          "🧠 Test yourself in the astronomy quiz"
+        ],
+        hear: "I'd love to hear from you! What cool things have you built or discovered? Is there something useful I could add to help you? Write to me below — messages go to my dad, and we read them together.",
+        contactTitle: "Write to me ✉️",
+        fName: "Your first name (optional)", fEmail: "Your email — only if you'd like a reply (optional)",
+        fFrom: "Where are you from? (optional)", fMsg: "Your message",
+        send: "Send 🚀", sending: "Sending…",
+        thanks: "Thank you! Your message is on its way. 🌟 Thomas Nima and his dad will read it together.",
+        errorMsg: "Oops — something went wrong. Please try again in a moment.",
+        notSet: "The message box isn't switched on yet. (Grown-ups: see the README to add a free contact key.)"
       }
     },
 
@@ -170,7 +195,7 @@ const I18N = {
                current: "Affichage actuel", change: "changer", denied: "Position indisponible — utilisation de la ville par défaut." },
       fact:  { loading: "Chargement d'un fait cosmique…", another: "Un autre →" },
       nav:   { sky: "Ciel en direct", tonight: "Ce soir", events: "Événements", iss: "ISS",
-               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz" },
+               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz", about: "À propos" },
 
       common:{ up: "AU-DESSUS", down: "sous l'horizon", telescope: "télescope", min: "min", now: "maintenant",
                rises: "se lève", sets: "se couche", altitude: "Hauteur", lit: "éclairée", loadingGeneric: "chargement…" },
@@ -304,6 +329,31 @@ const I18N = {
         resultTitle: "Mission accomplie !",
         onLevel: "Niveau : {name}",
         bestStreak: "Meilleure série"
+      },
+
+      about: {
+        hi: "Salut, moi c'est Thomas Nima ! 👋",
+        bday: "Je suis né le jour de la Saint-Valentin — le 14 février 2018 — alors mon anniversaire, c'est le jour plein de cœurs ❤️.",
+        love: "J'ADORE l'espace et l'astronomie. Les planètes, les étoiles, les trous noirs, les fusées… je veux tout savoir !",
+        why: "J'ai créé ce site pour suivre ce qui se passe dans le ciel — et pour que d'autres enfants comme moi aient un endroit amusant pour l'explorer aussi.",
+        coverTitle: "Ce que tu peux faire ici",
+        cover: [
+          "🌌 Voir le vrai ciel au-dessus de toi en ce moment",
+          "🔭 Trouver la Lune et les planètes de ce soir",
+          "📅 Voir les prochains événements, comme les pluies d'étoiles filantes et les éclipses",
+          "🛰️ Suivre la Station spatiale quand elle passe au-dessus de toi",
+          "🚀 Regarder les lancements de fusées en direct et le Soleil",
+          "📰 Lire les dernières actus de l'espace et l'image du jour de la NASA",
+          "🧠 Te tester dans le quiz d'astronomie"
+        ],
+        hear: "J'adorerais avoir de tes nouvelles ! Qu'as-tu construit ou découvert de chouette ? Y a-t-il quelque chose d'utile que je pourrais ajouter pour toi ? Écris-moi ci-dessous — les messages arrivent chez mon papa, et on les lit ensemble.",
+        contactTitle: "Écris-moi ✉️",
+        fName: "Ton prénom (facultatif)", fEmail: "Ton email — seulement si tu veux une réponse (facultatif)",
+        fFrom: "D'où viens-tu ? (facultatif)", fMsg: "Ton message",
+        send: "Envoyer 🚀", sending: "Envoi…",
+        thanks: "Merci ! Ton message est en route. 🌟 Thomas Nima et son papa le liront ensemble.",
+        errorMsg: "Oups — une erreur s'est produite. Réessaie dans un instant.",
+        notSet: "La boîte à messages n'est pas encore activée. (Pour les grands : voir le README pour ajouter une clé de contact gratuite.)"
       }
     }
   },

@@ -260,6 +260,34 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 .factbar .txt b { color: var(--accent-3); }
 .factbar .next { margin-left: auto; }
 
+/* ---------- About Me ---------- */
+.about-wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; align-items: start; }
+@media (max-width: 860px){ .about-wrap { grid-template-columns: 1fr; } }
+.about-card p { line-height: 1.65; font-size: 15px; margin: 10px 0; }
+.about-hero { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+.about-avatar { font-size: 46px; width: 68px; height: 68px; flex: none; display: grid; place-items: center;
+  border-radius: 50%; background: radial-gradient(circle at 40% 35%, rgba(125,180,255,0.35), rgba(122,92,255,0.25));
+  border: 1px solid var(--border-hi); box-shadow: 0 0 24px rgba(125,180,255,0.3); }
+.about-hi { font-size: 24px; margin: 0; }
+.about-list { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.about-list li { font-size: 15px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px;
+  background: rgba(125,180,255,0.05); }
+.about-hear { margin-top: 16px !important; padding: 14px; border-radius: 12px;
+  background: linear-gradient(100deg, rgba(122,92,255,0.14), rgba(125,180,255,0.06)); border: 1px solid var(--border); }
+
+.contact-form { display: grid; gap: 12px; margin-top: 6px; }
+.cf-input { background: rgba(125,180,255,0.06); border: 1px solid var(--border); color: var(--text);
+  border-radius: 10px; padding: 11px 13px; font-family: var(--font); font-size: 14px; outline: none; width: 100%; }
+.cf-input:focus { border-color: var(--border-hi); }
+textarea.cf-input { resize: vertical; min-height: 110px; }
+.cf-hp { position: absolute; left: -9999px; }
+.cf-send { justify-self: start; font-size: 15px; padding: 11px 22px;
+  background: linear-gradient(100deg, rgba(122,92,255,0.3), rgba(125,180,255,0.25)); border-color: var(--border-hi); }
+.cf-send:disabled { opacity: .6; cursor: default; }
+.cf-status { font-size: 14px; min-height: 20px; }
+.cf-status.ok { color: var(--good); }
+.cf-status.err { color: var(--warn); }
+
 /* ---------- misc ---------- */
 .muted { color: var(--text-dim); }
 .small { font-size: 12.5px; }

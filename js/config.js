@@ -26,6 +26,14 @@ const CONFIG = {
   // 30 seconds at https://api.nasa.gov and paste it here for higher limits.
   NASA_API_KEY: "7xZYdBtLGKnhEp9kyari6hgEKrccj9hoaY6DJCOk",
 
+  // --- Contact form key -------------------------------------------------------
+  // Switches on the "Write to me" box on the About page. Messages are emailed to
+  // whatever address you register — no server needed, and the email stays private.
+  // To get a free key (30 seconds): go to https://web3forms.com , enter the parent's
+  // email, press "Create Access Key", check that inbox, then paste the key here.
+  // Until this is filled in, the form politely says it isn't switched on yet.
+  CONTACT_KEY: "6fe3049e-2088-42b8-882c-36659cb2e0f6",
+
   // --- Behaviour tuning -------------------------------------------------------
   SKY_REFRESH_SECONDS: 60,         // how often the live sky redraws
   ISS_REFRESH_SECONDS: 5,          // how often the ISS position updates
