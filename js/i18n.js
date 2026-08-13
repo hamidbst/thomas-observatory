@@ -172,12 +172,12 @@ const I18N = {
           "📰 Read the latest space news and NASA's picture of the day",
           "🧠 Test yourself in the astronomy quiz"
         ],
-        hear: "I'd love to hear from you! What cool things have you built or discovered? Is there something useful I could add to help you? Write to me below — messages go to my dad, and we read them together.",
+        hear: "I'd love to hear from you! What cool things have you built or discovered? Is there something useful I could add to help you? Write to me below — I read every message, and I'll write back if you leave your email!",
         contactTitle: "Write to me ✉️",
         fName: "Your first name (optional)", fEmail: "Your email — only if you'd like a reply (optional)",
         fFrom: "Where are you from? (optional)", fMsg: "Your message",
         send: "Send 🚀", sending: "Sending…",
-        thanks: "Thank you! Your message is on its way. 🌟 Thomas Nima and his dad will read it together.",
+        thanks: "Woohoo — your message just blasted off to me! 🚀 I'll read it very soon. Thank you! 🌟",
         errorMsg: "Oops — something went wrong. Please try again in a moment.",
         notSet: "The message box isn't switched on yet. (Grown-ups: see the README to add a free contact key.)"
       }
@@ -346,12 +346,12 @@ const I18N = {
           "📰 Lire les dernières actus de l'espace et l'image du jour de la NASA",
           "🧠 Te tester dans le quiz d'astronomie"
         ],
-        hear: "J'adorerais avoir de tes nouvelles ! Qu'as-tu construit ou découvert de chouette ? Y a-t-il quelque chose d'utile que je pourrais ajouter pour toi ? Écris-moi ci-dessous — les messages arrivent chez mon papa, et on les lit ensemble.",
+        hear: "J'adorerais avoir de tes nouvelles ! Qu'as-tu construit ou découvert de chouette ? Y a-t-il quelque chose d'utile que je pourrais ajouter pour toi ? Écris-moi ci-dessous — je lis chaque message, et je te réponds si tu laisses ton email !",
         contactTitle: "Écris-moi ✉️",
         fName: "Ton prénom (facultatif)", fEmail: "Ton email — seulement si tu veux une réponse (facultatif)",
         fFrom: "D'où viens-tu ? (facultatif)", fMsg: "Ton message",
         send: "Envoyer 🚀", sending: "Envoi…",
-        thanks: "Merci ! Ton message est en route. 🌟 Thomas Nima et son papa le liront ensemble.",
+        thanks: "Youpi — ton message vient de décoller vers moi ! 🚀 Je le lirai très bientôt. Merci ! 🌟",
         errorMsg: "Oups — une erreur s'est produite. Réessaie dans un instant.",
         notSet: "La boîte à messages n'est pas encore activée. (Pour les grands : voir le README pour ajouter une clé de contact gratuite.)"
       }
