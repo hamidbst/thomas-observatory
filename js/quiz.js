@@ -18,6 +18,7 @@ const QUIZ_LEVELS = [
   { id:2, emoji:"🌙", color:"#b98cff", name:{en:"Deep Space",     fr:"Espace lointain"},      desc:{en:"Stars, galaxies and light.",             fr:"Étoiles, galaxies et lumière."} },
   { id:3, emoji:"☄️", color:"#ffcf6b", name:{en:"Interstellar",   fr:"Interstellaire"},       desc:{en:"For serious sky-watchers.",              fr:"Pour les vrais observateurs du ciel."} },
   { id:4, emoji:"🌌", color:"#ff6b81", name:{en:"Event Horizon",  fr:"Horizon des événements"},desc:{en:"Expert — bend your mind.",              fr:"Expert — de quoi se tordre l'esprit."} },
+  { id:5, emoji:"🕳️", color:"#ff5ecb", name:{en:"Singularity",    fr:"Singularité"},          desc:{en:"The hardest of all — physics at the edge of what we know.", fr:"Le plus dur de tous — la physique aux limites du savoir."} },
 ];
 
 const QUIZ_BANK = [
@@ -180,6 +181,138 @@ const QUIZ_BANK = [
   { level:4, cat:"phys", answer:0, q:{en:"Hubble's law relates a galaxy's distance to its…", fr:"La loi de Hubble relie la distance d'une galaxie à sa…"},
     choices:{en:["speed of recession","temperature","colour","number of stars"], fr:["vitesse d'éloignement","température","couleur","nombre d'étoiles"]},
     exp:{en:"Farther galaxies recede faster — key evidence for the expanding universe.", fr:"Les galaxies lointaines s'éloignent plus vite — preuve clé de l'expansion de l'univers."}},
+
+  // ---------- Level 0: Launchpad (more) ----------
+  { level:0, cat:"solar", answer:0, q:{en:"Which planet is the farthest from the Sun?", fr:"Quelle planète est la plus éloignée du Soleil ?"},
+    choices:{en:["Neptune","Saturn","Mars","Jupiter"], fr:["Neptune","Saturne","Mars","Jupiter"]},
+    exp:{en:"Neptune — a deep-blue, icy giant far out in the cold.", fr:"Neptune — une géante glacée bleu foncé, loin dans le froid."}},
+  { level:0, cat:"deep", answer:1, q:{en:"A comet's tail always points…", fr:"La queue d'une comète pointe toujours…"},
+    choices:{en:["toward the Sun","away from the Sun","straight down","backwards along its path"], fr:["vers le Soleil","à l'opposé du Soleil","droit vers le bas","en arrière sur sa trajectoire"]},
+    exp:{en:"Away from the Sun — the solar wind blows the tail outward.", fr:"À l'opposé du Soleil — le vent solaire repousse la queue vers l'extérieur."}},
+  { level:0, cat:"solar", answer:0, q:{en:"What does the Moon NOT have?", fr:"Qu'est-ce que la Lune N'A PAS ?"},
+    choices:{en:["Air to breathe","Craters","Mountains","Dust"], fr:["De l'air pour respirer","des cratères","des montagnes","de la poussière"]},
+    exp:{en:"No air — astronauts must bring their own to breathe.", fr:"Pas d'air — les astronautes doivent apporter le leur pour respirer."}},
+  { level:0, cat:"phys", answer:0, q:{en:"What do we call the path a planet takes around the Sun?", fr:"Comment appelle-t-on le chemin d'une planète autour du Soleil ?"},
+    choices:{en:["An orbit","A comet","A galaxy","A crater"], fr:["Une orbite","une comète","une galaxie","un cratère"]},
+    exp:{en:"An orbit — a curved path held by the Sun's gravity.", fr:"Une orbite — un chemin courbe maintenu par la gravité du Soleil."}},
+  { level:0, cat:"stars", answer:0, q:{en:"Which is usually MUCH bigger?", fr:"Qu'est-ce qui est généralement BIEN plus grand ?"},
+    choices:{en:["A star","A planet","A moon","An asteroid"], fr:["Une étoile","une planète","une lune","un astéroïde"]},
+    exp:{en:"Stars are huge balls of glowing gas — far bigger than planets.", fr:"Les étoiles sont d'énormes boules de gaz brillant — bien plus grandes que les planètes."}},
+
+  // ---------- Level 1: In Orbit (more) ----------
+  { level:1, cat:"solar", answer:0, q:{en:"Which planet spins the fastest, with a day of about 10 hours?", fr:"Quelle planète tourne le plus vite, avec un jour d'environ 10 heures ?"},
+    choices:{en:["Jupiter","Earth","Mars","Venus"], fr:["Jupiter","la Terre","Mars","Vénus"]},
+    exp:{en:"Jupiter — despite being the biggest, it spins in under 10 hours.", fr:"Jupiter — bien que la plus grosse, elle tourne en moins de 10 heures."}},
+  { level:1, cat:"solar", answer:0, q:{en:"The main asteroid belt lies between which two planets?", fr:"La ceinture principale d'astéroïdes se trouve entre quelles deux planètes ?"},
+    choices:{en:["Mars and Jupiter","Earth and Mars","Jupiter and Saturn","Venus and Earth"], fr:["Mars et Jupiter","la Terre et Mars","Jupiter et Saturne","Vénus et la Terre"]},
+    exp:{en:"Between Mars and Jupiter — millions of rocky leftovers orbit there.", fr:"Entre Mars et Jupiter — des millions de débris rocheux y orbitent."}},
+  { level:1, cat:"phys", answer:1, q:{en:"Earth's air is mostly made of which gas?", fr:"L'air de la Terre est surtout composé de quel gaz ?"},
+    choices:{en:["Oxygen","Nitrogen","Carbon dioxide","Helium"], fr:["Oxygène","Azote","Dioxyde de carbone","Hélium"]},
+    exp:{en:"About 78% nitrogen — oxygen is only around 21%.", fr:"Environ 78 % d'azote — l'oxygène ne représente qu'environ 21 %."}},
+  { level:1, cat:"solar", answer:2, q:{en:"What is the largest moon in the Solar System?", fr:"Quelle est la plus grande lune du système solaire ?"},
+    choices:{en:["Our Moon","Titan","Ganymede","Europa"], fr:["notre Lune","Titan","Ganymède","Europe"]},
+    exp:{en:"Ganymede, a moon of Jupiter — bigger even than the planet Mercury.", fr:"Ganymède, une lune de Jupiter — plus grande même que la planète Mercure."}},
+  { level:1, cat:"phys", answer:0, q:{en:"What causes a solar eclipse?", fr:"Qu'est-ce qui provoque une éclipse solaire ?"},
+    choices:{en:["The Moon passes between Earth and the Sun","Earth passes between the Moon and Sun","The Sun switches off","Clouds cover the Sun"], fr:["La Lune passe entre la Terre et le Soleil","la Terre passe entre la Lune et le Soleil","le Soleil s'éteint","des nuages cachent le Soleil"]},
+    exp:{en:"The Moon slips directly in front of the Sun, casting a shadow on Earth.", fr:"La Lune se place juste devant le Soleil et projette une ombre sur la Terre."}},
+
+  // ---------- Level 2: Deep Space (more) ----------
+  { level:2, cat:"stars", answer:1, q:{en:"The North Star, Polaris, sits in which constellation?", fr:"L'étoile Polaire se trouve dans quelle constellation ?"},
+    choices:{en:["Ursa Major (Great Bear)","Ursa Minor (Little Bear)","Orion","Cassiopeia"], fr:["la Grande Ourse","la Petite Ourse","Orion","Cassiopée"]},
+    exp:{en:"Ursa Minor — Polaris marks the tip of the Little Bear's tail.", fr:"La Petite Ourse — Polaris marque le bout de la queue de la Petite Ourse."}},
+  { level:2, cat:"deep", answer:0, q:{en:"What is the 'Local Group'?", fr:"Qu'est-ce que le « Groupe local » ?"},
+    choices:{en:["The cluster of galaxies our Milky Way belongs to","A group of nearby stars","The planets near Earth","A team of astronauts"], fr:["l'amas de galaxies dont fait partie notre Voie lactée","un groupe d'étoiles proches","les planètes proches de la Terre","une équipe d'astronautes"]},
+    exp:{en:"Our galactic neighbourhood — about 80 galaxies, led by Andromeda and the Milky Way.", fr:"Notre voisinage galactique — environ 80 galaxies, menées par Andromède et la Voie lactée."}},
+  { level:2, cat:"stars", answer:1, q:{en:"Compared with blue stars, red stars are…", fr:"Comparées aux étoiles bleues, les étoiles rouges sont…"},
+    choices:{en:["hotter","cooler","always bigger","always closer"], fr:["plus chaudes","plus froides","toujours plus grandes","toujours plus proches"]},
+    exp:{en:"Cooler — a star's colour reveals its temperature; blue is hottest, red is coolest.", fr:"Plus froides — la couleur d'une étoile révèle sa température ; le bleu est le plus chaud, le rouge le plus froid."}},
+  { level:2, cat:"stars", answer:0, q:{en:"Which three bright stars form the 'Summer Triangle'?", fr:"Quelles trois étoiles brillantes forment le « Triangle d'été » ?"},
+    choices:{en:["Vega, Deneb, Altair","Sirius, Rigel, Betelgeuse","Polaris, Vega, Mars","Castor, Pollux, Procyon"], fr:["Véga, Deneb, Altaïr","Sirius, Rigel, Bételgeuse","Polaris, Véga, Mars","Castor, Pollux, Procyon"]},
+    exp:{en:"Vega, Deneb and Altair — high overhead on summer nights in the north.", fr:"Véga, Deneb et Altaïr — hautes dans le ciel des nuits d'été au nord."}},
+  { level:2, cat:"deep", answer:0, q:{en:"A galaxy shaped like a flat, spinning disc with curved arms is a…", fr:"Une galaxie en forme de disque plat qui tourne, avec des bras courbés, est une…"},
+    choices:{en:["spiral galaxy","elliptical galaxy","dwarf galaxy","irregular galaxy"], fr:["galaxie spirale","galaxie elliptique","galaxie naine","galaxie irrégulière"]},
+    exp:{en:"A spiral galaxy — like our own Milky Way.", fr:"Une galaxie spirale — comme notre Voie lactée."}},
+
+  // ---------- Level 3: Interstellar (more) ----------
+  { level:3, cat:"solar", answer:1, q:{en:"The Kuiper Belt, home of Pluto, lies just beyond which planet?", fr:"La ceinture de Kuiper, où se trouve Pluton, est juste au-delà de quelle planète ?"},
+    choices:{en:["Mars","Neptune","Jupiter","Saturn"], fr:["Mars","Neptune","Jupiter","Saturne"]},
+    exp:{en:"Beyond Neptune — a ring of icy worlds including dwarf planet Pluto.", fr:"Au-delà de Neptune — un anneau de mondes glacés dont la planète naine Pluton."}},
+  { level:3, cat:"deep", answer:0, q:{en:"What is the Oort Cloud?", fr:"Qu'est-ce que le nuage d'Oort ?"},
+    choices:{en:["A distant shell of icy comets around the Solar System","A cloud on Jupiter","A nebula near the Sun","Dust in Saturn's rings"], fr:["une immense coquille de comètes glacées autour du système solaire","un nuage sur Jupiter","une nébuleuse près du Soleil","de la poussière dans les anneaux de Saturne"]},
+    exp:{en:"A giant sphere of icy bodies far beyond the planets — where many comets come from.", fr:"Une sphère géante de corps glacés bien au-delà des planètes — d'où viennent beaucoup de comètes."}},
+  { level:3, cat:"deep", answer:0, q:{en:"What is an exoplanet?", fr:"Qu'est-ce qu'une exoplanète ?"},
+    choices:{en:["A planet orbiting another star","A very big moon","A failed star","A comet with planets"], fr:["une planète en orbite autour d'une autre étoile","une très grande lune","une étoile ratée","une comète avec des planètes"]},
+    exp:{en:"A world beyond our Solar System — thousands have now been found.", fr:"Un monde au-delà de notre système solaire — on en a découvert des milliers."}},
+  { level:3, cat:"phys", answer:1, q:{en:"The 'habitable zone' around a star is the region where…", fr:"La « zone habitable » autour d'une étoile est la région où…"},
+    choices:{en:["it is always dark","liquid water could exist","gravity disappears","only gas giants form"], fr:["il fait toujours nuit","de l'eau liquide pourrait exister","la gravité disparaît","seules des géantes gazeuses se forment"]},
+    exp:{en:"Not too hot, not too cold — the 'Goldilocks' zone where water can stay liquid.", fr:"Ni trop chaud, ni trop froid — la zone « Boucle d'or » où l'eau peut rester liquide."}},
+  { level:3, cat:"phys", answer:1, q:{en:"What is the second most common element in the universe?", fr:"Quel est le deuxième élément le plus courant dans l'univers ?"},
+    choices:{en:["Oxygen","Helium","Iron","Carbon"], fr:["Oxygène","Hélium","Fer","Carbone"]},
+    exp:{en:"Helium — after hydrogen. Both were made mostly in the Big Bang.", fr:"L'hélium — après l'hydrogène. Les deux ont surtout été créés lors du Big Bang."}},
+
+  // ---------- Level 4: Event Horizon (more) ----------
+  { level:4, cat:"deep", answer:0, q:{en:"The Fermi Paradox asks:", fr:"Le paradoxe de Fermi demande :"},
+    choices:{en:["If the universe is so big, where is everybody (aliens)?","Why is the sky dark at night?","How old is the Sun?","Why do planets orbit?"], fr:["Si l'univers est si grand, où est tout le monde (les extraterrestres) ?","Pourquoi le ciel est-il noir la nuit ?","Quel âge a le Soleil ?","Pourquoi les planètes orbitent-elles ?"]},
+    exp:{en:"With billions of stars, why haven't we found alien life yet? Nobody knows.", fr:"Avec des milliards d'étoiles, pourquoi n'a-t-on pas trouvé de vie extraterrestre ? Personne ne le sait."}},
+  { level:4, cat:"phys", answer:2, q:{en:"Protons and neutrons are built from tinier particles called…", fr:"Les protons et neutrons sont faits de particules plus petites appelées…"},
+    choices:{en:["photons","neutrinos","quarks","atoms"], fr:["photons","neutrinos","quarks","atomes"]},
+    exp:{en:"Quarks — held together by the strong force. Three quarks make a proton.", fr:"Des quarks — liés par la force forte. Trois quarks forment un proton."}},
+  { level:4, cat:"phys", answer:0, q:{en:"The leftover glow of the Big Bang (the CMB) now has a temperature of about…", fr:"La lueur résiduelle du Big Bang (le fond diffus) a aujourd'hui une température d'environ…"},
+    choices:{en:["−270°C (2.7 K, very cold)","100°C","15 million °C","0°C"], fr:["−270 °C (2,7 K, très froid)","100 °C","15 millions de °C","0 °C"]},
+    exp:{en:"Just 2.7 degrees above absolute zero — the whole universe has cooled that much.", fr:"À peine 2,7 degrés au-dessus du zéro absolu — tout l'univers s'est autant refroidi."}},
+  { level:4, cat:"phys", answer:0, q:{en:"Most of the ordinary matter in the universe is…", fr:"La majeure partie de la matière ordinaire de l'univers est de…"},
+    choices:{en:["hydrogen","gold","iron","oxygen"], fr:["l'hydrogène","l'or","le fer","l'oxygène"]},
+    exp:{en:"Hydrogen — the simplest and most abundant element, fuel for the stars.", fr:"L'hydrogène — l'élément le plus simple et le plus abondant, le carburant des étoiles."}},
+  { level:4, cat:"deep", answer:0, q:{en:"The 'Great Attractor' is…", fr:"Le « Grand Attracteur » est…"},
+    choices:{en:["a huge mass pulling our galaxies toward it","a giant star","a black hole inside the Sun","a type of comet"], fr:["une masse énorme qui attire nos galaxies vers elle","une étoile géante","un trou noir dans le Soleil","un type de comète"]},
+    exp:{en:"A mysterious gravity source drawing the Milky Way and thousands of galaxies toward it.", fr:"Une source de gravité mystérieuse qui attire la Voie lactée et des milliers de galaxies."}},
+
+  // ---------- Level 5: Singularity ----------
+  { level:5, cat:"phys", answer:0, q:{en:"'Spaghettification' near a black hole is caused by…", fr:"La « spaghettification » près d'un trou noir est causée par…"},
+    choices:{en:["tidal forces stretching you","heat","radiation","magnetism"], fr:["les forces de marée qui t'étirent","la chaleur","le rayonnement","le magnétisme"]},
+    exp:{en:"Gravity pulls your feet far harder than your head, stretching you like spaghetti.", fr:"La gravité tire tes pieds bien plus fort que ta tête, t'étirant comme un spaghetti."}},
+  { level:5, cat:"phys", answer:1, q:{en:"Hawking radiation means black holes slowly…", fr:"Le rayonnement de Hawking signifie que les trous noirs, lentement…"},
+    choices:{en:["grow forever","evaporate and lose mass","turn into stars","stop time"], fr:["grossissent pour toujours","s'évaporent et perdent de la masse","deviennent des étoiles","arrêtent le temps"]},
+    exp:{en:"Stephen Hawking showed black holes leak a tiny bit of energy and very slowly shrink.", fr:"Stephen Hawking a montré que les trous noirs fuient un peu d'énergie et rétrécissent très lentement."}},
+  { level:5, cat:"phys", answer:0, q:{en:"The size of a black hole's event horizon is called its…", fr:"La taille de l'horizon des événements d'un trou noir s'appelle son…"},
+    choices:{en:["Schwarzschild radius","Planck length","light-year","escape angle"], fr:["rayon de Schwarzschild","longueur de Planck","année-lumière","angle de fuite"]},
+    exp:{en:"The Schwarzschild radius — squeeze any mass smaller than this and it becomes a black hole.", fr:"Le rayon de Schwarzschild — comprime une masse en dessous et elle devient un trou noir."}},
+  { level:5, cat:"phys", answer:1, q:{en:"Near very strong gravity, time runs…", fr:"Près d'une gravité très forte, le temps s'écoule…"},
+    choices:{en:["faster","slower","backwards","exactly the same"], fr:["plus vite","plus lentement","à l'envers","exactement pareil"]},
+    exp:{en:"Gravitational time dilation — clocks tick slower deep in a gravity well (as in the film Interstellar!).", fr:"La dilatation gravitationnelle du temps — les horloges ralentissent au fond d'un puits de gravité (comme dans le film Interstellar !)."}},
+  { level:5, cat:"phys", answer:2, q:{en:"A gravitational wave is a ripple in…", fr:"Une onde gravitationnelle est une ondulation dans…"},
+    choices:{en:["the ocean","the air","spacetime itself","a magnetic field"], fr:["l'océan","l'air","l'espace-temps lui-même","un champ magnétique"]},
+    exp:{en:"Ripples in spacetime, made by colliding black holes — first detected in 2015.", fr:"Des ondulations de l'espace-temps, créées par des trous noirs qui fusionnent — détectées en 2015."}},
+  { level:5, cat:"deep", answer:0, q:{en:"The first-ever image of a black hole (2019) was made by the…", fr:"La toute première image d'un trou noir (2019) a été réalisée par le…"},
+    choices:{en:["Event Horizon Telescope","Hubble Telescope","James Webb Telescope","Voyager probe"], fr:["Event Horizon Telescope","télescope Hubble","télescope James Webb","sonde Voyager"]},
+    exp:{en:"A world-wide network of radio dishes imaged the black hole in galaxy M87.", fr:"Un réseau mondial d'antennes radio a imagé le trou noir de la galaxie M87."}},
+  { level:5, cat:"deep", answer:1, q:{en:"We know dark matter exists mainly because…", fr:"On sait que la matière noire existe surtout parce que…"},
+    choices:{en:["we can see it glow","galaxies spin too fast to hold together without it","it blocks starlight","it makes comets"], fr:["on la voit briller","les galaxies tournent trop vite pour tenir sans elle","elle bloque la lumière des étoiles","elle fabrique des comètes"]},
+    exp:{en:"Galaxies rotate so fast they'd fly apart — unless extra unseen mass holds them together.", fr:"Les galaxies tournent si vite qu'elles se disperseraient — sauf si une masse invisible les retient."}},
+  { level:5, cat:"deep", answer:2, q:{en:"The observable universe is about how wide?", fr:"L'univers observable fait environ quelle largeur ?"},
+    choices:{en:["1 million light-years","1 billion light-years","93 billion light-years","100 light-years"], fr:["1 million d'années-lumière","1 milliard d'années-lumière","93 milliards d'années-lumière","100 années-lumière"]},
+    exp:{en:"About 93 billion light-years across — because space itself has stretched.", fr:"Environ 93 milliards d'années-lumière — parce que l'espace lui-même s'est dilaté."}},
+  { level:5, cat:"phys", answer:0, q:{en:"When matter meets antimatter, they…", fr:"Quand la matière rencontre l'antimatière, elles…"},
+    choices:{en:["annihilate into pure energy","freeze","bounce apart","form a planet"], fr:["s'annihilent en énergie pure","gèlent","rebondissent","forment une planète"]},
+    exp:{en:"They destroy each other, turning their mass into a burst of energy (E=mc²).", fr:"Elles se détruisent, transformant leur masse en une bouffée d'énergie (E=mc²)."}},
+  { level:5, cat:"phys", answer:0, q:{en:"Quantum entanglement links two particles so that…", fr:"L'intrication quantique lie deux particules de sorte que…"},
+    choices:{en:["measuring one instantly tells you about the other","they collide","they glow","they become one atom"], fr:["mesurer l'une renseigne instantanément sur l'autre","elles entrent en collision","elles brillent","elles deviennent un seul atome"]},
+    exp:{en:"Einstein called it 'spooky action at a distance' — they stay connected across space.", fr:"Einstein l'appelait « action fantôme à distance » — elles restent liées à travers l'espace."}},
+  { level:5, cat:"stars", answer:1, q:{en:"What stops a neutron star from collapsing into a black hole?", fr:"Qu'est-ce qui empêche une étoile à neutrons de s'effondrer en trou noir ?"},
+    choices:{en:["Its heat","Neutron degeneracy pressure","Its magnetic field","Its spin"], fr:["Sa chaleur","La pression de dégénérescence des neutrons","Son champ magnétique","Sa rotation"]},
+    exp:{en:"A quantum pressure between tightly-packed neutrons holds gravity off — up to a limit.", fr:"Une pression quantique entre neutrons serrés retient la gravité — jusqu'à une limite."}},
+  { level:5, cat:"deep", answer:1, q:{en:"Type Ia supernovae are used as 'standard candles' to measure…", fr:"Les supernovae de type Ia servent de « chandelles standard » pour mesurer…"},
+    choices:{en:["temperature","cosmic distances","a star's age","gravity"], fr:["la température","les distances cosmiques","l'âge d'une étoile","la gravité"]},
+    exp:{en:"They always explode with about the same brightness, so their dimness reveals distance.", fr:"Elles explosent toujours avec à peu près le même éclat, donc leur faiblesse révèle la distance."}},
+  { level:5, cat:"phys", answer:3, q:{en:"Which force has NOT yet been fully united with the others in one theory?", fr:"Quelle force n'a PAS encore été pleinement unifiée avec les autres en une seule théorie ?"},
+    choices:{en:["Electromagnetism","The strong force","The weak force","Gravity"], fr:["L'électromagnétisme","la force forte","la force faible","la gravité"]},
+    exp:{en:"Gravity — combining it with quantum physics is one of science's biggest unsolved puzzles.", fr:"La gravité — la combiner à la physique quantique est l'un des plus grands mystères de la science."}},
+  { level:5, cat:"phys", answer:0, q:{en:"A theoretical 'white hole' would be…", fr:"Un « trou blanc » théorique serait…"},
+    choices:{en:["the reverse of a black hole — nothing can enter","a very hot star","an empty galaxy","a frozen comet"], fr:["l'inverse d'un trou noir — rien ne peut y entrer","une étoile très chaude","une galaxie vide","une comète gelée"]},
+    exp:{en:"A time-reversed black hole that only pushes things out. None have ever been seen.", fr:"Un trou noir inversé dans le temps qui ne fait qu'expulser. On n'en a jamais observé."}},
+  { level:5, cat:"deep", answer:0, q:{en:"On the largest scale, galaxies are arranged in a…", fr:"À très grande échelle, les galaxies sont disposées en une…"},
+    choices:{en:["'cosmic web' of filaments and empty voids","perfect grid","single straight line","solid ball"], fr:["« toile cosmique » de filaments et de vides","grille parfaite","seule ligne droite","boule solide"]},
+    exp:{en:"Galaxies cluster along vast threads, with enormous empty voids between them.", fr:"Les galaxies s'alignent le long de vastes filaments, séparés par d'immenses vides."}},
 ];
 
 // Fun, performance-based end messages (two variants per tier for replay variety).
@@ -257,8 +390,23 @@ const Quiz = {
   begin(levelId) {
     this.level = levelId;
     const pool = QUIZ_BANK.filter(q => q.level === levelId);
-    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
-    this.round = pool.slice(0, 10);
+    const size = Math.min(10, pool.length);
+    const idOf = q => q.q.en;
+    const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; };
+
+    // Remember which questions were shown recently (per level) and favour fresh ones,
+    // so replaying a level keeps feeling new until the whole bank has been seen.
+    const seenKey = "obs-quiz-seen-" + levelId;
+    let seen = [];
+    try { seen = JSON.parse(localStorage.getItem(seenKey) || "[]"); } catch (e) {}
+    const fresh = shuffle(pool.filter(q => !seen.includes(idOf(q))));
+    const old = shuffle(pool.filter(q => seen.includes(idOf(q))));
+    this.round = shuffle(fresh.concat(old).slice(0, size));
+
+    let newSeen = Array.from(new Set(seen.concat(this.round.map(idOf))));
+    if (newSeen.length >= pool.length) newSeen = this.round.map(idOf);   // cycled through — start over
+    try { localStorage.setItem(seenKey, JSON.stringify(newSeen)); } catch (e) {}
+
     this.idx = 0; this.score = 0; this.streak = 0; this.best = 0; this.answered = false; this.chosen = null;
     this.view = "question";
     this.paintQuestion();
