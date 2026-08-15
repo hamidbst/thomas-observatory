@@ -45,7 +45,7 @@ const App = {
 
   renderBranding() {
     const name = (CONFIG.OWNER_NAME || "").trim();
-    const title = name ? `${name}'s Observatory` : "Observatory";
+    const title = name ? t("brand.title", { name }) : t("brand.observatory");
     document.title = title;
     U.el("brand-title").innerHTML = `${U.esc(title)}<span class="sub">${t("brand.sub")}</span>`;
     U.el("foot-owner").textContent = title;

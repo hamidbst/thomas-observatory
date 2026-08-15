@@ -10,7 +10,7 @@ const I18N = {
 
   dict: {
     en: {
-      brand: { sub: "Live Sky Dashboard" },
+      brand: { sub: "Live Sky Dashboard", title: "{name}'s Observatory", observatory: "Observatory" },
       lang:  { en: "EN", fr: "FR", switch: "Français" },
       loc:   { locating: "locating…", home: "Home", device: "My location",
                title: "Choose a viewing location",
@@ -159,6 +159,7 @@ const I18N = {
 
       about: {
         hi: "Hi, I'm Thomas Nima! 👋",
+        nameNote: "P.S. — my name is French, so “Thomas” is said “Toma” — the “s” stays silent! 😄",
         bday: "I was born on Valentine's Day — the 14th of February, 2018 — so my birthday is the day full of hearts ❤️.",
         love: "I LOVE space and astronomy. Planets, stars, black holes, rockets… I want to know it all!",
         why: "I built this website so I could follow what's happening up in the sky — and so other kids like me have a fun place to explore it too.",
@@ -184,7 +185,7 @@ const I18N = {
     },
 
     fr: {
-      brand: { sub: "Tableau de bord du ciel en direct" },
+      brand: { sub: "Tableau de bord du ciel en direct", title: "L'Observatoire de {name}", observatory: "Observatoire" },
       lang:  { en: "EN", fr: "FR", switch: "English" },
       loc:   { locating: "localisation…", home: "Domicile", device: "Ma position",
                title: "Choisir un lieu d'observation",
@@ -333,6 +334,7 @@ const I18N = {
 
       about: {
         hi: "Salut, moi c'est Thomas Nima ! 👋",
+        nameNote: "P.-S. — comme mon prénom est français, on dit « Toma » : le « s » ne se prononce pas ! 😄",
         bday: "Je suis né le jour de la Saint-Valentin — le 14 février 2018 — alors mon anniversaire, c'est le jour plein de cœurs ❤️.",
         love: "J'ADORE l'espace et l'astronomie. Les planètes, les étoiles, les trous noirs, les fusées… je veux tout savoir !",
         why: "J'ai créé ce site pour suivre ce qui se passe dans le ciel — et pour que d'autres enfants comme moi aient un endroit amusant pour l'explorer aussi.",
@@ -355,19 +357,205 @@ const I18N = {
         errorMsg: "Oups — une erreur s'est produite. Réessaie dans un instant.",
         notSet: "La boîte à messages n'est pas encore activée. (Pour les grands : voir le README pour ajouter une clé de contact gratuite.)"
       }
+    },
+
+    fa: {
+      brand: { sub: "داشبورد زندهٔ آسمان", title: "رصدخانهٔ نیما", observatory: "رصدخانه" },
+      loc:   { locating: "در حال یافتن موقعیت…", home: "خانه", device: "موقعیت من",
+               title: "یک مکان برای رصد انتخاب کن",
+               intro: "آسمان را از محل خودت ببین، یا آن را از هر جای زمین کاوش کن.",
+               useMine: "📍 استفاده از موقعیت من", searchPh: "جستجوی یک شهر یا مکان…",
+               search: "جستجو", searching: "در حال جستجو…",
+               noResults: "مکانی پیدا نشد — املای دیگری را امتحان کن.",
+               current: "در حال نمایش", change: "تغییر", denied: "موقعیت در دسترس نیست — از شهر پیش‌فرض استفاده می‌شود." },
+      fact:  { loading: "در حال بارگذاری یک نکتهٔ کیهانی…", another: "یکی دیگر ←" },
+      nav:   { sky: "آسمان زنده", tonight: "امشب", events: "رویدادها", iss: "ایستگاه فضایی",
+               live: "فضا زنده", news: "اخبار و تصویر", quiz: "آزمون", about: "دربارهٔ من" },
+
+      common:{ up: "بالای افق", down: "زیر افق", telescope: "تلسکوپ", min: "دقیقه", now: "اکنون",
+               rises: "طلوع", sets: "غروب", altitude: "ارتفاع", lit: "روشن", loadingGeneric: "در حال بارگذاری…" },
+
+      bodies:{ Sun: "خورشید", Moon: "ماه", Mercury: "عطارد", Venus: "زهره", Mars: "مریخ",
+               Jupiter: "مشتری", Saturn: "زحل", Uranus: "اورانوس", Neptune: "نپتون" },
+      dsotype:{ Galaxy: "کهکشان", "Globular cluster": "خوشهٔ کروی", "Open cluster": "خوشهٔ باز",
+               "Planetary nebula": "سحابی سیاره‌نما", Nebula: "سحابی", "Star-forming region": "ناحیهٔ ستاره‌زایی",
+               "Supernova remnant": "بازماندهٔ ابرنواختر", "Deep-sky object": "جرم آسمان ژرف" },
+
+      sky: {
+        title: "آسمان بالای سرت",
+        intro: "این نقشهٔ زندهٔ آسمان واقعی از محل توست. لبهٔ دایره افق است؛ مرکز درست بالای سر (سمت‌الرأس). شمال بالاست.",
+        legendTitle: "راهنما",
+        legend: '● ستاره‌ها (اندازه = درخشندگی) &nbsp; · &nbsp; <span style="color:var(--accent-3)">●</span> سیاره‌ها &nbsp; · &nbsp; <span style="color:var(--accent-2)">◇</span> کهکشان‌ها و سحابی‌ها',
+        c_lines: "خطوط صورت‌های فلکی", c_labels: "نام‌ها", c_dsos: "اجرام آسمان ژرف",
+        c_mw: "راه شیری", c_planets: "سیاره‌ها", nowBtn: "● اکنون",
+        upNow: "همین حالا بالای افق",
+        none: "در این لحظه هیچ سیاره‌ای بالای افق نیست — نوار زمان را جابه‌جا کن.",
+        star: "ستاره", planet: "سیاره", dso: "جرم آسمان ژرف"
+      },
+
+      tonight: {
+        moonNow: "ماه در این لحظه", sun: "خورشید", planets: "سیاره‌های امشب — کجا و کِی",
+        illuminated: "روشن‌شده", distance: "فاصله", moonrise: "طلوع ماه", moonset: "غروب ماه",
+        nextFull: "بدر بعدی", nextNew: "ماه نوِ بعدی",
+        sunrise: "طلوع خورشید", sunset: "غروب خورشید", dayLength: "طول روز",
+        darkBegins: "آغاز آسمان تاریک", dawnEnds: "سپیده‌دم (پایان تاریکی)",
+        darkNote: "«آسمان تاریک» پایان گرگ‌ومیش نجومی است — خورشید ۱۸ درجه زیر افق است و کم‌نورترین ستاره‌ها و راه شیری دیده می‌شوند.",
+        planetsNote: "«بالای افق» یعنی جرم اکنون بالای افق توست. ارتفاع یعنی بلندی از افق (۹۰ درجه = درست بالای سر)؛ سمت جهت قطب‌نماست (۰ = شمال، ۹۰ = شرق، ۱۸۰ = جنوب، ۲۷۰ = غرب).",
+        belowRises: "زیر افق · طلوع در {t}", computing: "در حال محاسبهٔ موقعیت سیاره‌ها…"
+      },
+
+      phase: {
+        new: "ماه نو", waxcres: "هلال نوجوان", first: "تربیع اول", waxgib: "محدب فزاینده",
+        full: "بدر", wangib: "محدب کاهنده", last: "تربیع آخر", wancres: "هلال پیر"
+      },
+
+      events: {
+        title: "رویدادهای نجومی پیش‌رو",
+        f_all: "همه", f_eclipse: "خسوف و کسوف", f_moon: "فازهای ماه", f_planet: "سیاره‌ها",
+        f_meteor: "بارش شهابی", f_season: "فصل‌ها",
+        computing: "در حال محاسبهٔ گرفت‌ها، فازها، مقابله‌ها…",
+        none: "هیچ رویدادی از این نوع در {n} ماه آینده نیست.",
+        in: "تا {t} دیگر",
+        l_moon: "ماه", l_eclipse: "گرفت", l_planet: "سیاره", l_meteor: "شهاب‌ها", l_season: "فصل",
+        fullMoon: "بدر (ماه کامل)", newMoon: "ماه نو", supermoon: "بدر (اَبَرماه)",
+        fullMoonDesc: "ماه کاملاً روشن است — تمام شب می‌درخشد.",
+        newMoonDesc: "ماه میان زمین و خورشید است — تاریک‌ترین آسمان برای رصد اجرام ژرف.",
+        supermoonDesc: "اَبَرماه — ماه کامل نزدیک به کمترین فاصله‌اش، کمی بزرگ‌تر و روشن‌تر به‌نظر می‌رسد.",
+        lunarEclipse: "خسوف {kind}",
+        lunarTotalDesc: "ماه کاملاً وارد سایهٔ زمین می‌شود و به رنگ مسی-قرمز درمی‌آید — «ماه خونین». با چشم غیرمسلح بی‌خطر است.",
+        lunarPartialDesc: "ماه از سایهٔ زمین می‌گذرد. از سراسر نیمهٔ شبِ زمین دیده می‌شود.",
+        lunarPenumDesc: "ماه از نیم‌سایهٔ زمین می‌گذرد. از سراسر نیمهٔ شبِ زمین دیده می‌شود.",
+        solarEclipse: "کسوف {kind}",
+        solarDesc: "ماه خورشید را جایی روی زمین می‌پوشاند (اوج نزدیک {lat}°، {lon}°). هرگز بدون عینک مخصوص کسوف به خورشید نگاه نکن.",
+        opposition: "مقابلهٔ {planet}",
+        oppositionDesc: "{planet} روبه‌روی خورشید است — نزدیک‌ترین، بزرگ‌ترین و درخشان‌ترین حالت سال، و تمام شب بالای افق. بهترین زمان برای رصد.",
+        elongation: "بیشترین کشیدگیِ {planet}",
+        elongationDesc: "{planet} در دورترین فاصله از خورشید در آسمان ماست ({deg}°) — بهترین دید {when}.",
+        whenMorning: "پیش از طلوع خورشید، در شرق", whenEvening: "پس از غروب خورشید، در غرب",
+        marEquinox: "اعتدال بهاری (مارس)", junSolstice: "انقلاب تابستانی (ژوئن)", sepEquinox: "اعتدال پاییزی (سپتامبر)", decSolstice: "انقلاب زمستانی (دسامبر)",
+        marEquinoxDesc: "روز و شب تقریباً برابر؛ بهار در نیم‌کرهٔ شمالی، پاییز در جنوبی.",
+        junSolsticeDesc: "بلندترین روز در نیم‌کرهٔ شمالی، کوتاه‌ترین در جنوبی.",
+        sepEquinoxDesc: "روز و شب تقریباً برابر؛ پاییز در شمال، بهار در جنوب.",
+        decSolsticeDesc: "کوتاه‌ترین روز در شمال، بلندترین در جنوب.",
+        meteorTitle: "بارش شهابی {name} — اوج",
+        meteorDesc: "{desc} تا حدود ~{zhr} شهاب در ساعت زیر آسمان تاریک. بهترین زمان پس از نیمه‌شب؛ بدون تلسکوپ — فقط به بالا نگاه کن.",
+        ms: {
+          Quadrantids:    { name: "ربع‌نما (کوادرانتید)", desc: "اوج کوتاه و تیز؛ شهاب‌های آبی. کانون در صورت فلکی گاوران." },
+          Lyrids:         { name: "شلیاقی (لیرید)",       desc: "شهاب‌های سریع از دنباله‌دار تاچر؛ گاهی گوی‌های آتشین." },
+          EtaAquariids:   { name: "اِتا دلوی",            desc: "بازمانده‌های دنباله‌دار هالی؛ بهترین دید پیش از سپیده." },
+          DeltaAquariids: { name: "دلتا دلوی",           desc: "شهاب‌های کم‌نور و پیوسته؛ خوب از نیم‌کرهٔ جنوبی." },
+          Perseids:       { name: "برساوشی (پرساید)",     desc: "کلاسیک تابستان — روشن، سریع، پر از گوی آتشین." },
+          Draconids:      { name: "تنّینی (دراکونید)",    desc: "شهاب‌های کند؛ بهترین دید در سرِ شب، گاهی فوران." },
+          Orionids:       { name: "شکارچی (اوریونید)",    desc: "باز هم از دنباله‌دار هالی؛ سریع و کم‌نور." },
+          Leonids:        { name: "اسدی (لئونید)",        desc: "بسیار سریع؛ دنباله‌دار تمپل-تاتل می‌تواند توفان شهابی بیاورد." },
+          Geminids:       { name: "جوزایی (جمینید)",      desc: "بهترین بارش سال — روشن، پرشمار، رنگارنگ." },
+          Ursids:         { name: "دبی (اورسید)",         desc: "بارشی آرام نزدیک انقلاب زمستانی." }
+        }
+      },
+
+      kinds: { total: "کلی", partial: "جزئی", penumbral: "نیم‌سایه‌ای", annular: "حلقوی", hybrid: "مرکب" },
+
+      iss: {
+        livePos: "ایستگاه فضایی بین‌المللی — موقعیت زنده",
+        nextPasses: "گذرهای قابل‌مشاهدهٔ بعدی از فراز تو",
+        lat: "عرض جغرافیایی", lon: "طول جغرافیایی", alt: "ارتفاع (کیلومتر)", speed: "سرعت (کیلومتر/ساعت)",
+        computing: "در حال محاسبهٔ گذرهای مداری…",
+        passesNote: "«گذر» یعنی زمانی که ایستگاه از آسمان تو می‌گذرد. بهترین‌ها پس از غروب یا پیش از سپیده‌اند، وقتی ایستگاه در نور خورشید است اما آسمان تو تاریک است.",
+        noPasses: "در ۳ روز آینده هیچ گذری بالای ۱۰ درجه از این مکان نیست.",
+        passLine: "طلوع از {a1} ← اوج {el}° در {a2} ← غروب در {a3}",
+        visible: "قابل‌مشاهده!", daylight: "گذر روزانه",
+        feedError: "دسترسی به دادهٔ زندهٔ ایستگاه ممکن نشد. اتصال اینترنت را بررسی کن.",
+        tleError: "پیش‌بینی گذرها به دادهٔ مداری از Celestrak نیاز دارد که اکنون در دسترس نیست. نقشهٔ زندهٔ بالا همچنان کار می‌کند. (ممکن است در برخی شبکه‌ها مسدود باشد — بعداً امتحان کن.)"
+      },
+
+      news: {
+        apodTitle: "ناسا — تصویر نجومی روز",
+        apodLoading: "در حال دریافت تصویر امروز…",
+        newsTitle: "تازه‌ترین اخبار فضایی",
+        newsLoading: "در حال بارگذاری تیترها…",
+        apodError: "بارگذاری تصویر امروز ناسا ممکن نشد ({msg}).",
+        apodKeyHint: "اگر تکرار شد، شاید کلید رایگان DEMO_KEY محدود شده باشد — یک کلید شخصی از api.nasa.gov بگیر و در js/config.js بگذار.",
+        newsError: "بارگذاری اخبار فضایی ممکن نشد ({msg}).",
+        imageCredit: "تصویر: ناسا"
+      },
+
+      live: {
+        launchesTitle: "پرتاب‌های بعدی موشک",
+        sunTitle: "خورشید در این لحظه",
+        loadingLaunches: "در حال دریافت پرتاب‌های پیش‌رو…",
+        loadingSun: "در حال بارگذاری تازه‌ترین تصاویر خورشید…",
+        launchError: "بارگذاری برنامهٔ پرتاب‌ها ممکن نشد ({msg}). بعداً امتحان کن.",
+        sunError: "بارگذاری فعالیت خورشیدی ممکن نشد ({msg}).",
+        liftoff: "پرتاب شد! 🚀", estimated: "تاریخ تخمینی", noLaunch: "اکنون پرتاب پیش‌رویی یافت نشد.",
+        ch_193: "تاج (کرونا)", ch_304: "شیدسپهر (کروموسفر)", ch_surface: "لکه‌های خورشیدی", ch_magnetic: "میدان مغناطیسی",
+        activity: "فعالیت خورشیدی", flare: "آخرین شرارهٔ پرتو ایکس", kp: "فعالیت زمین‌مغناطیسی (Kp)",
+        sunCaption: "تصاویر زنده از رصدخانهٔ دینامیک خورشیدی ناسا (SDO)، در طول روز به‌روز می‌شوند."
+      },
+
+      quiz: {
+        title: "چالش نجوم",
+        pickIntro: "سطح مأموریتت را انتخاب کن و دانش کیهانی‌ات را بسنج. هر دور ۱۰ سؤال است.",
+        play: "پرتاب ▶", questions: "سؤال",
+        next: "سؤال بعدی ←", finish: "دیدن نتیجه",
+        question: "سؤال", of: "از", score: "امتیاز", streak: "زنجیره",
+        correct: "درست!", wrong: "نزدیک بود…", theAnswer: "پاسخ",
+        again: "بازی دوباره", backToLevels: "← انتخاب سطح",
+        tryNext: "سطح بعدی: {name} ←",
+        resultTitle: "مأموریت کامل شد!",
+        onLevel: "سطح: {name}",
+        bestStreak: "بهترین زنجیره"
+      },
+
+      about: {
+        hi: "سلام، من نیما هستم! 👋",
+        nameNote: "پی‌نوشت — «نیما» نام ایرانی من است؛ به فارسی می‌توانی مرا نیما صدا کنی! 😄",
+        bday: "من روز ولنتاین — ۱۴ فوریهٔ ۲۰۱۸ — به دنیا آمدم، پس تولدم روزِ پُر از قلب است ❤️.",
+        love: "من عاشق فضا و نجوم هستم. سیاره‌ها، ستاره‌ها، سیاه‌چاله‌ها، موشک‌ها… می‌خواهم همه‌چیز را بدانم!",
+        why: "این وب‌سایت را ساختم تا خودم بتوانم رویدادهای آسمان را دنبال کنم — و بچه‌های دیگری مثل من هم جای باحالی برای کاوش داشته باشند.",
+        coverTitle: "اینجا چه کارهایی می‌توانی بکنی",
+        cover: [
+          "🌌 دیدن آسمان واقعی بالای سرت همین حالا",
+          "🔭 یافتن ماه و سیاره‌های امشب",
+          "📅 دیدن رویدادهای پیش‌رو، مثل بارش شهابی و گرفت‌ها",
+          "🛰️ ردیابی ایستگاه فضایی هنگام عبور از فراز تو",
+          "🚀 تماشای پرتاب زندهٔ موشک‌ها و خورشید",
+          "📰 خواندن تازه‌ترین اخبار فضا و تصویر روز ناسا",
+          "🧠 سنجش خودت در آزمون نجوم"
+        ],
+        hear: "خیلی دوست دارم از تو بشنوم! چه چیزهای باحالی ساخته یا کشف کرده‌ای؟ چیز مفیدی هست که بتوانم برایت اضافه کنم؟ پایین برایم بنویس — هر پیام را می‌خوانم و اگر ایمیلت را بگذاری برایت جواب می‌دهم!",
+        contactTitle: "برایم بنویس ✉️",
+        fName: "نام کوچک تو (اختیاری)", fEmail: "ایمیل تو — فقط اگر جواب می‌خواهی (اختیاری)",
+        fFrom: "اهل کجایی؟ (اختیاری)", fMsg: "پیام تو",
+        send: "ارسال 🚀", sending: "در حال ارسال…",
+        thanks: "هورا — پیامت همین الان به‌سوی من پرتاب شد! 🚀 خیلی زود می‌خوانمش. ممنون! 🌟",
+        errorMsg: "اوه — مشکلی پیش آمد. لطفاً کمی بعد دوباره امتحان کن.",
+        notSet: "جعبهٔ پیام هنوز فعال نشده است. (برای بزرگ‌ترها: برای افزودن کلید تماس رایگان به README نگاه کنید.)"
+      }
     }
   },
 
-  // compass points per language (French uses O for Ouest)
+  // compass points per language (French uses O for Ouest; Persian keeps Latin, as astronomers do)
   compassPts: {
     en: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"],
-    fr: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"]
+    fr: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"],
+    fa: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
   },
-  cardinals: { en: ["N","E","S","W"], fr: ["N","E","S","O"] },
+  cardinals: { en: ["N","E","S","W"], fr: ["N","E","S","O"], fa: ["N","E","S","W"] },
+
+  LANGS: ["en", "fr", "fa"],
+  LANG_LABELS: { en: "EN", fr: "FR", fa: "فا" },
 
   init() {
-    this.lang = localStorage.getItem("obs-lang") || (navigator.language && navigator.language.startsWith("fr") ? "fr" : "en");
+    const saved = localStorage.getItem("obs-lang");
+    const nav = (navigator.language || "").toLowerCase();
+    this.lang = (saved && this.LANGS.includes(saved)) ? saved
+              : nav.startsWith("fa") ? "fa" : nav.startsWith("fr") ? "fr" : "en";
+    this._applyDir();
+  },
+
+  _applyDir() {
     document.documentElement.lang = this.lang;
+    document.documentElement.dir = (this.lang === "fa") ? "rtl" : "ltr";
   },
 
   // resolve a dotted key
@@ -386,7 +574,7 @@ const I18N = {
     return s;
   },
 
-  locale() { return this.lang === "fr" ? "fr-FR" : undefined; },
+  locale() { return this.lang === "fr" ? "fr-FR" : this.lang === "fa" ? "fa-IR-u-ca-gregory" : undefined; },
   compass() { return this.compassPts[this.lang]; },
   body(en) { return this.t("bodies." + en); },
   dsotypeName(en) { return this.t("dsotype." + en); },
@@ -400,25 +588,23 @@ const I18N = {
   setLang(lang) {
     this.lang = lang;
     localStorage.setItem("obs-lang", lang);
-    document.documentElement.lang = lang;
+    this._applyDir();
     this.applyStatic();
     this._renderToggle();
     document.dispatchEvent(new CustomEvent("language-changed", { detail: lang }));
   },
 
+  // A little EN | FR | فا segmented control.
   _renderToggle() {
     const el = U.el("lang-toggle");
     if (!el) return;
-    el.textContent = this.t("lang.switch");
-    el.setAttribute("aria-label", this.t("lang.switch"));
+    el.innerHTML = this.LANGS.map(l =>
+      `<span class="lang-opt ${l === this.lang ? "on" : ""}" data-lang="${l}">${this.LANG_LABELS[l]}</span>`).join("");
+    el.querySelectorAll("[data-lang]").forEach(s =>
+      s.addEventListener("click", () => { if (s.dataset.lang !== this.lang) this.setLang(s.dataset.lang); }));
   },
 
-  wireToggle() {
-    const el = U.el("lang-toggle");
-    if (!el) return;
-    el.addEventListener("click", () => this.setLang(this.lang === "en" ? "fr" : "en"));
-    this._renderToggle();
-  }
+  wireToggle() { this._renderToggle(); }
 };
 
 // convenient global shortcut

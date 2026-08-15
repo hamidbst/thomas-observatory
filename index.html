@@ -7,7 +7,7 @@
   <meta name="description" content="A live astronomy dashboard — the sky right now, tonight's planets and Moon, upcoming events, the ISS, and the latest space news." />
   <!-- The ?v=NN below is a "cache-buster": bump this number by 1 after any update
        so browsers fetch the fresh files instead of old cached ones. -->
-  <link rel="stylesheet" href="css/styles.css?v=11" />
+  <link rel="stylesheet" href="css/styles.css?v=13" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23ffcf6b'/><circle cx='50' cy='50' r='42' fill='none' stroke='%237db4ff' stroke-width='6'/></svg>" />
 </head>
 <body>
@@ -20,7 +20,7 @@
         <h1 id="brand-title">Observatory<span class="sub" data-i18n="brand.sub">Live Sky Dashboard</span></h1>
       </div>
       <div class="header-right">
-        <button class="lang-btn" id="lang-toggle">Français</button>
+        <div class="lang-toggle" id="lang-toggle"></div>
         <div class="clock">
           <div class="t" id="clock-time">--:--:--</div>
           <div class="d" id="clock-date">—</div>
@@ -195,23 +195,24 @@
   </div>
 
   <!-- vendored libraries -->
-  <script src="vendor/astronomy.browser.min.js?v=11"></script>
-  <script src="vendor/satellite.min.js?v=11"></script>
+  <script src="vendor/astronomy.browser.min.js?v=13"></script>
+  <script src="vendor/satellite.min.js?v=13"></script>
 
   <!-- app modules  (bump ?v=NN after any update to force fresh files) -->
-  <script src="js/config.js?v=11"></script>
-  <script src="js/i18n.js?v=11"></script>
-  <script src="js/util.js?v=11"></script>
-  <script src="js/location.js?v=11"></script>
-  <script src="js/facts.js?v=11"></script>
-  <script src="js/skymap.js?v=11"></script>
-  <script src="js/tonight.js?v=11"></script>
-  <script src="js/events.js?v=11"></script>
-  <script src="js/iss.js?v=11"></script>
-  <script src="js/news.js?v=11"></script>
-  <script src="js/live.js?v=11"></script>
-  <script src="js/quiz.js?v=11"></script>
-  <script src="js/about.js?v=11"></script>
-  <script src="js/app.js?v=11"></script>
+  <script src="js/config.js?v=13"></script>
+  <script src="js/i18n.js?v=13"></script>
+  <script src="js/util.js?v=13"></script>
+  <script src="js/location.js?v=13"></script>
+  <script src="js/facts.js?v=13"></script>
+  <script src="js/skymap.js?v=13"></script>
+  <script src="js/tonight.js?v=13"></script>
+  <script src="js/events.js?v=13"></script>
+  <script src="js/iss.js?v=13"></script>
+  <script src="js/news.js?v=13"></script>
+  <script src="js/live.js?v=13"></script>
+  <script src="js/quiz_fa.js?v=13"></script>
+  <script src="js/quiz.js?v=13"></script>
+  <script src="js/about.js?v=13"></script>
+  <script src="js/app.js?v=13"></script>
 </body>
 </html>
