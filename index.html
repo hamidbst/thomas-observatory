@@ -5,9 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Observatory</title>
   <meta name="description" content="A live astronomy dashboard — the sky right now, tonight's planets and Moon, upcoming events, the ISS, and the latest space news." />
+  <!-- Auto-update: if a newer version has been published, quietly reload to it so
+       visitors always see the latest without clearing their cache. SITE_VERSION
+       must match version.json's "v" (and the ?v=NN below) on every release. -->
+  <script>
+    window.SITE_VERSION = 14;
+    (function () {
+      try {
+        fetch("version.json?t=" + Date.now(), { cache: "no-store" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) {
+            if (j && j.v && String(j.v) !== String(window.SITE_VERSION)
+                && location.search.indexOf("_v=" + j.v) === -1) {
+              location.replace(location.pathname + "?_v=" + j.v);
+            }
+          })
+          .catch(function () {});
+      } catch (e) {}
+    })();
+  </script>
   <!-- The ?v=NN below is a "cache-buster": bump this number by 1 after any update
        so browsers fetch the fresh files instead of old cached ones. -->
-  <link rel="stylesheet" href="css/styles.css?v=13" />
+  <link rel="stylesheet" href="css/styles.css?v=14" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23ffcf6b'/><circle cx='50' cy='50' r='42' fill='none' stroke='%237db4ff' stroke-width='6'/></svg>" />
 </head>
 <body>
@@ -195,24 +214,24 @@
   </div>
 
   <!-- vendored libraries -->
-  <script src="vendor/astronomy.browser.min.js?v=13"></script>
-  <script src="vendor/satellite.min.js?v=13"></script>
+  <script src="vendor/astronomy.browser.min.js?v=14"></script>
+  <script src="vendor/satellite.min.js?v=14"></script>
 
   <!-- app modules  (bump ?v=NN after any update to force fresh files) -->
-  <script src="js/config.js?v=13"></script>
-  <script src="js/i18n.js?v=13"></script>
-  <script src="js/util.js?v=13"></script>
-  <script src="js/location.js?v=13"></script>
-  <script src="js/facts.js?v=13"></script>
-  <script src="js/skymap.js?v=13"></script>
-  <script src="js/tonight.js?v=13"></script>
-  <script src="js/events.js?v=13"></script>
-  <script src="js/iss.js?v=13"></script>
-  <script src="js/news.js?v=13"></script>
-  <script src="js/live.js?v=13"></script>
-  <script src="js/quiz_fa.js?v=13"></script>
-  <script src="js/quiz.js?v=13"></script>
-  <script src="js/about.js?v=13"></script>
-  <script src="js/app.js?v=13"></script>
+  <script src="js/config.js?v=14"></script>
+  <script src="js/i18n.js?v=14"></script>
+  <script src="js/util.js?v=14"></script>
+  <script src="js/location.js?v=14"></script>
+  <script src="js/facts.js?v=14"></script>
+  <script src="js/skymap.js?v=14"></script>
+  <script src="js/tonight.js?v=14"></script>
+  <script src="js/events.js?v=14"></script>
+  <script src="js/iss.js?v=14"></script>
+  <script src="js/news.js?v=14"></script>
+  <script src="js/live.js?v=14"></script>
+  <script src="js/quiz_fa.js?v=14"></script>
+  <script src="js/quiz.js?v=14"></script>
+  <script src="js/about.js?v=14"></script>
+  <script src="js/app.js?v=14"></script>
 </body>
 </html>
