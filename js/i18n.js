@@ -334,7 +334,7 @@ const I18N = {
 
       about: {
         hi: "Salut, moi c'est Thomas Nima ! 👋",
-        nameNote: "P.-S. — comme mon prénom est français, on dit « Toma » : le « s » ne se prononce pas ! 😄",
+        nameNote: "",
         bday: "Je suis né le jour de la Saint-Valentin — le 14 février 2018 — alors mon anniversaire, c'est le jour plein de cœurs ❤️.",
         love: "J'ADORE l'espace et l'astronomie. Les planètes, les étoiles, les trous noirs, les fusées… je veux tout savoir !",
         why: "J'ai créé ce site pour suivre ce qui se passe dans le ciel — et pour que d'autres enfants comme moi aient un endroit amusant pour l'explorer aussi.",

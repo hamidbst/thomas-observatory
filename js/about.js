@@ -25,7 +25,7 @@ const About = {
             <div class="about-avatar">🧑‍🚀</div>
             <h2 class="about-hi">${U.esc(t("about.hi"))}</h2>
           </div>
-          <p class="about-note small muted">${U.esc(t("about.nameNote"))}</p>
+          ${t("about.nameNote") ? `<p class="about-note small muted">${U.esc(t("about.nameNote"))}</p>` : ""}
           <p>${U.esc(t("about.bday"))}</p>
           <p>${U.esc(t("about.love"))}</p>
           <p>${U.esc(t("about.why"))}</p>
