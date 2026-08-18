@@ -160,26 +160,90 @@ const LEARN_QUIZ = [
   ],
 ];
 
+// Extra questions per category — pooled with LEARN_QUIZ so each test picks a fresh random 3.
+const LEARN_QUIZ_MORE = [
+  [ // Solar System
+    { answer:0, q:{en:"Which planet is famous for its beautiful rings?", fr:"Quelle planète est célèbre pour ses magnifiques anneaux ?", fa:"کدام سیاره به‌خاطر حلقه‌های زیبایش مشهور است؟"},
+      choices:{en:["Saturn","Mars","Mercury"], fr:["Saturne","Mars","Mercure"], fa:["زحل","مریخ","عطارد"]} },
+    { answer:0, q:{en:"Which is the largest planet?", fr:"Quelle est la plus grande planète ?", fa:"بزرگ‌ترین سیاره کدام است؟"},
+      choices:{en:["Jupiter","Earth","Venus"], fr:["Jupiter","la Terre","Vénus"], fa:["مشتری","زمین","زهره"]} },
+    { answer:0, q:{en:"The four planets nearest the Sun are made mostly of…", fr:"Les quatre planètes les plus proches du Soleil sont surtout faites de…", fa:"چهار سیارهٔ نزدیک به خورشید بیشتر از … ساخته شده‌اند."},
+      choices:{en:["rock and metal","gas","ice"], fr:["roche et métal","gaz","glace"], fa:["سنگ و فلز","گاز","یخ"]} },
+  ],
+  [ // Stars
+    { answer:0, q:{en:"Stars are born inside giant clouds called…", fr:"Les étoiles naissent dans d'immenses nuages appelés…", fa:"ستاره‌ها درون ابرهای عظیمی به نام … زاده می‌شوند."},
+      choices:{en:["nebulae","black holes","comets"], fr:["nébuleuses","trous noirs","comètes"], fa:["سحابی‌ها","سیاه‌چاله‌ها","دنباله‌دارها"]} },
+    { answer:0, q:{en:"The iron in your blood was made inside…", fr:"Le fer de ton sang a été fabriqué dans…", fa:"آهنِ خون تو درون … ساخته شده است."},
+      choices:{en:["stars","the ocean","volcanoes"], fr:["des étoiles","l'océan","des volcans"], fa:["ستاره‌ها","اقیانوس","آتشفشان‌ها"]} },
+    { answer:0, q:{en:"A red star is ___ than a blue star.", fr:"Une étoile rouge est ___ qu'une étoile bleue.", fa:"یک ستارهٔ سرخ از یک ستارهٔ آبی … است."},
+      choices:{en:["cooler","hotter","heavier"], fr:["plus froide","plus chaude","plus lourde"], fa:["سردتر","داغ‌تر","سنگین‌تر"]} },
+  ],
+  [ // Galaxies & the Universe
+    { answer:0, q:{en:"The invisible stuff that holds galaxies together is called…", fr:"La matière invisible qui maintient les galaxies s'appelle…", fa:"مادهٔ نامرئی‌ای که کهکشان‌ها را کنار هم نگه می‌دارد … نام دارد."},
+      choices:{en:["dark matter","moonlight","fog"], fr:["la matière noire","le clair de lune","le brouillard"], fa:["مادهٔ تاریک","مهتاب","مه"]} },
+    { answer:0, q:{en:"About how many galaxies are in the observable universe?", fr:"Environ combien de galaxies compte l'univers observable ?", fa:"در جهان قابل‌مشاهده تقریباً چند کهکشان هست؟"},
+      choices:{en:["About 2 trillion","About 100","About 5"], fr:["Environ 2 000 milliards","Environ 100","Environ 5"], fa:["حدود ۲ تریلیون","حدود ۱۰۰","حدود ۵"]} },
+    { answer:0, q:{en:"The leftover glow of the Big Bang fills…", fr:"La lueur résiduelle du Big Bang remplit…", fa:"پس‌تابِ مهبانگ … را پر کرده است."},
+      choices:{en:["the whole sky","only Earth","only the Sun"], fr:["tout le ciel","seulement la Terre","seulement le Soleil"], fa:["تمام آسمان","فقط زمین","فقط خورشید"]} },
+  ],
+  [ // Black Holes
+    { answer:0, q:{en:"Falling into a black hole, gravity would stretch you like…", fr:"En tombant dans un trou noir, la gravité t'étirerait comme…", fa:"با افتادن در سیاه‌چاله، گرانش تو را مثل … می‌کشد."},
+      choices:{en:["spaghetti","a football","a cloud"], fr:["un spaghetti","un ballon","un nuage"], fa:["اسپاگتی","یک توپ","یک ابر"]} },
+    { answer:0, q:{en:"Black holes form when a giant star…", fr:"Les trous noirs se forment quand une étoile géante…", fa:"سیاه‌چاله‌ها وقتی شکل می‌گیرند که ستاره‌ای غول‌پیکر…"},
+      choices:{en:["collapses at the end of its life","gets cold","becomes a planet"], fr:["s'effondre en fin de vie","refroidit","devient une planète"], fa:["در پایان عمرش فرومی‌پاشد","سرد می‌شود","به سیاره تبدیل می‌شود"]} },
+    { answer:0, q:{en:"The first-ever photo of a black hole was taken in…", fr:"La toute première photo d'un trou noir a été prise en…", fa:"نخستین عکس یک سیاه‌چاله در سال … گرفته شد."},
+      choices:{en:["2019","1969","1500"], fr:["2019","1969","1500"], fa:["۲۰۱۹","۱۹۶۹","۱۵۰۰"]} },
+  ],
+  [ // Space Exploration
+    { answer:0, q:{en:"The first people walked on the Moon in…", fr:"Les premiers humains ont marché sur la Lune en…", fa:"نخستین انسان‌ها در سال … روی ماه راه رفتند."},
+      choices:{en:["1969","2020","1500"], fr:["1969","2020","1500"], fa:["۱۹۶۹","۲۰۲۰","۱۵۰۰"]} },
+    { answer:0, q:{en:"To reach orbit, a rocket must go about…", fr:"Pour se mettre en orbite, une fusée doit aller à environ…", fa:"برای رسیدن به مدار، یک موشک باید با سرعت حدود … برود."},
+      choices:{en:["28,000 km/h","100 km/h","5 km/h"], fr:["28 000 km/h","100 km/h","5 km/h"], fa:["۲۸٬۰۰۰ کیلومتر بر ساعت","۱۰۰ کیلومتر بر ساعت","۵ کیلومتر بر ساعت"]} },
+    { answer:0, q:{en:"The little helicopter that flew on Mars was named…", fr:"Le petit hélicoptère qui a volé sur Mars s'appelait…", fa:"بالگرد کوچکی که روی مریخ پرواز کرد … نام داشت."},
+      choices:{en:["Ingenuity","Concorde","Apollo"], fr:["Ingenuity","Concorde","Apollo"], fa:["نبوغ (Ingenuity)","کنکورد","آپولو"]} },
+  ],
+  [ // Stargazing Tips
+    { answer:0, q:{en:"With binoculars you can spot the four biggest moons of…", fr:"Aux jumelles, tu peux repérer les quatre plus grandes lunes de…", fa:"با دوربین دوچشمی می‌توانی چهار قمر بزرگِ … را ببینی."},
+      choices:{en:["Jupiter","the Sun","Mars"], fr:["Jupiter","du Soleil","de Mars"], fa:["مشتری","خورشید","مریخ"]} },
+    { answer:0, q:{en:"We always see the same ___ of the Moon.", fr:"On voit toujours la même ___ de la Lune.", fa:"ما همیشه یک … ماه را می‌بینیم."},
+      choices:{en:["side","colour","size"], fr:["face","couleur","taille"], fa:["رو","رنگ","اندازه"]} },
+    { answer:0, q:{en:"From a truly dark place, about how many stars can you see with your eyes?", fr:"Depuis un lieu vraiment sombre, environ combien d'étoiles vois-tu à l'œil nu ?", fa:"از جایی واقعاً تاریک، تقریباً چند ستاره با چشم می‌بینی؟"},
+      choices:{en:["About 3,000","About 10","Millions"], fr:["Environ 3 000","Environ 10","Des millions"], fa:["حدود ۳٬۰۰۰","حدود ۱۰","میلیون‌ها"]} },
+  ],
+];
+
 const Learn = {
   started: false, view: "cats", cat: 0, open: -1,
-  qz: false, qi: 0, qs: 0, qa: false, qShuffled: null,
+  qz: false, qi: 0, qs: 0, qa: false, qShuffled: null, qRound: [], spot: null,
 
   enter() {
     if (!this.started) { this.started = true; document.addEventListener("language-changed", () => this.repaint()); }
-    // Opening the Learn tab always starts fresh at the subjects grid.
+    // Opening the Learn tab always starts fresh at the subjects grid, with a new spotlight.
     this.qz = false; this.view = "cats"; this.open = -1;
+    this.spot = this._randomTopic();
     this.paintCats();
   },
   L(o) { const l = (window.I18N && I18N.lang) || "en"; return (o[l] != null) ? o[l] : o.en; },
+  _shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; },
+  _randomTopic() {
+    const ci = Math.floor(Math.random() * LEARN.length);
+    const ti = Math.floor(Math.random() * LEARN[ci].topics.length);
+    // avoid repeating the previous spotlight when possible
+    if (this.spot && this.spot.ci === ci && this.spot.ti === ti && LEARN[ci].topics.length > 1) return this._randomTopic();
+    return { ci, ti };
+  },
   host() { return U.el("learn-app"); },
-  _qs() { return LEARN_QUIZ[this.cat] || []; },
+  // full pool for a category = base 3 + extra 3
+  _pool() { return (LEARN_QUIZ[this.cat] || []).concat(LEARN_QUIZ_MORE[this.cat] || []); },
   repaint() {
-    if (this.qz) return (this.qi >= this._qs().length) ? this.paintResult() : this.paintQuiz();
+    if (this.qz) return (this.qi >= this.qRound.length) ? this.paintResult() : this.paintQuiz();
     this.view === "topics" ? this.paintTopics() : this.paintCats();
   },
 
   paintCats() {
     this.view = "cats"; this.qz = false;
+    if (!this.spot) this.spot = this._randomTopic();
+    const sc = LEARN[this.spot.ci], stp = sc.topics[this.spot.ti];
     const cards = LEARN.map((c, i) => `
       <button class="learn-card" data-i="${i}" style="--lc:${c.color}">
         <div class="learn-emoji">${c.emoji}</div>
@@ -187,11 +251,23 @@ const Learn = {
         <div class="learn-count">${c.topics.length} ${t("learn.topics")}</div>
       </button>`).join("");
     this.host().innerHTML = `
+      <div class="panel learn-spot" style="--lc:${sc.color}">
+        <div class="learn-spot-tag">✨ ${t("learn.spotlight")} · ${sc.emoji} ${U.esc(this.L(sc.name))}</div>
+        <div class="learn-spot-title">${U.esc(this.L(stp.title))}</div>
+        <p class="learn-spot-body">${U.esc(this.L(stp.body))}</p>
+        <div class="learn-wow">${U.esc(this.L(stp.wow))}</div>
+        <div class="learn-spot-actions">
+          <button class="btn small" id="learn-spot-more">${t("learn.another")}</button>
+          <button class="btn small learn-ghost" id="learn-spot-open">${t("learn.explore")}</button>
+        </div>
+      </div>
       <div class="panel">
         <div class="section-title">📚 ${t("learn.title")}</div>
         <p class="small muted" style="margin:2px 0 16px;">${t("learn.intro")}</p>
         <div class="learn-grid">${cards}</div>
       </div>`;
+    U.el("learn-spot-more").addEventListener("click", () => { this.spot = this._randomTopic(); this.paintCats(); });
+    U.el("learn-spot-open").addEventListener("click", () => { this.cat = this.spot.ci; this.open = this.spot.ti; this.paintTopics(); });
     this.host().querySelectorAll(".learn-card").forEach(b =>
       b.addEventListener("click", () => { this.cat = parseInt(b.dataset.i, 10); this.open = -1; this.paintTopics(); }));
   },
@@ -225,11 +301,15 @@ const Learn = {
   },
 
   // ---- mini-quiz ----
-  startQuiz() { this.qz = true; this.qi = 0; this.qs = 0; this.qa = false; this.paintQuiz(); },
+  startQuiz() {
+    // pick a fresh random 3 questions from the pool each time
+    this.qRound = this._shuffle(this._pool().slice()).slice(0, 3);
+    this.qz = true; this.qi = 0; this.qs = 0; this.qa = false; this.paintQuiz();
+  },
 
   paintQuiz() {
     this.qz = true;
-    const qs = this._qs(), q = qs[this.qi], c = LEARN[this.cat];
+    const qs = this.qRound, q = qs[this.qi], c = LEARN[this.cat];
     const ch = this.L(q.choices).map((text, idx) => ({ text, correct: idx === q.answer }));
     for (let i = ch.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [ch[i], ch[j]] = [ch[j], ch[i]]; }
     this.qShuffled = ch; this.qa = false;
@@ -256,17 +336,17 @@ const Learn = {
       if (this.qShuffled[bi].correct) b.classList.add("right");
       else if (bi === i) b.classList.add("wrong");
     });
-    const last = this.qi === this._qs().length - 1;
+    const last = this.qi === this.qRound.length - 1;
     U.el("learn-qfb").innerHTML = `
       <div class="quiz-verdict ${correct ? "ok" : "no"}">${correct ? t("learn.correct") : t("learn.wrong")}</div>
       <button class="btn quiz-next" id="learn-qnext">${last ? t("learn.seeResult") : t("learn.next")}</button>`;
     U.el("learn-qnext").addEventListener("click", () => this.nextQ());
   },
 
-  nextQ() { this.qi++; this.qa = false; (this.qi >= this._qs().length) ? this.paintResult() : this.paintQuiz(); },
+  nextQ() { this.qi++; this.qa = false; (this.qi >= this.qRound.length) ? this.paintResult() : this.paintQuiz(); },
 
   paintResult() {
-    const n = this._qs().length, s = this.qs;
+    const n = this.qRound.length, s = this.qs;
     const good = Math.ceil(n * 0.6);
     const msg = s === n ? t("learn.rPerfect") : s >= good ? t("learn.rGood") : t("learn.rLow");
     const emoji = s === n ? "🌟" : s >= good ? "👍" : "📚";

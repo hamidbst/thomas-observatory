@@ -318,6 +318,14 @@ textarea.cf-input { resize: vertical; min-height: 110px; }
 [dir="rtl"] .learn-card, [dir="rtl"] .learn-thead { text-align: right; }
 .learn-test { margin-top: 16px; font-size: 15px; padding: 11px 22px;
   background: linear-gradient(100deg, rgba(122,92,255,0.3), rgba(125,180,255,0.25)); border-color: var(--border-hi); }
+.learn-spot { margin-bottom: 16px; border-left: 4px solid var(--lc);
+  background: linear-gradient(150deg, rgba(122,92,255,0.14), var(--panel)); }
+[dir="rtl"] .learn-spot { border-left: 1px solid var(--border); border-right: 4px solid var(--lc); }
+.learn-spot-tag { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--lc); margin-bottom: 8px; }
+.learn-spot-title { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+.learn-spot-body { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); margin: 0 0 12px; }
+.learn-spot-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.learn-ghost { background: rgba(125,180,255,0.06); }
 
 /* ---------- What can I see tonight? ---------- */
 .hl-panel { background: linear-gradient(160deg, rgba(122,92,255,0.12), var(--panel)); }
