@@ -265,6 +265,95 @@ const LEARN_QUIZ_MORE = [
   ],
 ];
 
+// Topic-aligned quiz: LEARN_TQ[category][topicIndex] tests exactly that topic, so a
+// test only asks about the topics that were actually shown this visit.
+const LEARN_TQ = [
+  [ // Solar System — matches topics 0..5
+    { answer:0, q:{en:"What fraction of the Solar System's mass is the Sun?", fr:"Quelle part de la masse du système solaire représente le Soleil ?", fa:"چه کسری از جرم منظومهٔ شمسی خورشید است؟"},
+      choices:{en:["About 99.8%","About half","About 10%"], fr:["Environ 99,8 %","Environ la moitié","Environ 10 %"], fa:["حدود ۹۹٫۸٪","حدود نصف","حدود ۱۰٪"]} },
+    { answer:0, q:{en:"On which rocky planet is a day longer than its year?", fr:"Sur quelle planète rocheuse un jour dure-t-il plus que son année ?", fa:"روی کدام سیارهٔ سنگی یک روز از سالش بلندتر است؟"},
+      choices:{en:["Venus","Mars","Mercury"], fr:["Vénus","Mars","Mercure"], fa:["زهره","مریخ","عطارد"]} },
+    { answer:0, q:{en:"Which giant planet is famous for its beautiful rings?", fr:"Quelle planète géante est célèbre pour ses magnifiques anneaux ?", fa:"کدام سیارهٔ غول‌پیکر به‌خاطر حلقه‌های زیبایش مشهور است؟"},
+      choices:{en:["Saturn","Jupiter","Neptune"], fr:["Saturne","Jupiter","Neptune"], fa:["زحل","مشتری","نپتون"]} },
+    { answer:0, q:{en:"A comet grows a glowing tail when it is near…", fr:"Une comète déploie une queue lumineuse quand elle est près…", fa:"دنباله‌دار وقتی نزدیک … باشد دنباله‌ای درخشان می‌گیرد."},
+      choices:{en:["the Sun","Earth","the Moon"], fr:["du Soleil","de la Terre","de la Lune"], fa:["خورشید","زمین","ماه"]} },
+    { answer:0, q:{en:"Which is the only planet known to have oceans of liquid water and life?", fr:"Quelle est la seule planète connue avec des océans d'eau liquide et de la vie ?", fa:"کدام تنها سیارهٔ شناخته‌شده با اقیانوس‌های آب مایع و حیات است؟"},
+      choices:{en:["Earth","Mars","Venus"], fr:["la Terre","Mars","Vénus"], fa:["زمین","مریخ","زهره"]} },
+    { answer:0, q:{en:"Jupiter's moon Europa hides a deep ___ under its icy shell.", fr:"Europe, une lune de Jupiter, cache un profond ___ sous sa glace.", fa:"اروپا، قمر مشتری، یک ___ ژرف زیر پوستهٔ یخی‌اش پنهان کرده."},
+      choices:{en:["ocean","volcano","forest"], fr:["océan","volcan","forêt"], fa:["اقیانوس","آتشفشان","جنگل"]} },
+  ],
+  [ // Stars
+    { answer:0, q:{en:"Stars are born inside giant clouds called…", fr:"Les étoiles naissent dans d'immenses nuages appelés…", fa:"ستاره‌ها درون ابرهای عظیمی به نام … زاده می‌شوند."},
+      choices:{en:["nebulae","black holes","comets"], fr:["nébuleuses","trous noirs","comètes"], fa:["سحابی‌ها","سیاه‌چاله‌ها","دنباله‌دارها"]} },
+    { answer:0, q:{en:"Which colour of star is the hottest?", fr:"Quelle couleur d'étoile est la plus chaude ?", fa:"کدام رنگِ ستاره داغ‌ترین است؟"},
+      choices:{en:["Blue","Red","Yellow"], fr:["Bleue","Rouge","Jaune"], fa:["آبی","سرخ","زرد"]} },
+    { answer:0, q:{en:"A star like the Sun ends its life as a…", fr:"Une étoile comme le Soleil finit sa vie en…", fa:"ستاره‌ای مثل خورشید عمرش را به‌صورت … پایان می‌دهد."},
+      choices:{en:["white dwarf","black hole","new planet"], fr:["naine blanche","trou noir","nouvelle planète"], fa:["کوتولهٔ سفید","سیاه‌چاله","سیارهٔ نو"]} },
+    { answer:0, q:{en:"How many constellations are there in the sky?", fr:"Combien y a-t-il de constellations dans le ciel ?", fa:"در آسمان چند صورت فلکی وجود دارد؟"},
+      choices:{en:["88","12","1000"], fr:["88","12","1000"], fa:["۸۸","۱۲","۱۰۰۰"]} },
+    { answer:0, q:{en:"After the Sun, the nearest star to us is…", fr:"Après le Soleil, l'étoile la plus proche est…", fa:"پس از خورشید، نزدیک‌ترین ستاره به ما … است."},
+      choices:{en:["Proxima Centauri","Sirius","Polaris"], fr:["Proxima du Centaure","Sirius","l'Étoile Polaire"], fa:["پروکسیما قنطورس","شعرای یمانی","ستارهٔ قطبی"]} },
+    { answer:0, q:{en:"The biggest known stars are over ___ times wider than the Sun.", fr:"Les plus grandes étoiles connues sont plus de ___ fois plus larges que le Soleil.", fa:"بزرگ‌ترین ستاره‌های شناخته‌شده بیش از ___ برابر پهن‌تر از خورشیدند."},
+      choices:{en:["1,000","10","2"], fr:["1 000","10","2"], fa:["۱٬۰۰۰","۱۰","۲"]} },
+  ],
+  [ // Galaxies & the Universe
+    { answer:0, q:{en:"What shape is our galaxy, the Milky Way?", fr:"Quelle est la forme de notre galaxie, la Voie lactée ?", fa:"شکل کهکشان ما، راه شیری، چگونه است؟"},
+      choices:{en:["A spiral","A cube","A ring"], fr:["Une spirale","Un cube","Un anneau"], fa:["مارپیچ","مکعب","حلقه"]} },
+    { answer:0, q:{en:"About how many galaxies are in the observable universe?", fr:"Environ combien de galaxies compte l'univers observable ?", fa:"در جهان قابل‌مشاهده تقریباً چند کهکشان هست؟"},
+      choices:{en:["About 2 trillion","About 100","About 5"], fr:["Environ 2 000 milliards","Environ 100","Environ 5"], fa:["حدود ۲ تریلیون","حدود ۱۰۰","حدود ۵"]} },
+    { answer:0, q:{en:"About how long ago was the Big Bang?", fr:"Il y a environ combien de temps a eu lieu le Big Bang ?", fa:"مهبانگ تقریباً چند وقت پیش رخ داد؟"},
+      choices:{en:["13.8 billion years","1 million years","100 years"], fr:["13,8 milliards d'années","1 million d'années","100 ans"], fa:["۱۳٫۸ میلیارد سال","۱ میلیون سال","۱۰۰ سال"]} },
+    { answer:0, q:{en:"The invisible stuff that holds galaxies together is called…", fr:"La matière invisible qui maintient les galaxies s'appelle…", fa:"مادهٔ نامرئی‌ای که کهکشان‌ها را کنار هم نگه می‌دارد … نام دارد."},
+      choices:{en:["dark matter","moonlight","fog"], fr:["la matière noire","le clair de lune","le brouillard"], fa:["مادهٔ تاریک","مهتاب","مه"]} },
+    { answer:0, q:{en:"Andromeda is slowly heading toward us and will one day merge with…", fr:"Andromède se dirige lentement vers nous et fusionnera un jour avec…", fa:"آندرومدا آرام به‌سوی ما می‌آید و روزی با … ادغام می‌شود."},
+      choices:{en:["the Milky Way","the Sun","Mars"], fr:["la Voie lactée","le Soleil","Mars"], fa:["راه شیری","خورشید","مریخ"]} },
+    { answer:0, q:{en:"In the expanding universe, the farther a galaxy is, the ___ it moves away.", fr:"Dans l'univers en expansion, plus une galaxie est lointaine, plus elle s'éloigne ___.", fa:"در جهانِ در حال انبساط، هرچه کهکشانی دورتر باشد، ___ دور می‌شود."},
+      choices:{en:["faster","slower","it doesn't move"], fr:["vite","lentement","elle ne bouge pas"], fa:["سریع‌تر","کندتر","اصلاً دور نمی‌شود"]} },
+  ],
+  [ // Black Holes
+    { answer:0, q:{en:"What can escape a black hole?", fr:"Qu'est-ce qui peut s'échapper d'un trou noir ?", fa:"چه چیزی می‌تواند از سیاه‌چاله بگریزد؟"},
+      choices:{en:["Nothing, not even light","Only light","Fast rockets"], fr:["Rien, pas même la lumière","Seulement la lumière","Les fusées rapides"], fa:["هیچ‌چیز، حتی نور","فقط نور","موشک‌های سریع"]} },
+    { answer:0, q:{en:"The edge of a black hole, the point of no return, is called the…", fr:"Le bord d'un trou noir, le point de non-retour, s'appelle…", fa:"لبهٔ سیاه‌چاله، نقطهٔ بی‌بازگشت، … نام دارد."},
+      choices:{en:["event horizon","finish line","ring"], fr:["horizon des événements","ligne d'arrivée","anneau"], fa:["افق رویداد","خط پایان","حلقه"]} },
+    { answer:0, q:{en:"The giant black hole at our galaxy's centre is called…", fr:"Le trou noir géant au centre de notre galaxie s'appelle…", fa:"سیاه‌چالهٔ غول‌آسای مرکز کهکشان ما … نام دارد."},
+      choices:{en:["Sagittarius A*","Polaris","Halley"], fr:["Sagittarius A*","Polaris","Halley"], fa:["کمان‌اِی‌* (Sagittarius A*)","ستارهٔ قطبی","هالی"]} },
+    { answer:0, q:{en:"The first-ever photo of a black hole was taken in…", fr:"La toute première photo d'un trou noir a été prise en…", fa:"نخستین عکس یک سیاه‌چاله در سال … گرفته شد."},
+      choices:{en:["2019","1969","1500"], fr:["2019","1969","1500"], fa:["۲۰۱۹","۱۹۶۹","۱۵۰۰"]} },
+    { answer:0, q:{en:"Black holes form when a giant star…", fr:"Les trous noirs se forment quand une étoile géante…", fa:"سیاه‌چاله‌ها وقتی شکل می‌گیرند که ستاره‌ای غول‌پیکر…"},
+      choices:{en:["collapses at the end of its life","gets cold","becomes a planet"], fr:["s'effondre en fin de vie","refroidit","devient une planète"], fa:["در پایان عمرش فرومی‌پاشد","سرد می‌شود","به سیاره تبدیل می‌شود"]} },
+    { answer:0, q:{en:"A black hole's gravity is so strong it can bend the ___ of stars behind it.", fr:"La gravité d'un trou noir est si forte qu'elle peut courber la ___ des étoiles derrière lui.", fa:"گرانش سیاه‌چاله چنان قوی است که می‌تواند ___ ستاره‌های پشتش را خم کند."},
+      choices:{en:["light","sound","smell"], fr:["lumière","son","odeur"], fa:["نور","صدا","بو"]} },
+  ],
+  [ // Space Exploration
+    { answer:0, q:{en:"A rocket pushes itself up by throwing gas…", fr:"Une fusée se propulse vers le haut en projetant du gaz…", fa:"موشک با پرتاب گاز به سمت … خود را بالا می‌راند."},
+      choices:{en:["downwards","upwards","sideways"], fr:["vers le bas","vers le haut","sur le côté"], fa:["پایین","بالا","کنار"]} },
+    { answer:0, q:{en:"The first people walked on the Moon in…", fr:"Les premiers humains ont marché sur la Lune en…", fa:"نخستین انسان‌ها در سال … روی ماه راه رفتند."},
+      choices:{en:["1969","2020","1500"], fr:["1969","2020","1500"], fa:["۱۹۶۹","۲۰۲۰","۱۵۰۰"]} },
+    { answer:0, q:{en:"Who explores Mars for us right now?", fr:"Qui explore Mars pour nous en ce moment ?", fa:"همین حالا چه کسی برای ما مریخ را کاوش می‌کند؟"},
+      choices:{en:["Robots (rovers)","People living there","Nobody"], fr:["Des robots (rovers)","Des gens qui y vivent","Personne"], fa:["ربات‌ها (مریخ‌نوردها)","مردمی که آنجا زندگی می‌کنند","هیچ‌کس"]} },
+    { answer:0, q:{en:"The James Webb telescope mainly sees in…", fr:"Le télescope James Webb voit surtout en…", fa:"تلسکوپ جیمز وب بیشتر در … می‌بیند."},
+      choices:{en:["infrared light","sound","X-rays"], fr:["infrarouge","son","rayons X"], fa:["نور فروسرخ","صدا","پرتوهای ایکس"]} },
+    { answer:0, q:{en:"How many sunrises do astronauts on the Space Station see each day?", fr:"Combien de levers de Soleil les astronautes de la station voient-ils chaque jour ?", fa:"فضانوردان ایستگاه فضایی هر روز چند طلوع خورشید می‌بینند؟"},
+      choices:{en:["16","1","100"], fr:["16","1","100"], fa:["۱۶","۱","۱۰۰"]} },
+    { answer:0, q:{en:"The most distant human-made object in space is…", fr:"L'objet humain le plus lointain dans l'espace est…", fa:"دورترین شیء ساختِ بشر در فضا … است."},
+      choices:{en:["Voyager 1","Hubble","the Space Station"], fr:["Voyager 1","Hubble","la station spatiale"], fa:["وویجر ۱","هابل","ایستگاه فضایی"]} },
+  ],
+  [ // Stargazing Tips
+    { answer:0, q:{en:"Before observing, let your eyes adjust to the dark for about…", fr:"Avant d'observer, laisse tes yeux s'habituer à l'obscurité pendant environ…", fa:"پیش از رصد، بگذار چشمانت حدود … به تاریکی عادت کنند."},
+      choices:{en:["15–20 minutes","1 second","3 hours"], fr:["15–20 minutes","1 seconde","3 heures"], fa:["۱۵ تا ۲۰ دقیقه","۱ ثانیه","۳ ساعت"]} },
+    { answer:0, q:{en:"With binoculars you can spot the four biggest moons of…", fr:"Aux jumelles, tu peux repérer les quatre plus grandes lunes de…", fa:"با دوربین دوچشمی می‌توانی چهار قمر بزرگِ … را ببینی."},
+      choices:{en:["Jupiter","the Sun","Mars"], fr:["Jupiter","du Soleil","de Mars"], fa:["مشتری","خورشید","مریخ"]} },
+    { answer:0, q:{en:"We always see the same ___ of the Moon.", fr:"On voit toujours la même ___ de la Lune.", fa:"ما همیشه یک … ماه را می‌بینیم."},
+      choices:{en:["side","colour","size"], fr:["face","couleur","taille"], fa:["رو","رنگ","اندازه"]} },
+    { answer:0, q:{en:"The best meteor showers are usually seen…", fr:"Les plus belles pluies d'étoiles filantes se voient surtout…", fa:"بهترین بارش‌های شهابی معمولاً … دیده می‌شوند."},
+      choices:{en:["after midnight","at noon","at sunset"], fr:["après minuit","à midi","au coucher du soleil"], fa:["پس از نیمه‌شب","ظهر","هنگام غروب"]} },
+    { answer:0, q:{en:"The sky appears to slowly turn at night because…", fr:"Le ciel semble tourner lentement la nuit parce que…", fa:"آسمان شب آرام‌آرام می‌چرخد چون…"},
+      choices:{en:["Earth is spinning","the stars fly around","the Moon pushes them"], fr:["la Terre tourne","les étoiles volent","la Lune les pousse"], fa:["زمین می‌چرخد","ستاره‌ها پرواز می‌کنند","ماه آن‌ها را هل می‌دهد"]} },
+    { answer:0, q:{en:"City lights can hide up to ___ of the stars you'd see in the countryside.", fr:"Les lumières de la ville peuvent cacher jusqu'à ___ des étoiles visibles à la campagne.", fa:"نورهای شهر می‌توانند تا ___ ستاره‌هایی را که در روستا می‌بینی پنهان کنند."},
+      choices:{en:["90%","10%","1%"], fr:["90 %","10 %","1 %"], fa:["۹۰٪","۱۰٪","۱٪"]} },
+  ],
+];
+
 const Learn = {
   started: false, view: "cats", cat: 0, open: -1,
   qz: false, qi: 0, qs: 0, qa: false, qShuffled: null, qRound: [], spot: null, topicOrder: [], SHOW: 4,
@@ -369,8 +458,12 @@ const Learn = {
 
   // ---- mini-quiz ----
   startQuiz() {
-    // pick a fresh random 3 questions from the pool each time
-    this.qRound = this._shuffle(this._pool().slice()).slice(0, 3);
+    // Only test the topics that were actually shown this visit (topicOrder),
+    // so every question is about something the reader has just seen.
+    const qs = LEARN_TQ[this.cat] || [];
+    const order = (this.topicOrder && this.topicOrder.length) ? this.topicOrder : qs.map((_, i) => i);
+    const cands = order.map(ti => qs[ti]).filter(Boolean);
+    this.qRound = this._shuffle(cands.slice()).slice(0, Math.min(3, cands.length));
     this.qz = true; this.qi = 0; this.qs = 0; this.qa = false; this.paintQuiz();
   },
 
