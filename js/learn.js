@@ -108,6 +108,59 @@ const LEARN = [
     ]},
 ];
 
+// Extra topics per category (index-aligned with LEARN). Pooled with the base topics
+// so each visit to a subject shows a different random selection.
+const LEARN_MORE = [
+  [ // Solar System
+    { title:{en:"Our home, planet Earth", fr:"Notre maison, la Terre", fa:"خانهٔ ما، سیارهٔ زمین"},
+      body:{en:"Earth is the only place we know of with oceans of liquid water and living things. A blanket of air keeps us warm and breathing, and a magnetic shield deflects harmful particles from the Sun.", fr:"La Terre est le seul endroit connu avec des océans d'eau liquide et des êtres vivants. Une couche d'air nous garde au chaud et respirables, et un bouclier magnétique dévie les particules dangereuses du Soleil.", fa:"زمین تنها جایی است که می‌شناسیم با اقیانوس‌های آب مایع و موجودات زنده. لایه‌ای از هوا ما را گرم و قابل تنفس نگه می‌دارد، و سپری مغناطیسی ذرات خطرناک خورشید را منحرف می‌کند."},
+      wow:{en:"✨ Earth is the only planet not named after a Greek or Roman god.", fr:"✨ La Terre est la seule planète qui ne porte pas le nom d'un dieu grec ou romain.", fa:"✨ زمین تنها سیاره‌ای است که نامش از یک خدای یونانی یا رومی گرفته نشده."} },
+    { title:{en:"Moons — worlds of their own", fr:"Les lunes — des mondes à part", fa:"قمرها — دنیاهایی برای خودشان"},
+      body:{en:"Most planets have moons, and some are amazing. Jupiter's moon Europa hides a deep ocean under its icy shell, and Saturn's giant moon Titan has rivers and lakes of liquid methane.", fr:"La plupart des planètes ont des lunes, et certaines sont extraordinaires. Europe, une lune de Jupiter, cache un océan profond sous sa glace, et Titan, l'immense lune de Saturne, a des rivières et des lacs de méthane liquide.", fa:"بیشتر سیاره‌ها قمر دارند، و برخی شگفت‌انگیزند. اروپا، قمر مشتری، اقیانوسی ژرف زیر پوستهٔ یخی‌اش پنهان کرده، و تایتان، قمر بزرگ زحل، رودها و دریاچه‌هایی از متان مایع دارد."},
+      wow:{en:"✨ Jupiter and Saturn each have over 90 moons!", fr:"✨ Jupiter et Saturne ont chacune plus de 90 lunes !", fa:"✨ مشتری و زحل هرکدام بیش از ۹۰ قمر دارند!"} },
+  ],
+  [ // Stars
+    { title:{en:"The nearest star", fr:"L'étoile la plus proche", fa:"نزدیک‌ترین ستاره"},
+      body:{en:"After the Sun, our closest star is Proxima Centauri, about 4 light-years away. Even in the fastest spacecraft we've ever built, the journey there would take tens of thousands of years.", fr:"Après le Soleil, l'étoile la plus proche est Proxima du Centaure, à environ 4 années-lumière. Même dans le vaisseau le plus rapide jamais construit, le voyage prendrait des dizaines de milliers d'années.", fa:"پس از خورشید، نزدیک‌ترین ستاره پروکسیما قنطورس است، حدود ۴ سال نوری دورتر. حتی با سریع‌ترین فضاپیمایی که ساخته‌ایم، سفر به آنجا ده‌ها هزار سال طول می‌کشد."},
+      wow:{en:"✨ Light from Proxima Centauri takes over 4 years to reach us.", fr:"✨ La lumière de Proxima du Centaure met plus de 4 ans à nous parvenir.", fa:"✨ نور پروکسیما قنطورس بیش از ۴ سال طول می‌کشد تا به ما برسد."} },
+    { title:{en:"Giant and dwarf stars", fr:"Étoiles géantes et naines", fa:"ستاره‌های غول‌پیکر و کوتوله"},
+      body:{en:"Stars come in wildly different sizes. Some 'supergiants' are so vast they would swallow the inner planets, while small 'dwarf' stars burn slowly and can keep shining for trillions of years.", fr:"Les étoiles ont des tailles très différentes. Certaines « supergéantes » sont si vastes qu'elles engloutiraient les planètes intérieures, tandis que les petites « naines » brûlent lentement et brillent des milliers de milliards d'années.", fa:"ستاره‌ها اندازه‌های بسیار متفاوتی دارند. برخی «اَبَرغول‌ها» چنان بزرگ‌اند که سیاره‌های داخلی را می‌بلعند، در حالی که «کوتوله‌های» کوچک آرام می‌سوزند و می‌توانند تریلیون‌ها سال بدرخشند."},
+      wow:{en:"✨ The biggest known stars are over 1,000 times wider than the Sun.", fr:"✨ Les plus grandes étoiles connues sont plus de 1 000 fois plus larges que le Soleil.", fa:"✨ بزرگ‌ترین ستاره‌های شناخته‌شده بیش از ۱٬۰۰۰ برابر پهن‌تر از خورشیدند."} },
+  ],
+  [ // Galaxies & the Universe
+    { title:{en:"The Andromeda Galaxy", fr:"La galaxie d'Andromède", fa:"کهکشان آندرومدا"},
+      body:{en:"Andromeda is our biggest galactic neighbour and the farthest thing you can see with just your eyes. It's slowly heading toward us and will merge with the Milky Way billions of years from now.", fr:"Andromède est notre plus grande voisine galactique et l'objet le plus lointain visible à l'œil nu. Elle se dirige lentement vers nous et fusionnera avec la Voie lactée dans des milliards d'années.", fa:"آندرومدا بزرگ‌ترین همسایهٔ کهکشانی ماست و دورترین چیزی که تنها با چشم می‌بینی. آرام‌آرام به‌سوی ما می‌آید و میلیاردها سال بعد با راه شیری ادغام می‌شود."},
+      wow:{en:"✨ Andromeda holds about a trillion stars — even more than the Milky Way.", fr:"✨ Andromède compte environ mille milliards d'étoiles — encore plus que la Voie lactée.", fa:"✨ آندرومدا حدود یک تریلیون ستاره دارد — حتی بیشتر از راه شیری."} },
+    { title:{en:"The expanding universe", fr:"L'univers en expansion", fa:"جهانِ در حال انبساط"},
+      body:{en:"Space itself is stretching, carrying galaxies away from each other like dots drawn on an inflating balloon. The farther away a galaxy is, the faster it rushes away from us.", fr:"L'espace lui-même s'étire, éloignant les galaxies les unes des autres comme des points sur un ballon qu'on gonfle. Plus une galaxie est lointaine, plus elle s'éloigne vite.", fa:"خودِ فضا در حال کش‌آمدن است و کهکشان‌ها را مثل نقطه‌هایی روی بادکنکی که باد می‌شود از هم دور می‌کند. هرچه کهکشانی دورتر باشد، سریع‌تر از ما دور می‌شود."},
+      wow:{en:"✨ Some galaxies are moving away so fast their light will never reach us.", fr:"✨ Certaines galaxies s'éloignent si vite que leur lumière ne nous parviendra jamais.", fa:"✨ برخی کهکشان‌ها چنان سریع دور می‌شوند که نورشان هرگز به ما نمی‌رسد."} },
+  ],
+  [ // Black Holes
+    { title:{en:"Where do black holes come from?", fr:"D'où viennent les trous noirs ?", fa:"سیاه‌چاله‌ها از کجا می‌آیند؟"},
+      body:{en:"When a star far heavier than the Sun runs out of fuel, its core collapses under its own gravity and keeps crushing down until it becomes a black hole. The biggest ones grow by swallowing gas and stars.", fr:"Quand une étoile bien plus lourde que le Soleil épuise son carburant, son cœur s'effondre sous sa propre gravité et se comprime jusqu'à devenir un trou noir. Les plus grands grossissent en avalant gaz et étoiles.", fa:"وقتی ستاره‌ای بسیار سنگین‌تر از خورشید سوختش تمام می‌شود، هسته‌اش زیر گرانش خودش فرومی‌پاشد و آن‌قدر فشرده می‌شود تا سیاه‌چاله شود. بزرگ‌ترین‌ها با بلعیدن گاز و ستاره رشد می‌کنند."},
+      wow:{en:"✨ The smallest black holes still weigh several times more than the Sun.", fr:"✨ Les plus petits trous noirs pèsent tout de même plusieurs fois plus que le Soleil.", fa:"✨ کوچک‌ترین سیاه‌چاله‌ها هم چند برابر خورشید وزن دارند."} },
+    { title:{en:"Warping space and time", fr:"Déformer l'espace et le temps", fa:"خم‌کردن فضا و زمان"},
+      body:{en:"A black hole bends space and time so strongly that passing light curves around it, and clocks close to it tick more slowly. Einstein predicted all of this more than a hundred years ago.", fr:"Un trou noir courbe l'espace et le temps si fort que la lumière qui passe se recourbe autour, et les horloges toutes proches battent plus lentement. Einstein a prédit tout cela il y a plus de cent ans.", fa:"سیاه‌چاله فضا و زمان را چنان خم می‌کند که نورِ عبوری گِردش منحنی می‌شود، و ساعت‌های نزدیک به آن کندتر تیک می‌زنند. اینشتین همهٔ این‌ها را بیش از صد سال پیش پیش‌بینی کرد."},
+      wow:{en:"✨ A black hole's gravity can bend the light of stars hidden behind it.", fr:"✨ La gravité d'un trou noir peut courber la lumière d'étoiles cachées derrière lui.", fa:"✨ گرانش سیاه‌چاله می‌تواند نور ستاره‌های پنهان‌شده پشتش را خم کند."} },
+  ],
+  [ // Space Exploration
+    { title:{en:"Living on the Space Station", fr:"Vivre dans la station spatiale", fa:"زندگی در ایستگاه فضایی"},
+      body:{en:"On the International Space Station, astronauts float in weightlessness, sleep strapped to the wall, and drink water that's been recycled. Circling Earth so fast, they see 16 sunrises every day.", fr:"Dans la Station spatiale internationale, les astronautes flottent en apesanteur, dorment attachés au mur et boivent de l'eau recyclée. Tournant si vite autour de la Terre, ils voient 16 levers de Soleil par jour.", fa:"در ایستگاه فضایی بین‌المللی، فضانوردان در بی‌وزنی شناورند، بسته به دیوار می‌خوابند و آبِ بازیافت‌شده می‌نوشند. چون بسیار سریع دور زمین می‌چرخند، هر روز ۱۶ طلوع خورشید می‌بینند."},
+      wow:{en:"✨ The Space Station circles the whole Earth in about 90 minutes.", fr:"✨ La station spatiale fait le tour de la Terre en 90 minutes environ.", fa:"✨ ایستگاه فضایی در حدود ۹۰ دقیقه یک‌بار دور کل زمین می‌گردد."} },
+    { title:{en:"Voyager — our farthest messenger", fr:"Voyager — notre messager le plus lointain", fa:"وویجر — دورترین پیام‌رسانِ ما"},
+      body:{en:"Launched in 1977, the two Voyager probes have flown past the giant planets and left the Solar System. Each carries a golden record of sounds and pictures from Earth, in case anyone ever finds it.", fr:"Lancées en 1977, les deux sondes Voyager ont dépassé les planètes géantes et quitté le système solaire. Chacune emporte un disque d'or de sons et d'images de la Terre, au cas où quelqu'un le trouverait un jour.", fa:"دو کاوشگر وویجر که در ۱۹۷۷ پرتاب شدند، از کنار سیاره‌های غول‌پیکر گذشته و از منظومهٔ شمسی بیرون رفته‌اند. هرکدام یک صفحهٔ طلایی از صداها و تصاویر زمین با خود دارند، شاید روزی کسی آن را بیابد."},
+      wow:{en:"✨ Voyager 1 is the most distant human-made object — over 24 billion km away.", fr:"✨ Voyager 1 est l'objet humain le plus lointain — à plus de 24 milliards de km.", fa:"✨ وویجر ۱ دورترین شیء ساختِ بشر است — بیش از ۲۴ میلیارد کیلومتر دورتر."} },
+  ],
+  [ // Stargazing Tips
+    { title:{en:"Reading a star map", fr:"Lire une carte du ciel", fa:"خواندن نقشهٔ آسمان"},
+      body:{en:"A star map — or an app like this one — shows which stars and planets are above you right now. Hold it up toward the sky and match the patterns to find constellations and planets.", fr:"Une carte du ciel — ou une appli comme celle-ci — montre quelles étoiles et planètes sont au-dessus de toi en ce moment. Lève-la vers le ciel et compare les figures pour trouver constellations et planètes.", fa:"یک نقشهٔ آسمان — یا برنامه‌ای مثل همین — نشان می‌دهد همین حالا کدام ستاره‌ها و سیاره‌ها بالای سرت هستند. آن را رو به آسمان بگیر و نقش‌ها را تطبیق بده تا صورت‌های فلکی و سیاره‌ها را بیابی."},
+      wow:{en:"✨ The whole sky appears to slowly turn at night — because Earth is spinning.", fr:"✨ Tout le ciel semble tourner lentement la nuit — parce que la Terre tourne.", fa:"✨ تمام آسمان شب آرام‌آرام می‌چرخد — چون زمین در حال چرخش است."} },
+    { title:{en:"The best nights to look up", fr:"Les meilleures nuits pour observer", fa:"بهترین شب‌ها برای نگاه به آسمان"},
+      body:{en:"Clear, moonless nights far from city lights show the most stars. Check the weather, dress warmly, bring a red-light torch to protect your night vision, and be patient.", fr:"Les nuits claires et sans Lune, loin des lumières de la ville, révèlent le plus d'étoiles. Regarde la météo, habille-toi chaudement, prends une lampe à lumière rouge pour préserver ta vision nocturne, et sois patient.", fa:"شب‌های صاف و بی‌ماه، دور از نورهای شهر، بیشترین ستاره‌ها را نشان می‌دهند. هوا را بررسی کن، گرم بپوش، یک چراغ‌قوهٔ نور قرمز بردار تا دید شبت حفظ شود، و صبور باش."},
+      wow:{en:"✨ City lights can hide up to 90% of the stars you'd see from the countryside.", fr:"✨ Les lumières de la ville peuvent cacher jusqu'à 90 % des étoiles visibles à la campagne.", fa:"✨ نورهای شهر می‌توانند تا ۹۰٪ ستاره‌هایی را که از روستا می‌بینی پنهان کنند."} },
+  ],
+];
+
 // A quick 3-question check per category (index-aligned with LEARN). answer = index in choices.
 const LEARN_QUIZ = [
   [ // Solar System
@@ -214,7 +267,7 @@ const LEARN_QUIZ_MORE = [
 
 const Learn = {
   started: false, view: "cats", cat: 0, open: -1,
-  qz: false, qi: 0, qs: 0, qa: false, qShuffled: null, qRound: [], spot: null,
+  qz: false, qi: 0, qs: 0, qa: false, qShuffled: null, qRound: [], spot: null, topicOrder: [], SHOW: 4,
 
   enter() {
     if (!this.started) { this.started = true; document.addEventListener("language-changed", () => this.repaint()); }
@@ -225,12 +278,23 @@ const Learn = {
   },
   L(o) { const l = (window.I18N && I18N.lang) || "en"; return (o[l] != null) ? o[l] : o.en; },
   _shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; },
+  _topics(ci) { return LEARN[ci].topics.concat(LEARN_MORE[ci] || []); },
   _randomTopic() {
     const ci = Math.floor(Math.random() * LEARN.length);
-    const ti = Math.floor(Math.random() * LEARN[ci].topics.length);
+    const ti = Math.floor(Math.random() * this._topics(ci).length);
     // avoid repeating the previous spotlight when possible
-    if (this.spot && this.spot.ci === ci && this.spot.ti === ti && LEARN[ci].topics.length > 1) return this._randomTopic();
+    if (this.spot && this.spot.ci === ci && this.spot.ti === ti && this._topics(ci).length > 1) return this._randomTopic();
     return { ci, ti };
+  },
+  // open a category with a fresh random selection of topics (optionally forcing one in)
+  openCat(ci, forceTi) {
+    this.cat = ci;
+    const total = this._topics(ci).length;
+    const idxs = this._shuffle(Array.from({ length: total }, (_, i) => i)).slice(0, Math.min(this.SHOW, total));
+    if (forceTi != null && !idxs.includes(forceTi)) idxs[idxs.length - 1] = forceTi;
+    this.topicOrder = idxs;
+    this.open = (forceTi != null) ? forceTi : -1;
+    this.paintTopics();
   },
   host() { return U.el("learn-app"); },
   // full pool for a category = base 3 + extra 3
@@ -243,12 +307,12 @@ const Learn = {
   paintCats() {
     this.view = "cats"; this.qz = false;
     if (!this.spot) this.spot = this._randomTopic();
-    const sc = LEARN[this.spot.ci], stp = sc.topics[this.spot.ti];
+    const sc = LEARN[this.spot.ci], stp = this._topics(this.spot.ci)[this.spot.ti];
     const cards = LEARN.map((c, i) => `
       <button class="learn-card" data-i="${i}" style="--lc:${c.color}">
         <div class="learn-emoji">${c.emoji}</div>
         <div class="learn-cname">${U.esc(this.L(c.name))}</div>
-        <div class="learn-count">${c.topics.length} ${t("learn.topics")}</div>
+        <div class="learn-count">${this._topics(i).length} ${t("learn.topics")}</div>
       </button>`).join("");
     this.host().innerHTML = `
       <div class="panel learn-spot" style="--lc:${sc.color}">
@@ -267,22 +331,25 @@ const Learn = {
         <div class="learn-grid">${cards}</div>
       </div>`;
     U.el("learn-spot-more").addEventListener("click", () => { this.spot = this._randomTopic(); this.paintCats(); });
-    U.el("learn-spot-open").addEventListener("click", () => { this.cat = this.spot.ci; this.open = this.spot.ti; this.paintTopics(); });
+    U.el("learn-spot-open").addEventListener("click", () => this.openCat(this.spot.ci, this.spot.ti));
     this.host().querySelectorAll(".learn-card").forEach(b =>
-      b.addEventListener("click", () => { this.cat = parseInt(b.dataset.i, 10); this.open = -1; this.paintTopics(); }));
+      b.addEventListener("click", () => this.openCat(parseInt(b.dataset.i, 10))));
   },
 
   paintTopics() {
     this.view = "topics"; this.qz = false;
     const c = LEARN[this.cat];
-    const items = c.topics.map((tp, i) => `
-      <div class="learn-topic ${this.open === i ? "open" : ""}" data-i="${i}">
+    const topics = this._topics(this.cat);
+    if (!this.topicOrder || !this.topicOrder.length)
+      this.topicOrder = this._shuffle(topics.map((_, i) => i)).slice(0, Math.min(this.SHOW, topics.length));
+    const items = this.topicOrder.map((ti) => { const tp = topics[ti]; return `
+      <div class="learn-topic ${this.open === ti ? "open" : ""}" data-i="${ti}">
         <button class="learn-thead">${U.esc(this.L(tp.title))}<span class="learn-caret">▾</span></button>
         <div class="learn-tbody">
           <p>${U.esc(this.L(tp.body))}</p>
           <div class="learn-wow">${U.esc(this.L(tp.wow))}</div>
         </div>
-      </div>`).join("");
+      </div>`; }).join("");
     this.host().innerHTML = `
       <div class="panel">
         <button class="btn small learn-back" id="learn-back">${t("learn.back")}</button>
