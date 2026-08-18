@@ -77,7 +77,7 @@ const App = {
   onShow(tab) {
     switch (tab) {
       case "sky":     Sky.resize(); Sky.render(); break;
-      case "tonight": this._tonightShown = true; Tonight.render(); break;
+      case "tonight": this._tonightShown = true; Highlights.enter(); Tonight.render(); break;
       case "events":  if (!Events.shown) Events.render(); break;
       case "iss":     ISS.init().then(() => ISS.start()); break;
       case "live":    Live.enter(); break;

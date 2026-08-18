@@ -282,12 +282,32 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 .cf-input:focus { border-color: var(--border-hi); }
 textarea.cf-input { resize: vertical; min-height: 110px; }
 .cf-hp { position: absolute; left: -9999px; }
+.cf-human { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cf-human label { font-size: 14px; color: var(--text-dim); }
+.cf-num { max-width: 90px; text-align: center; }
 .cf-send { justify-self: start; font-size: 15px; padding: 11px 22px;
   background: linear-gradient(100deg, rgba(122,92,255,0.3), rgba(125,180,255,0.25)); border-color: var(--border-hi); }
 .cf-send:disabled { opacity: .6; cursor: default; }
 .cf-status { font-size: 14px; min-height: 20px; }
 .cf-status.ok { color: var(--good); }
 .cf-status.err { color: var(--warn); }
+
+/* ---------- What can I see tonight? ---------- */
+.hl-panel { background: linear-gradient(160deg, rgba(122,92,255,0.12), var(--panel)); }
+.hl-intro { margin: 2px 0 14px; }
+.hl-row { display: grid; grid-template-columns: 26px 34px 1fr; gap: 12px; align-items: start;
+  padding: 12px 0; border-bottom: 1px solid var(--border); }
+.hl-row:last-of-type { border-bottom: none; }
+.hl-rank { font-family: var(--mono); font-size: 18px; font-weight: 800; color: var(--accent-2); text-align: center; padding-top: 2px; }
+.hl-emoji { font-size: 26px; text-align: center; }
+.hl-name { font-weight: 700; font-size: 15.5px; }
+.hl-inst { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--accent-3); border: 1px solid var(--border); border-radius: 999px; padding: 1px 8px; margin-inline-start: 6px; white-space: nowrap; }
+.hl-why { font-size: 13.5px; color: var(--text-dim); line-height: 1.5; margin: 3px 0; }
+.hl-when { font-size: 13px; color: var(--text); font-family: var(--mono); }
+.hl-bonus { margin-top: 14px; padding: 12px 14px; border-radius: 12px; font-size: 13.5px; line-height: 1.5;
+  background: rgba(125,180,255,0.08); border: 1px solid var(--border); }
+.hl-foot { margin-top: 12px; }
 
 /* ---------- misc ---------- */
 .muted { color: var(--text-dim); }

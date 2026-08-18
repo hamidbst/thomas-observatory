@@ -16,6 +16,8 @@ const About = {
   },
 
   render() {
+    // fresh "are you human?" maths question + a start timestamp each render
+    this.hc = { a: 1 + Math.floor(Math.random() * 8), b: 1 + Math.floor(Math.random() * 8), t0: Date.now() };
     let cover = I18N.t("about.cover");
     if (!Array.isArray(cover)) cover = [];
     U.el("about-app").innerHTML = `
@@ -37,10 +39,14 @@ const About = {
         <div class="panel about-card">
           <div class="section-title">${t("about.contactTitle")}</div>
           <form id="contact-form" class="contact-form" novalidate>
-            <input class="cf-input" name="name" maxlength="60" placeholder="${U.esc(t("about.fName"))}" />
+            <input class="cf-input" name="name" required maxlength="60" placeholder="${U.esc(t("about.fName"))}" />
             <input class="cf-input" name="email" type="email" maxlength="120" placeholder="${U.esc(t("about.fEmail"))}" />
             <input class="cf-input" name="from" maxlength="80" placeholder="${U.esc(t("about.fFrom"))}" />
             <textarea class="cf-input" name="message" required rows="5" maxlength="1500" placeholder="${U.esc(t("about.fMsg"))}"></textarea>
+            <div class="cf-human">
+              <label for="cf-human-in">${U.esc(t("about.human", { a: this.hc.a, b: this.hc.b }))}</label>
+              <input class="cf-input cf-num" id="cf-human-in" name="human" type="text" inputmode="numeric" maxlength="3" autocomplete="off" />
+            </div>
             <input type="checkbox" name="botcheck" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <button type="submit" class="btn cf-send">${t("about.send")}</button>
             <div class="cf-status" id="cf-status" role="status"></div>
@@ -55,13 +61,21 @@ const About = {
     const f = e.target;
     const status = U.el("cf-status");
     if (f.botcheck.checked) return;                       // honeypot: silently ignore bots
+    if (Date.now() - this.hc.t0 < 2500) return;           // submitted implausibly fast = bot
 
     const key = (CONFIG.CONTACT_KEY || "").trim();
     if (!key) { status.className = "cf-status err"; status.textContent = t("about.notSet"); return; }
 
     const name = f.name.value.trim(), email = f.email.value.trim(),
           from = f.from.value.trim(), message = f.message.value.trim();
-    if (!message) return;   // only the message itself is required
+
+    // required name
+    if (!name) { status.className = "cf-status err"; status.textContent = t("about.errName"); f.name.focus(); return; }
+    // human check (simple maths)
+    if (parseInt(f.human.value, 10) !== this.hc.a + this.hc.b) {
+      status.className = "cf-status err"; status.textContent = t("about.errHuman"); f.human.focus(); return;
+    }
+    if (!message) return;
 
     const btn = f.querySelector(".cf-send");
     btn.disabled = true;
@@ -71,7 +85,7 @@ const About = {
       access_key: key,
       subject: "New message from Thomas Nima's Observatory 🔭",
       from_name: "Observatory contact form",
-      name: name || "(no name given)",
+      name: name,
       from_where: from || "—",
       message
     };

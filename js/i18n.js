@@ -55,6 +55,16 @@ const I18N = {
         belowRises: "Below horizon · rises {t}", computing: "computing planet positions…"
       },
 
+      hl: {
+        title: "What can I see tonight?",
+        intro: "The best sights from {place} tonight, ranked — with when and where to look.",
+        bestAround: "Best around {t}", look: "look {dir}, {alt}° high",
+        inst_eye: "naked eye", inst_binoc: "binoculars", inst_scope: "telescope",
+        milkyway: "The Moon is faint tonight — away from city lights, look for the Milky Way: a soft band of light arching across the sky. That's our galaxy seen edge-on.",
+        foot: "Times are for your location and shift as the night goes on.",
+        none: "The Sun barely sets right now (or nothing notable is up) — try again another night."
+      },
+
       phase: {
         new: "New Moon", waxcres: "Waxing Crescent", first: "First Quarter", waxgib: "Waxing Gibbous",
         full: "Full Moon", wangib: "Waning Gibbous", last: "Last Quarter", wancres: "Waning Crescent"
@@ -175,7 +185,9 @@ const I18N = {
         ],
         hear: "I'd love to hear from you! What cool things have you built or discovered? Is there something useful I could add to help you? Write to me below — I read every message, and I'll write back if you leave your email!",
         contactTitle: "Write to me ✉️",
-        fName: "Your first name (optional)", fEmail: "Your email — only if you'd like a reply (optional)",
+        fName: "Your first name", fEmail: "Your email — only if you'd like a reply (optional)",
+        human: "Quick check — what is {a} + {b}?", errName: "Please write your name first. 🙂",
+        errHuman: "Almost! Please answer the little maths question.",
         fFrom: "Where are you from? (optional)", fMsg: "Your message",
         send: "Send 🚀", sending: "Sending…",
         thanks: "Woohoo — your message just blasted off to me! 🚀 I'll read it very soon. Thank you! 🌟",
@@ -228,6 +240,16 @@ const I18N = {
         darkNote: "La « nuit noire » est la fin du crépuscule astronomique — le Soleil est à 18° sous l'horizon et les étoiles les plus faibles ainsi que la Voie lactée deviennent visibles.",
         planetsNote: "« Au-dessus » signifie que l'objet est actuellement au-dessus de ton horizon. La hauteur est l'élévation au-dessus de l'horizon (90° = au zénith) ; l'azimut est la direction (0° = N, 90° = E, 180° = S, 270° = O).",
         belowRises: "Sous l'horizon · se lève à {t}", computing: "calcul des positions des planètes…"
+      },
+
+      hl: {
+        title: "Que puis-je voir ce soir ?",
+        intro: "Les plus beaux objets visibles depuis {place} ce soir, classés — avec quand et où regarder.",
+        bestAround: "Vers {t}", look: "regarde vers {dir}, à {alt}° de hauteur",
+        inst_eye: "à l'œil nu", inst_binoc: "aux jumelles", inst_scope: "au télescope",
+        milkyway: "La Lune est peu lumineuse ce soir — loin des lumières de la ville, cherche la Voie lactée : une douce bande de lumière traversant le ciel. C'est notre galaxie vue par la tranche.",
+        foot: "Les heures correspondent à ta position et évoluent au fil de la nuit.",
+        none: "Le Soleil ne se couche presque pas en ce moment (ou rien de notable n'est visible) — réessaie une autre nuit."
       },
 
       phase: {
@@ -350,7 +372,9 @@ const I18N = {
         ],
         hear: "J'adorerais avoir de tes nouvelles ! Qu'as-tu construit ou découvert de chouette ? Y a-t-il quelque chose d'utile que je pourrais ajouter pour toi ? Écris-moi ci-dessous — je lis chaque message, et je te réponds si tu laisses ton email !",
         contactTitle: "Écris-moi ✉️",
-        fName: "Ton prénom (facultatif)", fEmail: "Ton email — seulement si tu veux une réponse (facultatif)",
+        fName: "Ton prénom", fEmail: "Ton email — seulement si tu veux une réponse (facultatif)",
+        human: "Petite vérification — combien font {a} + {b} ?", errName: "Écris d'abord ton prénom, s'il te plaît. 🙂",
+        errHuman: "Presque ! Réponds à la petite question de calcul.",
         fFrom: "D'où viens-tu ? (facultatif)", fMsg: "Ton message",
         send: "Envoyer 🚀", sending: "Envoi…",
         thanks: "Youpi — ton message vient de décoller vers moi ! 🚀 Je le lirai très bientôt. Merci ! 🌟",
@@ -402,6 +426,16 @@ const I18N = {
         darkNote: "«آسمان تاریک» پایان گرگ‌ومیش نجومی است — خورشید ۱۸ درجه زیر افق است و کم‌نورترین ستاره‌ها و راه شیری دیده می‌شوند.",
         planetsNote: "«بالای افق» یعنی جرم اکنون بالای افق توست. ارتفاع یعنی بلندی از افق (۹۰ درجه = درست بالای سر)؛ سمت جهت قطب‌نماست (۰ = شمال، ۹۰ = شرق، ۱۸۰ = جنوب، ۲۷۰ = غرب).",
         belowRises: "زیر افق · طلوع در {t}", computing: "در حال محاسبهٔ موقعیت سیاره‌ها…"
+      },
+
+      hl: {
+        title: "امشب چه چیزهایی می‌توانم ببینم؟",
+        intro: "بهترین دیدنی‌های امشب از {place}، رتبه‌بندی‌شده — همراه با زمان و جهت نگاه.",
+        bestAround: "حدود ساعت {t}", look: "به سمت {dir} نگاه کن، {alt} درجه بالای افق",
+        inst_eye: "با چشم غیرمسلح", inst_binoc: "با دوربین دوچشمی", inst_scope: "با تلسکوپ",
+        milkyway: "امشب ماه کم‌نور است — دور از نورهای شهر، دنبال راه شیری بگرد: نواری نرم از نور که در آسمان کشیده شده. این کهکشان ماست که از پهلو دیده می‌شود.",
+        foot: "ساعت‌ها برای موقعیت توست و در طول شب تغییر می‌کنند.",
+        none: "خورشید در این ایام تقریباً غروب نمی‌کند (یا چیز مهمی بالای افق نیست) — شبی دیگر امتحان کن."
       },
 
       phase: {
@@ -524,7 +558,9 @@ const I18N = {
         ],
         hear: "خیلی دوست دارم از تو بشنوم! چه چیزهای باحالی ساخته یا کشف کرده‌ای؟ چیز مفیدی هست که بتوانم برایت اضافه کنم؟ پایین برایم بنویس — هر پیام را می‌خوانم و اگر ایمیلت را بگذاری برایت جواب می‌دهم!",
         contactTitle: "برایم بنویس ✉️",
-        fName: "نام کوچک تو (اختیاری)", fEmail: "ایمیل تو — فقط اگر جواب می‌خواهی (اختیاری)",
+        fName: "نام کوچک تو", fEmail: "ایمیل تو — فقط اگر جواب می‌خواهی (اختیاری)",
+        human: "یک بررسی کوتاه — {a} + {b} چند می‌شود؟", errName: "لطفاً اول نامت را بنویس. 🙂",
+        errHuman: "تقریباً! لطفاً به سؤال کوچک ریاضی پاسخ بده.",
         fFrom: "اهل کجایی؟ (اختیاری)", fMsg: "پیام تو",
         send: "ارسال 🚀", sending: "در حال ارسال…",
         thanks: "هورا — پیامت همین الان به‌سوی من پرتاب شد! 🚀 خیلی زود می‌خوانمش. ممنون! 🌟",
