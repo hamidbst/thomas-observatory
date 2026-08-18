@@ -21,7 +21,7 @@ const I18N = {
                current: "Currently showing", change: "change", denied: "Location unavailable — using the default city." },
       fact:  { loading: "Loading a cosmic fact…", another: "Another →" },
       nav:   { sky: "Live Sky", tonight: "Tonight", events: "Events", iss: "ISS",
-               live: "Space Live", news: "News & APOD", quiz: "Quiz", about: "About Me" },
+               live: "Space Live", news: "News & APOD", quiz: "Quiz", learn: "Learn", about: "About Me" },
 
       common:{ up: "UP", down: "down", telescope: "telescope", min: "min", now: "now",
                rises: "rises", sets: "sets", altitude: "Altitude", lit: "lit", loadingGeneric: "loading…" },
@@ -63,6 +63,18 @@ const I18N = {
         milkyway: "The Moon is faint tonight — away from city lights, look for the Milky Way: a soft band of light arching across the sky. That's our galaxy seen edge-on.",
         foot: "Times are for your location and shift as the night goes on.",
         none: "The Sun barely sets right now (or nothing notable is up) — try again another night."
+      },
+
+      learn: {
+        title: "Learn about Space",
+        intro: "Pick a subject and discover cool facts, explained simply.",
+        topics: "topics", back: "← Subjects", backTopics: "← Back to topics",
+        test: "🎯 Test what you learned",
+        correct: "Correct!", wrong: "Not quite.", next: "Next →", seeResult: "See result",
+        again: "Try again", scoreLine: "You got {s} of {n}.",
+        rPerfect: "Perfect! You really learned this. 🌟",
+        rGood: "Well done — you've got it! 👍",
+        rLow: "Good try! Read the topics again and you'll ace it. 📚"
       },
 
       phase: {
@@ -208,7 +220,7 @@ const I18N = {
                current: "Affichage actuel", change: "changer", denied: "Position indisponible — utilisation de la ville par défaut." },
       fact:  { loading: "Chargement d'un fait cosmique…", another: "Un autre →" },
       nav:   { sky: "Ciel en direct", tonight: "Ce soir", events: "Événements", iss: "ISS",
-               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz", about: "À propos" },
+               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz", learn: "Apprendre", about: "À propos" },
 
       common:{ up: "AU-DESSUS", down: "sous l'horizon", telescope: "télescope", min: "min", now: "maintenant",
                rises: "se lève", sets: "se couche", altitude: "Hauteur", lit: "éclairée", loadingGeneric: "chargement…" },
@@ -250,6 +262,18 @@ const I18N = {
         milkyway: "La Lune est peu lumineuse ce soir — loin des lumières de la ville, cherche la Voie lactée : une douce bande de lumière traversant le ciel. C'est notre galaxie vue par la tranche.",
         foot: "Les heures correspondent à ta position et évoluent au fil de la nuit.",
         none: "Le Soleil ne se couche presque pas en ce moment (ou rien de notable n'est visible) — réessaie une autre nuit."
+      },
+
+      learn: {
+        title: "Apprends l'espace",
+        intro: "Choisis un sujet et découvre des faits fascinants, expliqués simplement.",
+        topics: "sujets", back: "← Sujets", backTopics: "← Retour aux sujets",
+        test: "🎯 Teste ce que tu as appris",
+        correct: "Correct !", wrong: "Presque…", next: "Suivant →", seeResult: "Voir le résultat",
+        again: "Réessayer", scoreLine: "Tu as {s} sur {n}.",
+        rPerfect: "Parfait ! Tu as vraiment tout retenu. 🌟",
+        rGood: "Bravo — c'est acquis ! 👍",
+        rLow: "Bel essai ! Relis les sujets et tu vas y arriver. 📚"
       },
 
       phase: {
@@ -394,7 +418,7 @@ const I18N = {
                current: "در حال نمایش", change: "تغییر", denied: "موقعیت در دسترس نیست — از شهر پیش‌فرض استفاده می‌شود." },
       fact:  { loading: "در حال بارگذاری یک نکتهٔ کیهانی…", another: "یکی دیگر ←" },
       nav:   { sky: "آسمان زنده", tonight: "امشب", events: "رویدادها", iss: "ایستگاه فضایی",
-               live: "فضا زنده", news: "اخبار و تصویر", quiz: "آزمون", about: "دربارهٔ من" },
+               live: "فضا زنده", news: "اخبار و تصویر", quiz: "آزمون", learn: "آموزش", about: "دربارهٔ من" },
 
       common:{ up: "بالای افق", down: "زیر افق", telescope: "تلسکوپ", min: "دقیقه", now: "اکنون",
                rises: "طلوع", sets: "غروب", altitude: "ارتفاع", lit: "روشن", loadingGeneric: "در حال بارگذاری…" },
@@ -436,6 +460,18 @@ const I18N = {
         milkyway: "امشب ماه کم‌نور است — دور از نورهای شهر، دنبال راه شیری بگرد: نواری نرم از نور که در آسمان کشیده شده. این کهکشان ماست که از پهلو دیده می‌شود.",
         foot: "ساعت‌ها برای موقعیت توست و در طول شب تغییر می‌کنند.",
         none: "خورشید در این ایام تقریباً غروب نمی‌کند (یا چیز مهمی بالای افق نیست) — شبی دیگر امتحان کن."
+      },
+
+      learn: {
+        title: "دربارهٔ فضا بیاموز",
+        intro: "یک موضوع را انتخاب کن و نکته‌های جالبی را ساده و روشن کشف کن.",
+        topics: "موضوع", back: "← موضوع‌ها", backTopics: "← بازگشت به موضوع‌ها",
+        test: "🎯 آموخته‌هایت را بسنج",
+        correct: "درست!", wrong: "نزدیک بود…", next: "بعدی ←", seeResult: "دیدن نتیجه",
+        again: "دوباره امتحان کن", scoreLine: "{s} از {n} درست.",
+        rPerfect: "عالی! واقعاً یاد گرفتی. 🌟",
+        rGood: "آفرین — بلدی! 👍",
+        rLow: "تلاش خوبی بود! موضوع‌ها را دوباره بخوان تا عالی شوی. 📚"
       },
 
       phase: {
@@ -581,12 +617,41 @@ const I18N = {
   LANGS: ["en", "fr", "fa"],
   LANG_LABELS: { en: "EN", fr: "FR", fa: "فا" },
 
+  // Countries where French is the main language (→ French). Bilingual countries
+  // (BE/CH/CA) fall back to the browser language as a tiebreaker.
+  FR_PRIMARY: new Set(["FR","MC","LU","GP","MQ","GF","RE","YT","NC","PF","WF","PM","BL","MF",
+    "BJ","BF","CG","CD","CI","DJ","GA","GN","ML","NE","SN","TG","CM","MG","HT","CF","TD","KM","SC","VU"]),
+  FR_PARTIAL: new Set(["BE","CH","CA"]),
+
   init() {
     const saved = localStorage.getItem("obs-lang");
+    if (saved && this.LANGS.includes(saved)) { this.lang = saved; this._applyDir(); return; }
+    // No manual choice yet → provisionally use the browser language, then refine by country.
     const nav = (navigator.language || "").toLowerCase();
-    this.lang = (saved && this.LANGS.includes(saved)) ? saved
-              : nav.startsWith("fa") ? "fa" : nav.startsWith("fr") ? "fr" : "en";
+    this.lang = nav.startsWith("fa") ? "fa" : nav.startsWith("fr") ? "fr" : "en";
     this._applyDir();
+    this._autoDetect(nav);
+  },
+
+  // Look up the visitor's country (by IP — no permission prompt) and switch the
+  // language to match, unless they've meanwhile chosen one manually.
+  async _autoDetect(nav) {
+    let cc = "";
+    try {
+      const r = await fetch("https://get.geojs.io/v1/ip/country.json", { cache: "no-store" });
+      if (r.ok) { const j = await r.json(); cc = String(j.country || j.country_code || "").toUpperCase(); }
+    } catch (e) {}
+    if (localStorage.getItem("obs-lang")) return;   // manual choice was made — respect it
+    const mapped = this._langForCountry(cc, nav);
+    if (mapped && mapped !== this.lang) this._applyLang(mapped);
+  },
+
+  _langForCountry(cc, nav) {
+    nav = nav || "";
+    if (cc === "IR") return "fa";
+    if (this.FR_PRIMARY.has(cc)) return "fr";
+    if (this.FR_PARTIAL.has(cc)) return nav.startsWith("fr") ? "fr" : "en";
+    return nav.startsWith("fr") ? "fr" : nav.startsWith("fa") ? "fa" : "en";
   },
 
   _applyDir() {
@@ -621,9 +686,15 @@ const I18N = {
     document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.setAttribute("placeholder", this.t(el.getAttribute("data-i18n-ph"))); });
   },
 
+  // Manual choice from the toggle — remembered across visits.
   setLang(lang) {
-    this.lang = lang;
     localStorage.setItem("obs-lang", lang);
+    this._applyLang(lang);
+  },
+
+  // Apply a language (auto or manual) without persisting it.
+  _applyLang(lang) {
+    this.lang = lang;
     this._applyDir();
     this.applyStatic();
     this._renderToggle();

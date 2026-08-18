@@ -292,6 +292,33 @@ textarea.cf-input { resize: vertical; min-height: 110px; }
 .cf-status.ok { color: var(--good); }
 .cf-status.err { color: var(--warn); }
 
+/* ---------- Learn ---------- */
+.learn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.learn-card { text-align: left; cursor: pointer; color: var(--text);
+  background: rgba(20,26,48,0.6); border: 1px solid var(--border); border-top: 3px solid var(--lc);
+  border-radius: 14px; padding: 18px 16px; font-family: var(--font); transition: all .16s ease; }
+.learn-card:hover { transform: translateY(-3px); border-color: var(--lc); box-shadow: 0 10px 28px rgba(0,0,0,0.35); }
+.learn-emoji { font-size: 30px; margin-bottom: 8px; }
+.learn-cname { font-size: 16.5px; font-weight: 700; color: var(--lc); }
+.learn-count { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); font-family: var(--mono); margin-top: 4px; }
+.learn-back { margin-bottom: 4px; }
+.learn-topic { border: 1px solid var(--border); border-radius: 12px; margin-top: 10px; overflow: hidden; }
+.learn-topic.open { border-color: var(--border-hi); }
+.learn-thead { width: 100%; text-align: left; background: rgba(125,180,255,0.05); border: none; color: var(--text);
+  font-family: var(--font); font-size: 15.5px; font-weight: 600; padding: 13px 15px; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.learn-thead:hover { background: rgba(125,180,255,0.1); }
+.learn-caret { transition: transform .2s ease; color: var(--text-dim); flex: none; }
+.learn-topic.open .learn-caret { transform: rotate(180deg); }
+.learn-tbody { display: none; padding: 4px 15px 16px; }
+.learn-topic.open .learn-tbody { display: block; animation: fade .3s ease; }
+.learn-tbody p { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); margin: 6px 0 12px; }
+.learn-wow { font-size: 14px; line-height: 1.55; padding: 11px 13px; border-radius: 10px;
+  background: linear-gradient(100deg, rgba(255,207,107,0.14), rgba(122,92,255,0.08)); border: 1px solid var(--border); }
+[dir="rtl"] .learn-card, [dir="rtl"] .learn-thead { text-align: right; }
+.learn-test { margin-top: 16px; font-size: 15px; padding: 11px 22px;
+  background: linear-gradient(100deg, rgba(122,92,255,0.3), rgba(125,180,255,0.25)); border-color: var(--border-hi); }
+
 /* ---------- What can I see tonight? ---------- */
 .hl-panel { background: linear-gradient(160deg, rgba(122,92,255,0.12), var(--panel)); }
 .hl-intro { margin: 2px 0 14px; }
