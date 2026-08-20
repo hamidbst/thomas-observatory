@@ -84,6 +84,7 @@ const App = {
       case "news":    News.loadAll(); break;
       case "quiz":    Quiz.enter(); break;
       case "learn":   Learn.enter(); break;
+      case "history": Timeline.enter(); break;
       case "about":   About.enter(); break;
     }
   },

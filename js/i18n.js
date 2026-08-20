@@ -21,7 +21,7 @@ const I18N = {
                current: "Currently showing", change: "change", denied: "Location unavailable — using the default city." },
       fact:  { loading: "Loading a cosmic fact…", another: "Another →" },
       nav:   { sky: "Live Sky", tonight: "Tonight", events: "Events", iss: "ISS",
-               live: "Space Live", news: "News & APOD", quiz: "Quiz", learn: "Learn", about: "About Me" },
+               live: "Space Live", news: "News & APOD", quiz: "Quiz", learn: "Learn", history: "History", about: "About Me" },
 
       common:{ up: "UP", down: "down", telescope: "telescope", min: "min", now: "now",
                rises: "rises", sets: "sets", altitude: "Altitude", lit: "lit", loadingGeneric: "loading…" },
@@ -76,6 +76,11 @@ const I18N = {
         rPerfect: "Perfect! You really learned this. 🌟",
         rGood: "Well done — you've got it! 👍",
         rLow: "Good try! Read the topics again and you'll ace it. 📚"
+      },
+
+      history: {
+        title: "The Story of Astronomy",
+        intro: "How our understanding of the universe grew, one big idea at a time. Tap a stage to read more."
       },
 
       phase: {
@@ -221,7 +226,7 @@ const I18N = {
                current: "Affichage actuel", change: "changer", denied: "Position indisponible — utilisation de la ville par défaut." },
       fact:  { loading: "Chargement d'un fait cosmique…", another: "Un autre →" },
       nav:   { sky: "Ciel en direct", tonight: "Ce soir", events: "Événements", iss: "ISS",
-               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz", learn: "Apprendre", about: "À propos" },
+               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz", learn: "Apprendre", history: "Histoire", about: "À propos" },
 
       common:{ up: "AU-DESSUS", down: "sous l'horizon", telescope: "télescope", min: "min", now: "maintenant",
                rises: "se lève", sets: "se couche", altitude: "Hauteur", lit: "éclairée", loadingGeneric: "chargement…" },
@@ -276,6 +281,11 @@ const I18N = {
         rPerfect: "Parfait ! Tu as vraiment tout retenu. 🌟",
         rGood: "Bravo — c'est acquis ! 👍",
         rLow: "Bel essai ! Relis les sujets et tu vas y arriver. 📚"
+      },
+
+      history: {
+        title: "L'histoire de l'astronomie",
+        intro: "Comment notre compréhension de l'univers a grandi, une grande idée à la fois. Touche une étape pour en savoir plus."
       },
 
       phase: {
@@ -420,7 +430,7 @@ const I18N = {
                current: "در حال نمایش", change: "تغییر", denied: "موقعیت در دسترس نیست — از شهر پیش‌فرض استفاده می‌شود." },
       fact:  { loading: "در حال بارگذاری یک نکتهٔ کیهانی…", another: "یکی دیگر ←" },
       nav:   { sky: "آسمان زنده", tonight: "امشب", events: "رویدادها", iss: "ایستگاه فضایی",
-               live: "فضا زنده", news: "اخبار و تصویر", quiz: "آزمون", learn: "آموزش", about: "دربارهٔ من" },
+               live: "فضا زنده", news: "اخبار و تصویر", quiz: "آزمون", learn: "آموزش", history: "تاریخ", about: "دربارهٔ من" },
 
       common:{ up: "بالای افق", down: "زیر افق", telescope: "تلسکوپ", min: "دقیقه", now: "اکنون",
                rises: "طلوع", sets: "غروب", altitude: "ارتفاع", lit: "روشن", loadingGeneric: "در حال بارگذاری…" },
@@ -475,6 +485,11 @@ const I18N = {
         rPerfect: "عالی! واقعاً یاد گرفتی. 🌟",
         rGood: "آفرین — بلدی! 👍",
         rLow: "تلاش خوبی بود! موضوع‌ها را دوباره بخوان تا عالی شوی. 📚"
+      },
+
+      history: {
+        title: "داستان ستاره‌شناسی",
+        intro: "چگونه درک ما از جهان، با هر ایدهٔ بزرگ، گام‌به‌گام رشد کرد. روی هر مرحله بزن تا بیشتر بخوانی."
       },
 
       phase: {
