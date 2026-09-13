@@ -108,11 +108,25 @@ const Events = {
     const out = [];
     for (const b of ["Mars","Jupiter","Saturn","Uranus","Neptune"]) {
       try {
-        let t0 = Astronomy.SearchRelativeLongitude(Astronomy.Body[b], 180, start);
-        if (t0 && t0.date <= end) {
-          const planet = I18N.body(b);
-          out.push({ date: t0.date, type: "planet", emoji: "🪐", label: t("events.l_planet"),
-            title: t("events.opposition", { planet }), desc: t("events.oppositionDesc", { planet }) });
+        let from = start;
+        for (let i = 0; i < 3; i++) {
+          // targetRelLon 0 = Earth & planet at the same heliocentric longitude → opposition
+          // (as seen from Earth). 180 would be conjunction — the far side of the Sun.
+          const t0 = Astronomy.SearchRelativeLongitude(Astronomy.Body[b], 0, from);
+          if (!t0 || t0.date > end) break;
+          if (t0.date >= start) {
+            const d = t0.date;
+            const planet = I18N.body(b);
+            const m = U.oppMetrics(b, d) || { mkm: 0, great: false };
+            let mag = null; try { mag = Astronomy.Illumination(Astronomy.Body[b], d).mag; } catch(e){}
+            const magS = (mag !== null) ? mag.toFixed(1) : "—";
+            const mkmS = m.mkm.toLocaleString(U.locale());
+            out.push({ date: d, type: "planet", emoji: m.great ? "🌟" : "🪐", label: t("events.l_planet"),
+              title: m.great ? t("events.greatOpposition", { planet }) : t("events.opposition", { planet }),
+              desc:  m.great ? t("events.greatOppositionDesc", { planet, mkm: mkmS, mag: magS })
+                             : t("events.oppositionDesc", { planet, mkm: mkmS, mag: magS }) });
+          }
+          from = new Date(t0.date.getTime() + 30 * 86400000);
         }
       } catch(e){}
     }
