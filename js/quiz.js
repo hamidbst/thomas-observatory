@@ -5,20 +5,20 @@
    ============================================================================= */
 
 const QUIZ_CATS = {
-  solar:   { en: "Solar System", fr: "Système solaire", fa: "منظومهٔ شمسی", color: "#e8c48c" },
-  deep:    { en: "Deep Space",   fr: "Ciel profond",    fa: "کیهان ژرف",    color: "#b98cff" },
-  phys:    { en: "Physics",      fr: "Physique",         fa: "فیزیک",        color: "#7db4ff" },
-  stars:   { en: "Stars",        fr: "Étoiles",          fa: "ستاره‌ها",      color: "#ffcf6b" },
-  explore: { en: "Exploration",  fr: "Exploration",      fa: "اکتشاف فضا",   color: "#6ee7a8" },
+  solar:   { en: "Solar System", fr: "Système solaire", color: "#e8c48c" },
+  deep:    { en: "Deep Space",   fr: "Ciel profond",    color: "#b98cff" },
+  phys:    { en: "Physics",      fr: "Physique",        color: "#7db4ff" },
+  stars:   { en: "Stars",        fr: "Étoiles",      color: "#ffcf6b" },
+  explore: { en: "Exploration",  fr: "Exploration",   color: "#6ee7a8" },
 };
 
 const QUIZ_LEVELS = [
-  { id:0, emoji:"🚀", color:"#6ee7a8", name:{en:"Launchpad",     fr:"Rampe de lancement",   fa:"سکوی پرتاب"},        desc:{en:"Warm-up — the basics of space.",         fr:"Échauffement — les bases de l'espace.",         fa:"گرم‌کردن — پایه‌های فضا."} },
-  { id:1, emoji:"🛰️", color:"#7db4ff", name:{en:"In Orbit",       fr:"En orbite",            fa:"در مدار"},           desc:{en:"Our Solar System and the night sky.",    fr:"Notre système solaire et le ciel nocturne.",    fa:"منظومهٔ شمسی و آسمان شب."} },
-  { id:2, emoji:"🌙", color:"#b98cff", name:{en:"Deep Space",     fr:"Espace lointain",      fa:"فضای ژرف"},          desc:{en:"Stars, galaxies and light.",             fr:"Étoiles, galaxies et lumière.",                 fa:"ستاره‌ها، کهکشان‌ها و نور."} },
-  { id:3, emoji:"☄️", color:"#ffcf6b", name:{en:"Interstellar",   fr:"Interstellaire",       fa:"میان‌ستاره‌ای"},     desc:{en:"For serious sky-watchers.",              fr:"Pour les vrais observateurs du ciel.",          fa:"برای رصدگران جدی آسمان."} },
-  { id:4, emoji:"🌌", color:"#ff6b81", name:{en:"Event Horizon",  fr:"Horizon des événements",fa:"افق رویداد"},        desc:{en:"Expert — bend your mind.",               fr:"Expert — de quoi se tordre l'esprit.",          fa:"حرفه‌ای — ذهنت را به چالش بکش."} },
-  { id:5, emoji:"🕳️", color:"#ff5ecb", name:{en:"Singularity",    fr:"Singularité",          fa:"تکینگی"},            desc:{en:"The hardest of all — physics at the edge of what we know.", fr:"Le plus dur de tous — la physique aux limites du savoir.", fa:"سخت‌ترین سطح — فیزیک در مرز دانستهٔ ما."} },
+  { id:0, emoji:"🚀", color:"#6ee7a8", name:{en:"Launchpad",     fr:"Rampe de lancement"},        desc:{en:"Warm-up — the basics of space.",         fr:"Échauffement — les bases de l'espace."} },
+  { id:1, emoji:"🛰️", color:"#7db4ff", name:{en:"In Orbit",       fr:"En orbite"},           desc:{en:"Our Solar System and the night sky.",    fr:"Notre système solaire et le ciel nocturne."} },
+  { id:2, emoji:"🌙", color:"#b98cff", name:{en:"Deep Space",     fr:"Espace lointain"},          desc:{en:"Stars, galaxies and light.",             fr:"Étoiles, galaxies et lumière."} },
+  { id:3, emoji:"☄️", color:"#ffcf6b", name:{en:"Interstellar",   fr:"Interstellaire"},     desc:{en:"For serious sky-watchers.",              fr:"Pour les vrais observateurs du ciel."} },
+  { id:4, emoji:"🌌", color:"#ff6b81", name:{en:"Event Horizon",  fr:"Horizon des événements"},        desc:{en:"Expert — bend your mind.",               fr:"Expert — de quoi se tordre l'esprit."} },
+  { id:5, emoji:"🕳️", color:"#ff5ecb", name:{en:"Singularity",    fr:"Singularité"},            desc:{en:"The hardest of all — physics at the edge of what we know.", fr:"Le plus dur de tous — la physique aux limites du savoir."} },
 ];
 
 const QUIZ_BANK = [
@@ -318,24 +318,24 @@ const QUIZ_BANK = [
 // Fun, performance-based end messages (two variants per tier for replay variety).
 const RESULT_MSGS = {
   perfect: [
-    {en:"Flawless. Mission control is speechless — not a single miss. 🌟", fr:"Sans faute. Le centre de contrôle est bouche bée — pas une seule erreur ! 🌟", fa:"بی‌نقص! مرکز کنترل مأموریت مبهوت است — حتی یک اشتباه هم نکردی. 🌟"},
-    {en:"A perfect score! NASA is checking whether you're secretly an astrophysicist. 🚀", fr:"Score parfait ! La NASA vérifie si tu n'es pas un astrophysicien secret. 🚀", fa:"نمرهٔ کامل! ناسا دارد بررسی می‌کند که نکند مخفیانه اخترفیزیک‌دان باشی. 🚀"},
+    {en:"Flawless. Mission control is speechless — not a single miss. 🌟", fr:"Sans faute. Le centre de contrôle est bouche bée — pas une seule erreur ! 🌟"},
+    {en:"A perfect score! NASA is checking whether you're secretly an astrophysicist. 🚀", fr:"Score parfait ! La NASA vérifie si tu n'es pas un astrophysicien secret. 🚀"},
   ],
   great: [
-    {en:"Stellar work — you're orbiting the very top, a whisker from perfect! ✨", fr:"Travail stellaire — tu frôles la perfection, à un cheveu du sans-faute ! ✨", fa:"عالی بود — تا نوکِ قله فاصله‌ای نداری، یک قدم تا بی‌نقص! ✨"},
-    {en:"Brilliant! The cosmos has very few secrets left from you. 🔭", fr:"Brillant ! Le cosmos n'a presque plus de secrets pour toi. 🔭", fa:"درخشان! کیهان دیگر تقریباً هیچ رازی برایت ندارد. 🔭"},
+    {en:"Stellar work — you're orbiting the very top, a whisker from perfect! ✨", fr:"Travail stellaire — tu frôles la perfection, à un cheveu du sans-faute ! ✨"},
+    {en:"Brilliant! The cosmos has very few secrets left from you. 🔭", fr:"Brillant ! Le cosmos n'a presque plus de secrets pour toi. 🔭"},
   ],
   good: [
-    {en:"Solid flying! You know your way around the sky — keep climbing. 🌠", fr:"Beau pilotage ! Tu connais bien le ciel — continue de grimper. 🌠", fa:"پرواز خوبی بود! راهت را در آسمان بلدی — بالاتر برو. 🌠"},
-    {en:"Nice run — you're well past the clouds and the stars are getting closer. 🚀", fr:"Belle manche — tu as dépassé les nuages, les étoiles se rapprochent. 🚀", fa:"دور خوبی بود — از ابرها گذشتی و ستاره‌ها دارند نزدیک می‌شوند. 🚀"},
+    {en:"Solid flying! You know your way around the sky — keep climbing. 🌠", fr:"Beau pilotage ! Tu connais bien le ciel — continue de grimper. 🌠"},
+    {en:"Nice run — you're well past the clouds and the stars are getting closer. 🚀", fr:"Belle manche — tu as dépassé les nuages, les étoiles se rapprochent. 🚀"},
   ],
   ok: [
-    {en:"Liftoff achieved! A few wobbles, but you're airborne — try again and soar higher. 🛰️", fr:"Décollage réussi ! Quelques secousses, mais tu voles — retente pour monter plus haut. 🛰️", fa:"پرتاب موفق! کمی لرزش داشت، اما در هوایی — دوباره امتحان کن و بالاتر برو. 🛰️"},
-    {en:"Not bad, cadet — every astronaut trains a lot. One more orbit? 🌙", fr:"Pas mal, cadet — tout astronaute s'entraîne beaucoup. Encore une orbite ? 🌙", fa:"بد نبود، خلبان جوان — هر فضانوردی زیاد تمرین می‌کند. یک دور دیگر؟ 🌙"},
+    {en:"Liftoff achieved! A few wobbles, but you're airborne — try again and soar higher. 🛰️", fr:"Décollage réussi ! Quelques secousses, mais tu voles — retente pour monter plus haut. 🛰️"},
+    {en:"Not bad, cadet — every astronaut trains a lot. One more orbit? 🌙", fr:"Pas mal, cadet — tout astronaute s'entraîne beaucoup. Encore une orbite ? 🌙"},
   ],
   low: [
-    {en:"Houston, we have some studying to do! 😄 The universe is tricky — give it another shot.", fr:"Houston, on a des révisions à faire ! 😄 L'univers est retors — retente ta chance.", fa:"هیوستون، کمی درس‌خواندن لازم داریم! 😄 کیهان کلک دارد — یک بار دیگر امتحان کن."},
-    {en:"Every great astronomer started at zero gravity. Dust off and launch again! 🌌", fr:"Tout grand astronome a commencé en apesanteur. Repars à l'assaut ! 🌌", fa:"هر ستاره‌شناس بزرگی از بی‌وزنی شروع کرده. گردوغبار را بتکان و دوباره پرتاب شو! 🌌"},
+    {en:"Houston, we have some studying to do! 😄 The universe is tricky — give it another shot.", fr:"Houston, on a des révisions à faire ! 😄 L'univers est retors — retente ta chance."},
+    {en:"Every great astronomer started at zero gravity. Dust off and launch again! 🌌", fr:"Tout grand astronome a commencé en apesanteur. Repars à l'assaut ! 🌌"},
   ],
 };
 
@@ -355,13 +355,8 @@ const Quiz = {
 
   L(o) { const l = (window.I18N && I18N.lang) || "en"; return (o[l] != null) ? o[l] : o.en; },
 
-  // Persian question text lives in a separate lookup (js/quiz_fa.js), keyed by the
-  // English question. field is "q" | "choices" | "exp".
+  // field is "q" | "choices" | "exp".
   Lq(q, field) {
-    if (window.I18N && I18N.lang === "fa" && typeof QUIZ_FA !== "undefined") {
-      const f = QUIZ_FA[q.q.en];
-      if (f && f[field]) return f[field];
-    }
     const l = (window.I18N && I18N.lang) || "en";
     return (q[field][l] != null) ? q[field][l] : q[field].en;
   },

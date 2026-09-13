@@ -52,7 +52,10 @@ const I18N = {
         darkBegins: "Dark sky begins", dawnEnds: "Dawn (dark ends)",
         darkNote: "“Dark sky” is astronomical twilight’s end — the Sun is 18° below the horizon and the faintest stars and the Milky Way become visible.",
         planetsNote: "“Up” means the object is currently above your horizon. Altitude is height above the horizon (90° = straight overhead); azimuth is the compass direction (0° = N, 90° = E, 180° = S, 270° = W).",
-        belowRises: "Below horizon · rises {t}", computing: "computing planet positions…"
+        belowRises: "Below horizon · rises {t}", computing: "computing planet positions…",
+        oppNow: "At opposition", oppNear: "Near opposition", oppGreat: "Great opposition!",
+        oppLine: "Opposite the Sun — up all night, at its biggest & brightest. ~{mkm} million km away · mag {mag}.",
+        oppLineGreat: "A close (perihelic) opposition — unusually near Earth! ~{mkm} million km · mag {mag}. Up all night, exceptionally big & bright."
       },
 
       hl: {
@@ -107,7 +110,9 @@ const I18N = {
         solarEclipse: "{kind} Solar Eclipse",
         solarDesc: "The Moon covers the Sun somewhere on Earth (peak near {lat}°, {lon}°). NEVER look at the Sun without proper eclipse glasses.",
         opposition: "{planet} at Opposition",
-        oppositionDesc: "{planet} is opposite the Sun — closest, biggest, and brightest for the year, and up all night. The best time to observe it.",
+        oppositionDesc: "{planet} sits opposite the Sun — up all night and at its biggest and brightest. About {mkm} million km from Earth (mag {mag}). The best time to observe it.",
+        greatOpposition: "{planet} — a Great (Close) Opposition 🌟",
+        greatOppositionDesc: "A special one! {planet} reaches opposition near its closest approach to the Sun, so it comes unusually close to Earth — about {mkm} million km (mag {mag}). Notably bigger and brighter than an ordinary opposition — grab a telescope.",
         elongation: "{planet} at Greatest Elongation",
         elongationDesc: "{planet} is at its farthest from the Sun in our sky ({deg}°) — best visible {when}.",
         whenMorning: "before sunrise in the east", whenEvening: "after sunset in the west",
@@ -257,7 +262,10 @@ const I18N = {
         darkBegins: "Nuit noire dès", dawnEnds: "Aube (fin de nuit)",
         darkNote: "La « nuit noire » est la fin du crépuscule astronomique — le Soleil est à 18° sous l'horizon et les étoiles les plus faibles ainsi que la Voie lactée deviennent visibles.",
         planetsNote: "« Au-dessus » signifie que l'objet est actuellement au-dessus de ton horizon. La hauteur est l'élévation au-dessus de l'horizon (90° = au zénith) ; l'azimut est la direction (0° = N, 90° = E, 180° = S, 270° = O).",
-        belowRises: "Sous l'horizon · se lève à {t}", computing: "calcul des positions des planètes…"
+        belowRises: "Sous l'horizon · se lève à {t}", computing: "calcul des positions des planètes…",
+        oppNow: "À l'opposition", oppNear: "Proche de l'opposition", oppGreat: "Grande opposition !",
+        oppLine: "À l'opposé du Soleil — visible toute la nuit, au plus grand et au plus brillant. ~{mkm} millions de km · mag {mag}.",
+        oppLineGreat: "Une opposition rapprochée (périhélique) — exceptionnellement près de la Terre ! ~{mkm} millions de km · mag {mag}. Visible toute la nuit, particulièrement grande et brillante."
       },
 
       hl: {
@@ -312,7 +320,9 @@ const I18N = {
         solarEclipse: "Éclipse Solaire {kind}",
         solarDesc: "La Lune cache le Soleil quelque part sur Terre (maximum vers {lat}°, {lon}°). Ne regarde JAMAIS le Soleil sans lunettes d'éclipse adaptées.",
         opposition: "{planet} à l'Opposition",
-        oppositionDesc: "{planet} est à l'opposé du Soleil — au plus près, plus grande et plus brillante de l'année, et visible toute la nuit. Le meilleur moment pour l'observer.",
+        oppositionDesc: "{planet} est à l'opposé du Soleil — visible toute la nuit, au plus grand et au plus brillant. À environ {mkm} millions de km de la Terre (mag {mag}). Le meilleur moment pour l'observer.",
+        greatOpposition: "{planet} — une grande opposition (rapprochée) 🌟",
+        greatOppositionDesc: "Une opposition spéciale ! {planet} atteint l'opposition près de son point le plus proche du Soleil : elle s'approche donc exceptionnellement de la Terre — environ {mkm} millions de km (mag {mag}). Nettement plus grande et plus brillante qu'une opposition ordinaire — sors le télescope.",
         elongation: "{planet} à sa plus grande élongation",
         elongationDesc: "{planet} est au plus loin du Soleil dans notre ciel ({deg}°) — mieux visible {when}.",
         whenMorning: "avant le lever du Soleil, à l'est", whenEvening: "après le coucher du Soleil, à l'ouest",
@@ -418,222 +428,17 @@ const I18N = {
         notSet: "La boîte à messages n'est pas encore activée. (Pour les grands : voir le README pour ajouter une clé de contact gratuite.)"
       }
     },
-
-    fa: {
-      brand: { sub: "داشبورد زندهٔ آسمان", title: "رصدخانهٔ نیما", observatory: "رصدخانه" },
-      loc:   { locating: "در حال یافتن موقعیت…", home: "خانه", device: "موقعیت من",
-               title: "یک مکان برای رصد انتخاب کن",
-               intro: "آسمان را از محل خودت ببین، یا آن را از هر جای زمین کاوش کن.",
-               useMine: "📍 استفاده از موقعیت من", searchPh: "جستجوی یک شهر یا مکان…",
-               search: "جستجو", searching: "در حال جستجو…",
-               noResults: "مکانی پیدا نشد — املای دیگری را امتحان کن.",
-               current: "در حال نمایش", change: "تغییر", denied: "موقعیت در دسترس نیست — از شهر پیش‌فرض استفاده می‌شود." },
-      fact:  { loading: "در حال بارگذاری یک نکتهٔ کیهانی…", another: "یکی دیگر ←" },
-      nav:   { sky: "آسمان زنده", tonight: "امشب", events: "رویدادها", iss: "ایستگاه فضایی",
-               live: "فضا زنده", news: "اخبار و تصویر", quiz: "آزمون", learn: "آموزش", history: "تاریخ", about: "دربارهٔ من" },
-
-      common:{ up: "بالای افق", down: "زیر افق", telescope: "تلسکوپ", min: "دقیقه", now: "اکنون",
-               rises: "طلوع", sets: "غروب", altitude: "ارتفاع", lit: "روشن", loadingGeneric: "در حال بارگذاری…" },
-
-      bodies:{ Sun: "خورشید", Moon: "ماه", Mercury: "عطارد", Venus: "زهره", Mars: "مریخ",
-               Jupiter: "مشتری", Saturn: "زحل", Uranus: "اورانوس", Neptune: "نپتون" },
-      dsotype:{ Galaxy: "کهکشان", "Globular cluster": "خوشهٔ کروی", "Open cluster": "خوشهٔ باز",
-               "Planetary nebula": "سحابی سیاره‌نما", Nebula: "سحابی", "Star-forming region": "ناحیهٔ ستاره‌زایی",
-               "Supernova remnant": "بازماندهٔ ابرنواختر", "Deep-sky object": "جرم آسمان ژرف" },
-
-      sky: {
-        title: "آسمان بالای سرت",
-        intro: "این نقشهٔ زندهٔ آسمان واقعی از محل توست. لبهٔ دایره افق است؛ مرکز درست بالای سر (سمت‌الرأس). شمال بالاست.",
-        legendTitle: "راهنما",
-        legend: '● ستاره‌ها (اندازه = درخشندگی) &nbsp; · &nbsp; <span style="color:var(--accent-3)">●</span> سیاره‌ها &nbsp; · &nbsp; <span style="color:var(--accent-2)">◇</span> کهکشان‌ها و سحابی‌ها',
-        c_lines: "خطوط صورت‌های فلکی", c_labels: "نام‌ها", c_dsos: "اجرام آسمان ژرف",
-        c_mw: "راه شیری", c_planets: "سیاره‌ها", nowBtn: "● اکنون",
-        upNow: "همین حالا بالای افق",
-        none: "در این لحظه هیچ سیاره‌ای بالای افق نیست — نوار زمان را جابه‌جا کن.",
-        star: "ستاره", planet: "سیاره", dso: "جرم آسمان ژرف"
-      },
-
-      tonight: {
-        moonNow: "ماه در این لحظه", sun: "خورشید", planets: "سیاره‌های امشب — کجا و کِی",
-        illuminated: "روشن‌شده", distance: "فاصله", moonrise: "طلوع ماه", moonset: "غروب ماه",
-        nextFull: "بدر بعدی", nextNew: "ماه نوِ بعدی",
-        sunrise: "طلوع خورشید", sunset: "غروب خورشید", dayLength: "طول روز",
-        darkBegins: "آغاز آسمان تاریک", dawnEnds: "سپیده‌دم (پایان تاریکی)",
-        darkNote: "«آسمان تاریک» پایان گرگ‌ومیش نجومی است — خورشید ۱۸ درجه زیر افق است و کم‌نورترین ستاره‌ها و راه شیری دیده می‌شوند.",
-        planetsNote: "«بالای افق» یعنی جرم اکنون بالای افق توست. ارتفاع یعنی بلندی از افق (۹۰ درجه = درست بالای سر)؛ سمت جهت قطب‌نماست (۰ = شمال، ۹۰ = شرق، ۱۸۰ = جنوب، ۲۷۰ = غرب).",
-        belowRises: "زیر افق · طلوع در {t}", computing: "در حال محاسبهٔ موقعیت سیاره‌ها…"
-      },
-
-      hl: {
-        title: "امشب چه چیزهایی می‌توانم ببینم؟",
-        intro: "بهترین دیدنی‌های امشب از {place}، رتبه‌بندی‌شده — همراه با زمان و جهت نگاه.",
-        bestAround: "حدود ساعت {t}", look: "به سمت {dir} نگاه کن، {alt} درجه بالای افق",
-        inst_eye: "با چشم غیرمسلح", inst_binoc: "با دوربین دوچشمی", inst_scope: "با تلسکوپ",
-        milkyway: "امشب ماه کم‌نور است — دور از نورهای شهر، دنبال راه شیری بگرد: نواری نرم از نور که در آسمان کشیده شده. این کهکشان ماست که از پهلو دیده می‌شود.",
-        foot: "ساعت‌ها برای موقعیت توست و در طول شب تغییر می‌کنند.",
-        none: "خورشید در این ایام تقریباً غروب نمی‌کند (یا چیز مهمی بالای افق نیست) — شبی دیگر امتحان کن."
-      },
-
-      learn: {
-        title: "دربارهٔ فضا بیاموز",
-        intro: "یک موضوع را انتخاب کن و نکته‌های جالبی را ساده و روشن کشف کن.",
-        topics: "موضوع", back: "← موضوع‌ها", backTopics: "← بازگشت به موضوع‌ها",
-        spotlight: "می‌دانستی؟", another: "🔀 یکی دیگر", explore: "کاوش این موضوع ←",
-        test: "🎯 آموخته‌هایت را بسنج",
-        correct: "درست!", wrong: "نزدیک بود…", next: "بعدی ←", seeResult: "دیدن نتیجه",
-        again: "دوباره امتحان کن", scoreLine: "{s} از {n} درست.",
-        rPerfect: "عالی! واقعاً یاد گرفتی. 🌟",
-        rGood: "آفرین — بلدی! 👍",
-        rLow: "تلاش خوبی بود! موضوع‌ها را دوباره بخوان تا عالی شوی. 📚"
-      },
-
-      history: {
-        title: "داستان ستاره‌شناسی",
-        intro: "چگونه درک ما از جهان، با هر ایدهٔ بزرگ، گام‌به‌گام رشد کرد. روی هر مرحله بزن تا بیشتر بخوانی."
-      },
-
-      phase: {
-        new: "ماه نو", waxcres: "هلال نوجوان", first: "تربیع اول", waxgib: "محدب فزاینده",
-        full: "بدر", wangib: "محدب کاهنده", last: "تربیع آخر", wancres: "هلال پیر"
-      },
-
-      events: {
-        title: "رویدادهای نجومی پیش‌رو",
-        f_all: "همه", f_eclipse: "خسوف و کسوف", f_moon: "فازهای ماه", f_planet: "سیاره‌ها",
-        f_meteor: "بارش شهابی", f_season: "فصل‌ها",
-        computing: "در حال محاسبهٔ گرفت‌ها، فازها، مقابله‌ها…",
-        none: "هیچ رویدادی از این نوع در {n} ماه آینده نیست.",
-        in: "تا {t} دیگر",
-        l_moon: "ماه", l_eclipse: "گرفت", l_planet: "سیاره", l_meteor: "شهاب‌ها", l_season: "فصل",
-        fullMoon: "بدر (ماه کامل)", newMoon: "ماه نو", supermoon: "بدر (اَبَرماه)",
-        fullMoonDesc: "ماه کاملاً روشن است — تمام شب می‌درخشد.",
-        newMoonDesc: "ماه میان زمین و خورشید است — تاریک‌ترین آسمان برای رصد اجرام ژرف.",
-        supermoonDesc: "اَبَرماه — ماه کامل نزدیک به کمترین فاصله‌اش، کمی بزرگ‌تر و روشن‌تر به‌نظر می‌رسد.",
-        lunarEclipse: "خسوف {kind}",
-        lunarTotalDesc: "ماه کاملاً وارد سایهٔ زمین می‌شود و به رنگ مسی-قرمز درمی‌آید — «ماه خونین». با چشم غیرمسلح بی‌خطر است.",
-        lunarPartialDesc: "ماه از سایهٔ زمین می‌گذرد. از سراسر نیمهٔ شبِ زمین دیده می‌شود.",
-        lunarPenumDesc: "ماه از نیم‌سایهٔ زمین می‌گذرد. از سراسر نیمهٔ شبِ زمین دیده می‌شود.",
-        solarEclipse: "کسوف {kind}",
-        solarDesc: "ماه خورشید را جایی روی زمین می‌پوشاند (اوج نزدیک {lat}°، {lon}°). هرگز بدون عینک مخصوص کسوف به خورشید نگاه نکن.",
-        opposition: "مقابلهٔ {planet}",
-        oppositionDesc: "{planet} روبه‌روی خورشید است — نزدیک‌ترین، بزرگ‌ترین و درخشان‌ترین حالت سال، و تمام شب بالای افق. بهترین زمان برای رصد.",
-        elongation: "بیشترین کشیدگیِ {planet}",
-        elongationDesc: "{planet} در دورترین فاصله از خورشید در آسمان ماست ({deg}°) — بهترین دید {when}.",
-        whenMorning: "پیش از طلوع خورشید، در شرق", whenEvening: "پس از غروب خورشید، در غرب",
-        marEquinox: "اعتدال بهاری (مارس)", junSolstice: "انقلاب تابستانی (ژوئن)", sepEquinox: "اعتدال پاییزی (سپتامبر)", decSolstice: "انقلاب زمستانی (دسامبر)",
-        marEquinoxDesc: "روز و شب تقریباً برابر؛ بهار در نیم‌کرهٔ شمالی، پاییز در جنوبی.",
-        junSolsticeDesc: "بلندترین روز در نیم‌کرهٔ شمالی، کوتاه‌ترین در جنوبی.",
-        sepEquinoxDesc: "روز و شب تقریباً برابر؛ پاییز در شمال، بهار در جنوب.",
-        decSolsticeDesc: "کوتاه‌ترین روز در شمال، بلندترین در جنوب.",
-        meteorTitle: "بارش شهابی {name} — اوج",
-        meteorDesc: "{desc} تا حدود ~{zhr} شهاب در ساعت زیر آسمان تاریک. بهترین زمان پس از نیمه‌شب؛ بدون تلسکوپ — فقط به بالا نگاه کن.",
-        ms: {
-          Quadrantids:    { name: "ربع‌نما (کوادرانتید)", desc: "اوج کوتاه و تیز؛ شهاب‌های آبی. کانون در صورت فلکی گاوران." },
-          Lyrids:         { name: "شلیاقی (لیرید)",       desc: "شهاب‌های سریع از دنباله‌دار تاچر؛ گاهی گوی‌های آتشین." },
-          EtaAquariids:   { name: "اِتا دلوی",            desc: "بازمانده‌های دنباله‌دار هالی؛ بهترین دید پیش از سپیده." },
-          DeltaAquariids: { name: "دلتا دلوی",           desc: "شهاب‌های کم‌نور و پیوسته؛ خوب از نیم‌کرهٔ جنوبی." },
-          Perseids:       { name: "برساوشی (پرساید)",     desc: "کلاسیک تابستان — روشن، سریع، پر از گوی آتشین." },
-          Draconids:      { name: "تنّینی (دراکونید)",    desc: "شهاب‌های کند؛ بهترین دید در سرِ شب، گاهی فوران." },
-          Orionids:       { name: "شکارچی (اوریونید)",    desc: "باز هم از دنباله‌دار هالی؛ سریع و کم‌نور." },
-          Leonids:        { name: "اسدی (لئونید)",        desc: "بسیار سریع؛ دنباله‌دار تمپل-تاتل می‌تواند توفان شهابی بیاورد." },
-          Geminids:       { name: "جوزایی (جمینید)",      desc: "بهترین بارش سال — روشن، پرشمار، رنگارنگ." },
-          Ursids:         { name: "دبی (اورسید)",         desc: "بارشی آرام نزدیک انقلاب زمستانی." }
-        }
-      },
-
-      kinds: { total: "کلی", partial: "جزئی", penumbral: "نیم‌سایه‌ای", annular: "حلقوی", hybrid: "مرکب" },
-
-      iss: {
-        livePos: "ایستگاه فضایی بین‌المللی — موقعیت زنده",
-        nextPasses: "گذرهای قابل‌مشاهدهٔ بعدی از فراز تو",
-        lat: "عرض جغرافیایی", lon: "طول جغرافیایی", alt: "ارتفاع (کیلومتر)", speed: "سرعت (کیلومتر/ساعت)",
-        computing: "در حال محاسبهٔ گذرهای مداری…",
-        passesNote: "«گذر» یعنی زمانی که ایستگاه از آسمان تو می‌گذرد. بهترین‌ها پس از غروب یا پیش از سپیده‌اند، وقتی ایستگاه در نور خورشید است اما آسمان تو تاریک است.",
-        noPasses: "در ۳ روز آینده هیچ گذری بالای ۱۰ درجه از این مکان نیست.",
-        passLine: "طلوع از {a1} ← اوج {el}° در {a2} ← غروب در {a3}",
-        visible: "قابل‌مشاهده!", daylight: "گذر روزانه",
-        feedError: "دسترسی به دادهٔ زندهٔ ایستگاه ممکن نشد. اتصال اینترنت را بررسی کن.",
-        tleError: "پیش‌بینی گذرها به دادهٔ مداری از Celestrak نیاز دارد که اکنون در دسترس نیست. نقشهٔ زندهٔ بالا همچنان کار می‌کند. (ممکن است در برخی شبکه‌ها مسدود باشد — بعداً امتحان کن.)"
-      },
-
-      news: {
-        apodTitle: "ناسا — تصویر نجومی روز",
-        apodLoading: "در حال دریافت تصویر امروز…",
-        newsTitle: "تازه‌ترین اخبار فضایی",
-        newsLoading: "در حال بارگذاری تیترها…",
-        apodError: "بارگذاری تصویر امروز ناسا ممکن نشد ({msg}).",
-        apodKeyHint: "اگر تکرار شد، شاید کلید رایگان DEMO_KEY محدود شده باشد — یک کلید شخصی از api.nasa.gov بگیر و در js/config.js بگذار.",
-        newsError: "بارگذاری اخبار فضایی ممکن نشد ({msg}).",
-        imageCredit: "تصویر: ناسا"
-      },
-
-      live: {
-        launchesTitle: "پرتاب‌های بعدی موشک",
-        sunTitle: "خورشید در این لحظه",
-        loadingLaunches: "در حال دریافت پرتاب‌های پیش‌رو…",
-        loadingSun: "در حال بارگذاری تازه‌ترین تصاویر خورشید…",
-        launchError: "بارگذاری برنامهٔ پرتاب‌ها ممکن نشد ({msg}). بعداً امتحان کن.",
-        sunError: "بارگذاری فعالیت خورشیدی ممکن نشد ({msg}).",
-        liftoff: "پرتاب شد! 🚀", estimated: "تاریخ تخمینی", noLaunch: "اکنون پرتاب پیش‌رویی یافت نشد.",
-        ch_193: "تاج (کرونا)", ch_304: "شیدسپهر (کروموسفر)", ch_surface: "لکه‌های خورشیدی", ch_magnetic: "میدان مغناطیسی",
-        activity: "فعالیت خورشیدی", flare: "آخرین شرارهٔ پرتو ایکس", kp: "فعالیت زمین‌مغناطیسی (Kp)",
-        sunCaption: "تصاویر زنده از رصدخانهٔ دینامیک خورشیدی ناسا (SDO)، در طول روز به‌روز می‌شوند."
-      },
-
-      quiz: {
-        title: "چالش نجوم",
-        pickIntro: "سطح مأموریتت را انتخاب کن و دانش کیهانی‌ات را بسنج. هر دور ۱۰ سؤال است.",
-        play: "پرتاب ▶", questions: "سؤال",
-        next: "سؤال بعدی ←", finish: "دیدن نتیجه",
-        question: "سؤال", of: "از", score: "امتیاز", streak: "زنجیره",
-        correct: "درست!", wrong: "نزدیک بود…", theAnswer: "پاسخ",
-        again: "بازی دوباره", backToLevels: "← انتخاب سطح",
-        tryNext: "سطح بعدی: {name} ←",
-        resultTitle: "مأموریت کامل شد!",
-        onLevel: "سطح: {name}",
-        bestStreak: "بهترین زنجیره"
-      },
-
-      about: {
-        hi: "سلام، من نیما هستم! 👋",
-        nameNote: "پی‌نوشت — «نیما» نام ایرانی من است؛ به فارسی می‌توانی مرا نیما صدا کنی! 😄",
-        bday: "من روز ولنتاین — ۱۴ فوریهٔ ۲۰۱۸ — به دنیا آمدم، پس تولدم روزِ پُر از قلب است ❤️.",
-        love: "من عاشق فضا و نجوم هستم. سیاره‌ها، ستاره‌ها، سیاه‌چاله‌ها، موشک‌ها… می‌خواهم همه‌چیز را بدانم!",
-        why: "این وب‌سایت را ساختم تا خودم بتوانم رویدادهای آسمان را دنبال کنم — و بچه‌های دیگری مثل من هم جای باحالی برای کاوش داشته باشند.",
-        coverTitle: "اینجا چه کارهایی می‌توانی بکنی",
-        cover: [
-          "🌌 دیدن آسمان واقعی بالای سرت همین حالا",
-          "🔭 یافتن ماه و سیاره‌های امشب",
-          "📅 دیدن رویدادهای پیش‌رو، مثل بارش شهابی و گرفت‌ها",
-          "🛰️ ردیابی ایستگاه فضایی هنگام عبور از فراز تو",
-          "🚀 تماشای پرتاب زندهٔ موشک‌ها و خورشید",
-          "📰 خواندن تازه‌ترین اخبار فضا و تصویر روز ناسا",
-          "🧠 سنجش خودت در آزمون نجوم"
-        ],
-        hear: "خیلی دوست دارم از تو بشنوم! چه چیزهای باحالی ساخته یا کشف کرده‌ای؟ چیز مفیدی هست که بتوانم برایت اضافه کنم؟ پایین برایم بنویس — هر پیام را می‌خوانم و اگر ایمیلت را بگذاری برایت جواب می‌دهم!",
-        contactTitle: "برایم بنویس ✉️",
-        fName: "نام کوچک تو", fEmail: "ایمیل تو — فقط اگر جواب می‌خواهی (اختیاری)",
-        human: "یک بررسی کوتاه — {a} + {b} چند می‌شود؟", errName: "لطفاً اول نامت را بنویس. 🙂",
-        errHuman: "تقریباً! لطفاً به سؤال کوچک ریاضی پاسخ بده.",
-        fFrom: "اهل کجایی؟ (اختیاری)", fMsg: "پیام تو",
-        send: "ارسال 🚀", sending: "در حال ارسال…",
-        thanks: "هورا — پیامت همین الان به‌سوی من پرتاب شد! 🚀 خیلی زود می‌خوانمش. ممنون! 🌟",
-        errorMsg: "اوه — مشکلی پیش آمد. لطفاً کمی بعد دوباره امتحان کن.",
-        notSet: "جعبهٔ پیام هنوز فعال نشده است. (برای بزرگ‌ترها: برای افزودن کلید تماس رایگان به README نگاه کنید.)"
-      }
-    }
   },
 
-  // compass points per language (French uses O for Ouest; Persian keeps Latin, as astronomers do)
+  // compass points per language (French uses O for Ouest)
   compassPts: {
     en: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"],
-    fr: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"],
-    fa: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
+    fr: ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"]
   },
-  cardinals: { en: ["N","E","S","W"], fr: ["N","E","S","O"], fa: ["N","E","S","W"] },
+  cardinals: { en: ["N","E","S","W"], fr: ["N","E","S","O"] },
 
-  LANGS: ["en", "fr", "fa"],
-  LANG_LABELS: { en: "EN", fr: "FR", fa: "فا" },
+  LANGS: ["en", "fr"],
+  LANG_LABELS: { en: "EN", fr: "FR" },
 
   // Countries where French is the main language (→ French). Bilingual countries
   // (BE/CH/CA) fall back to the browser language as a tiebreaker.
@@ -646,7 +451,7 @@ const I18N = {
     if (saved && this.LANGS.includes(saved)) { this.lang = saved; this._applyDir(); return; }
     // No manual choice yet → provisionally use the browser language, then refine by country.
     const nav = (navigator.language || "").toLowerCase();
-    this.lang = nav.startsWith("fa") ? "fa" : nav.startsWith("fr") ? "fr" : "en";
+    this.lang = nav.startsWith("fr") ? "fr" : "en";
     this._applyDir();
     this._autoDetect(nav);
   },
@@ -666,15 +471,14 @@ const I18N = {
 
   _langForCountry(cc, nav) {
     nav = nav || "";
-    if (cc === "IR") return "fa";
     if (this.FR_PRIMARY.has(cc)) return "fr";
     if (this.FR_PARTIAL.has(cc)) return nav.startsWith("fr") ? "fr" : "en";
-    return nav.startsWith("fr") ? "fr" : nav.startsWith("fa") ? "fa" : "en";
+    return nav.startsWith("fr") ? "fr" : "en";
   },
 
   _applyDir() {
     document.documentElement.lang = this.lang;
-    document.documentElement.dir = (this.lang === "fa") ? "rtl" : "ltr";
+    document.documentElement.dir = "ltr";
   },
 
   // resolve a dotted key
@@ -693,7 +497,7 @@ const I18N = {
     return s;
   },
 
-  locale() { return this.lang === "fr" ? "fr-FR" : this.lang === "fa" ? "fa-IR-u-ca-gregory" : undefined; },
+  locale() { return this.lang === "fr" ? "fr-FR" : undefined; },
   compass() { return this.compassPts[this.lang]; },
   body(en) { return this.t("bodies." + en); },
   dsotypeName(en) { return this.t("dsotype." + en); },
@@ -719,7 +523,7 @@ const I18N = {
     document.dispatchEvent(new CustomEvent("language-changed", { detail: lang }));
   },
 
-  // A little EN | FR | فا segmented control.
+  // A little EN | FR segmented control.
   _renderToggle() {
     const el = U.el("lang-toggle");
     if (!el) return;

@@ -2,9 +2,38 @@
    util.js  —  shared math, formatting, and small helpers
    ============================================================================= */
 
+// Heliocentric perihelion (q) and aphelion (Q) distances in AU, used to judge how
+// "close" (perihelic) a planet's opposition is. At opposition the Earth–planet gap
+// is smallest when the planet is near its own perihelion → a "great" opposition.
+const PLANET_ORB = {
+  Mars:    { q: 1.381, Q: 1.666 },
+  Jupiter: { q: 4.951, Q: 5.458 },
+  Saturn:  { q: 9.041, Q: 10.12 },
+  Uranus:  { q: 18.33, Q: 20.11 },
+  Neptune: { q: 29.81, Q: 30.33 },
+};
+
 const U = {
   DEG: Math.PI / 180,
   RAD: 180 / Math.PI,
+
+  // Opposition geometry for an outer planet at a given date: Earth–planet gap (AU
+  // and million km), how close it is within that planet's possible range (0 = its
+  // most distant opposition, 1 = its closest), and whether it's a "great"/perihelic
+  // opposition. A "great" one needs both a genuinely eccentric orbit (so the
+  // distance really swings — essentially Mars) and a near-closest approach.
+  oppMetrics(b, date) {
+    const o = PLANET_ORB[b];
+    if (!o) return null;
+    const rp = Astronomy.HelioDistance(Astronomy.Body[b], date);
+    const re = Astronomy.HelioDistance(Astronomy.Body.Earth, date);
+    const gap = rp - re;                                  // Earth–planet distance, AU
+    const gapMin = o.q - 1.017, gapMax = o.Q - 0.983;    // range across all its oppositions
+    const closeness = U.clamp((gapMax - gap) / (gapMax - gapMin), 0, 1);
+    const swing = (gapMax - gapMin) / gapMax;             // how much this planet's opposition distance varies
+    const great = swing >= 0.15 && closeness >= 0.80;
+    return { gap, mkm: Math.round(gap * 149.5978707), closeness, great };
+  },
 
   clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); },
   norm360(d) { d %= 360; return d < 0 ? d + 360 : d; },

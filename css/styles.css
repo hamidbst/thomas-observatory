@@ -184,6 +184,9 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 .badge { font-size: 11px; padding: 3px 8px; border-radius: 999px; font-weight: 700; }
 .badge.up { background: rgba(110,231,168,0.15); color: var(--good); }
 .badge.down { background: rgba(255,107,129,0.12); color: var(--danger); }
+.badge.opp { background: rgba(125,180,255,0.16); color: var(--accent); margin-left: 4px; }
+.badge.opp.great { background: rgba(255,207,107,0.18); color: var(--accent-3); }
+.opp-line { margin-top: 3px; color: var(--accent) !important; font-weight: 600; }
 
 /* ---------- Events ---------- */
 .event {
@@ -315,12 +318,10 @@ textarea.cf-input { resize: vertical; min-height: 110px; }
 .learn-tbody p { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); margin: 6px 0 12px; }
 .learn-wow { font-size: 14px; line-height: 1.55; padding: 11px 13px; border-radius: 10px;
   background: linear-gradient(100deg, rgba(255,207,107,0.14), rgba(122,92,255,0.08)); border: 1px solid var(--border); }
-[dir="rtl"] .learn-card, [dir="rtl"] .learn-thead { text-align: right; }
 .learn-test { margin-top: 16px; font-size: 15px; padding: 11px 22px;
   background: linear-gradient(100deg, rgba(122,92,255,0.3), rgba(125,180,255,0.25)); border-color: var(--border-hi); }
 .learn-spot { margin-bottom: 16px; border-left: 4px solid var(--lc);
   background: linear-gradient(150deg, rgba(122,92,255,0.14), var(--panel)); }
-[dir="rtl"] .learn-spot { border-left: 1px solid var(--border); border-right: 4px solid var(--lc); }
 .learn-spot-tag { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--lc); margin-bottom: 8px; }
 .learn-spot-title { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
 .learn-spot-body { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); margin: 0 0 12px; }
@@ -350,11 +351,6 @@ textarea.cf-input { resize: vertical; min-height: 110px; }
 .tl-detail p { margin: 0; font-size: 14px; line-height: 1.75; color: var(--text-dim);
   padding: 13px 16px; border-radius: 12px;
   background: rgba(125,180,255,0.05); border: 1px solid var(--border); border-left: 3px solid var(--c); }
-[dir="rtl"] .tl-item { padding: 0 46px 4px 0; }
-[dir="rtl"] .tl-item::before { left: auto; right: 15px; }
-[dir="rtl"] .tl-dot { left: auto; right: 3px; }
-[dir="rtl"] .tl-head { text-align: right; }
-[dir="rtl"] .tl-detail p { border-left: 1px solid var(--border); border-right: 3px solid var(--c); }
 
 /* ---------- What can I see tonight? ---------- */
 .hl-panel { background: linear-gradient(160deg, rgba(122,92,255,0.12), var(--panel)); }
@@ -411,14 +407,6 @@ a { color: var(--accent); }
 .lang-opt.on { background: rgba(125,180,255,0.22); color: var(--text); }
 .header-right { display: flex; align-items: center; gap: 14px; }
 
-/* ---------- Right-to-left (Persian) ---------- */
-:root[dir="rtl"] { --font: "Segoe UI", Tahoma, "Vazirmatn", "Iranian Sans", sans-serif; --mono: "Segoe UI", Tahoma, sans-serif; }
-[dir="rtl"] * { letter-spacing: 0 !important; }
-[dir="rtl"] .quiz-choice, [dir="rtl"] .loc-result { text-align: right; }
-[dir="rtl"] .quiz-choice:hover:not(.locked) { transform: translateX(-3px); }
-[dir="rtl"] .lvl-card { border-left: 1px solid var(--border); border-right: 4px solid var(--lc); }
-[dir="rtl"] .loc-x { right: auto; left: 14px; }
-[dir="rtl"] .factbar .next { margin-left: 0; margin-right: auto; }
 
 /* ---------- Quiz ---------- */
 .quiz-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px;

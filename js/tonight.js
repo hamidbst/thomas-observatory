@@ -128,6 +128,24 @@ const Tonight = {
       <p class="small muted" style="margin-top:10px;">${t("tonight.darkNote")}</p>`;
   },
 
+  // Is this planet at (or within ~3 weeks of) opposition right now? Returns the
+  // gap in days (±), the Earth–planet distance, magnitude, and whether it's a
+  // "great"/perihelic opposition — or null if not near opposition.
+  oppositionInfo(b, now) {
+    if (!PLANET_ORB[b]) return null;
+    try {
+      const from = new Date(now.getTime() - 40 * 86400000);
+      // targetRelLon 0 = opposition (Earth between Sun and planet); see events.js.
+      const t0 = Astronomy.SearchRelativeLongitude(Astronomy.Body[b], 0, from);
+      if (!t0) return null;
+      const days = Math.round((t0.date - now) / 86400000);   // <0 just past, >0 upcoming
+      if (Math.abs(days) > 21) return null;
+      const m = U.oppMetrics(b, t0.date) || { mkm: 0, great: false };
+      let mag = null; try { mag = Astronomy.Illumination(Astronomy.Body[b], t0.date).mag; } catch(e){}
+      return { days, great: m.great, mkm: m.mkm, mag, date: t0.date };
+    } catch (e) { return null; }
+  },
+
   renderPlanets(now) {
     const bodies = ["Mercury","Venus","Mars","Jupiter","Saturn","Uranus","Neptune"];
     const colors = { Mercury:"#c9c2b6",Venus:"#f6e6bd",Mars:"#ff6b4a",Jupiter:"#e8c48c",Saturn:"#e6d3a3",Uranus:"#9fe6ea",Neptune:"#6f8cff" };
@@ -144,13 +162,26 @@ const Tonight = {
       const set  = this.riseSet(b, -1, now);
       const up = alt !== null && alt > 0;
       const naked = mag !== null && mag < 6.0;
+      const opp = this.oppositionInfo(b, now);
+      let oppPill = "", oppLine = "";
+      if (opp) {
+        const near = Math.abs(opp.days) <= 4;   // essentially at opposition
+        const label = opp.great ? t("tonight.oppGreat") : (near ? t("tonight.oppNow") : t("tonight.oppNear"));
+        oppPill = `<span class="badge opp${opp.great ? " great" : ""}">${opp.great ? "🌟" : "🪐"} ${label}</span>`;
+        const magS = opp.mag !== null ? opp.mag.toFixed(1) : "—";
+        const mkmS = opp.mkm.toLocaleString(U.locale());
+        oppLine = `<div class="st opp-line">${opp.great
+          ? t("tonight.oppLineGreat", { mkm: mkmS, mag: magS })
+          : t("tonight.oppLine", { mkm: mkmS, mag: magS })}</div>`;
+      }
       return `
         <div class="body-row">
           <div class="ico" style="background:${colors[b]}"></div>
           <div>
-            <div class="nm">${I18N.body(b)} ${naked ? "" : `<span class="small muted">(${t("common.telescope")})</span>`}</div>
+            <div class="nm">${I18N.body(b)} ${naked ? "" : `<span class="small muted">(${t("common.telescope")})</span>`} ${oppPill}</div>
             <div class="st">${up ? `${t("common.altitude")} ${alt.toFixed(0)}° · ${U.compass(az)} (${az.toFixed(0)}°)` : t("tonight.belowRises", { t: rise ? U.timeHMS(rise).slice(0,5) : "—" })}
               ${mag !== null ? ` · mag ${mag.toFixed(1)}` : ""}</div>
+            ${oppLine}
           </div>
           <div class="st" style="text-align:right;">↑ ${rise ? U.timeHMS(rise).slice(0,5) : "—"}<br>↓ ${set ? U.timeHMS(set).slice(0,5) : "—"}</div>
           <div><span class="badge ${up ? "up" : "down"}">${up ? t("common.up") : t("common.down")}</span></div>
