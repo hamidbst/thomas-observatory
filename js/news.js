@@ -14,9 +14,19 @@ const News = {
       const r = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${encodeURIComponent(CONFIG.NASA_API_KEY)}&thumbs=true`);
       if (!r.ok) throw new Error(`NASA API returned ${r.status}`);
       const d = await r.json();
-      const media = d.media_type === "video"
-        ? `<iframe src="${U.esc(d.url)}" allowfullscreen loading="lazy"></iframe>`
-        : `<a href="${U.esc(d.hdurl || d.url)}" target="_blank" rel="noopener"><img src="${U.esc(d.url)}" alt="${U.esc(d.title)}" loading="lazy"></a>`;
+      let media;
+      if (d.media_type === "video") {
+        // Some APOD "videos" are a direct video file (.mp4/.webm) — those need a
+        // <video> player, not an <iframe> (which only works for embed pages like
+        // YouTube/Vimeo and shows a broken box for a raw file).
+        if (/\.(mp4|webm|ogv|mov)(\?.*)?$/i.test(d.url)) {
+          media = `<video src="${U.esc(d.url)}" controls playsinline preload="metadata"${d.thumbnail_url ? ` poster="${U.esc(d.thumbnail_url)}"` : ""}></video>`;
+        } else {
+          media = `<iframe src="${U.esc(d.url)}" allowfullscreen loading="lazy"></iframe>`;
+        }
+      } else {
+        media = `<a href="${U.esc(d.hdurl || d.url)}" target="_blank" rel="noopener"><img src="${U.esc(d.url)}" alt="${U.esc(d.title)}" loading="lazy"></a>`;
+      }
       host.innerHTML = `
         <div>${media}</div>
         <div>
