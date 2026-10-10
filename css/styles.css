@@ -111,8 +111,12 @@ nav.tabs button.active::after {
 .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+/* Live-sky layout: map wider than the side panel on desktop, stacked full-width on
+   mobile (so the map isn't squeezed into a narrow column on phones). */
+.sky-grid { grid-template-columns: 1.55fr 1fr; align-items: start; }
 @media (max-width: 900px) {
   .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+  .sky-grid { grid-template-columns: 1fr; }
 }
 
 .section-title { font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
@@ -166,6 +170,23 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 }
 #sky-tip .name { font-weight: 700; margin-bottom: 2px; }
 #sky-tip .meta { color: var(--text-dim); font-size: 11.5px; }
+
+/* Sky detail card (shown on tap/click — works on mobile) */
+#sky-detail {
+  position: absolute; z-index: 6; max-width: 260px;
+  background: var(--panel-solid); border: 1px solid var(--border-hi);
+  border-radius: 12px; padding: 12px 14px; color: var(--text);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+#sky-detail .sd-title { font-weight: 700; font-size: 15px; padding-right: 18px; line-height: 1.25; }
+#sky-detail .sd-sub { color: var(--accent-2); font-size: 12px; margin-top: 3px; }
+#sky-detail .sd-meta { color: var(--text-dim); font-size: 12px; margin-top: 6px; font-family: var(--mono); }
+#sky-detail .sd-desc { font-size: 13px; line-height: 1.55; color: var(--text-dim); margin-top: 8px; }
+#sky-detail .sd-close {
+  position: absolute; top: 6px; right: 8px; background: none; border: none;
+  color: var(--text-dim); font-size: 16px; cursor: pointer; line-height: 1; padding: 2px 4px;
+}
+#sky-detail .sd-close:hover { color: var(--text); }
 
 /* ---------- Tonight panel ---------- */
 .moon-wrap { display: flex; gap: 18px; align-items: center; }
