@@ -89,7 +89,16 @@ async function main() {
       recipients: { listIds: [LISTS[lang]] },
     };
     if (me) body.replyTo = me;
-    const camp = await brevo(key, "POST", "/emailCampaigns", body);
+    let camp;
+    try {
+      camp = await brevo(key, "POST", "/emailCampaigns", body);
+    } catch (err) {
+      // Brevo refuses a list with no contacts yet: keep the draft anyway, without recipients
+      if (!/no contacts/i.test(err.message)) throw err;
+      delete body.recipients;
+      camp = await brevo(key, "POST", "/emailCampaigns", body);
+      console.log(`[${lang}] the ${lang.toUpperCase()} list has no subscribers yet: draft created without recipients`);
+    }
     console.log(`[${lang}] draft #${camp.id} created in Brevo (Campaigns) — not sent yet`);
     if (!me) { console.log(`[${lang}] NEWSLETTER_EMAIL not set: no test copy sent`); continue; }
     try {
