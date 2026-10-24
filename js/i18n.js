@@ -86,6 +86,18 @@ const I18N = {
         intro: "How our understanding of the universe grew, one big idea at a time. Tap a stage to read more."
       },
 
+      sub: {
+        title: "Weekly sky guide",
+        pitch: "A free email every Friday: what you can see in the sky that week, the Moon, events, space news and a quiz — for families and stargazers in France.",
+        email: "Your email address", lang: "Language",
+        consent: "I'm a parent, or I'm 15 or older",
+        button: "Subscribe",
+        ok: "Almost done! Check your inbox and click the link in the email to confirm.",
+        errEmail: "Please enter a valid email address.",
+        errConsent: "Please tick the box to confirm.",
+        privacy: "We only keep your email address and language, stored by Brevo (in the EU), to send this guide. Unsubscribe anytime with one click."
+      },
+
       phase: {
         new: "New Moon", waxcres: "Waxing Crescent", first: "First Quarter", waxgib: "Waxing Gibbous",
         full: "Full Moon", wangib: "Waning Gibbous", last: "Last Quarter", wancres: "Waning Crescent"
@@ -294,6 +306,18 @@ const I18N = {
       history: {
         title: "L'histoire de l'astronomie",
         intro: "Comment notre compréhension de l'univers a grandi, une grande idée à la fois. Touche une étape pour en savoir plus."
+      },
+
+      sub: {
+        title: "Le guide du ciel de la semaine",
+        pitch: "Un e-mail gratuit chaque vendredi : ce que tu peux voir dans le ciel cette semaine-là, la Lune, les événements, l'actu spatiale et un quiz — pour les familles et les curieux du ciel en France.",
+        email: "Ton adresse e-mail", lang: "Langue",
+        consent: "Je suis un parent, ou j'ai 15 ans ou plus",
+        button: "S'inscrire",
+        ok: "Presque fini ! Regarde ta boîte mail et clique sur le lien pour confirmer.",
+        errEmail: "Merci d'entrer une adresse e-mail valide.",
+        errConsent: "Merci de cocher la case pour confirmer.",
+        privacy: "Nous gardons seulement ton adresse e-mail et ta langue, conservées par Brevo (dans l'UE), pour t'envoyer ce guide. Désinscription à tout moment en un clic."
       },
 
       phase: {

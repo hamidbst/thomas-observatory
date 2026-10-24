@@ -34,6 +34,15 @@ const CONFIG = {
   // Until this is filled in, the form politely says it isn't switched on yet.
   CONTACT_KEY: "6fe3049e-2088-42b8-882c-36659cb2e0f6",
 
+  // --- Newsletter sign-up (Brevo) -------------------------------------------------
+  // The "Weekly sky guide" box at the bottom of every page. Each value is the address
+  // of a Brevo subscription form (one per language, each adding people to its own
+  // list and sending the confirmation email). In Brevo: open the form → Share /
+  // Embed → copy the form's action address (https://…sibforms.com/serve/…).
+  // These addresses are public by design, not secrets. Until both are filled in,
+  // the box stays hidden.
+  NEWSLETTER_FORMS: { fr: "", en: "" },
+
   // --- Behaviour tuning -------------------------------------------------------
   SKY_REFRESH_SECONDS: 60,         // how often the live sky redraws
   ISS_REFRESH_SECONDS: 5,          // how often the ISS position updates

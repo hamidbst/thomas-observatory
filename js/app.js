@@ -16,6 +16,7 @@ const App = {
 
     I18N.applyStatic();        // translate all static [data-i18n] nodes
     I18N.wireToggle();         // language switch button
+    Subscribe.init();          // newsletter sign-up box under every tab
 
     // location label opens the location picker
     LOC.wire();

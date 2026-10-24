@@ -18,16 +18,15 @@ const Tonight = {
     } catch (e) { return null; }
   },
 
-  phaseName(angle) {
-    // angle: 0 new, 90 first quarter, 180 full, 270 last quarter
-    const names = [
-      [0, "new"], [45, "waxcres"], [90, "first"], [135, "waxgib"],
-      [180, "full"], [225, "wangib"], [270, "last"], [315, "wancres"], [360, "new"]
-    ];
-    let best = names[0];
-    for (const n of names) if (Math.abs(angle - n[0]) < Math.abs(angle - best[0])) best = n;
-    return t("phase." + best[1]);
+  // angle: 0 new, 90 first quarter, 180 full, 270 last quarter. The four main
+  // phases only get ±10° (about ±0.8 day), so the Moon isn't called "Full" two
+  // days early; the rest of the time it's a crescent or gibbous.
+  phaseKey(angle) {
+    const bands = [[10, "new"], [80, "waxcres"], [100, "first"], [170, "waxgib"],
+      [190, "full"], [260, "wangib"], [280, "last"], [350, "wancres"], [361, "new"]];
+    return bands.find(b => angle < b[0])[1];
   },
+  phaseName(angle) { return t("phase." + this.phaseKey(angle)); },
 
   render() {
     const now = new Date();

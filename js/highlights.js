@@ -104,7 +104,9 @@ const Highlights = {
       </div>`;
   },
 
-  compute() {
+  // opts.untilHour (e.g. 23): only consider the evening, up to that hour — used by
+  // the family newsletter. The website looks at the whole night.
+  compute(opts = {}) {
     const lat = LOC.current.lat, lon = LOC.current.lon;
     const obs = new Astronomy.Observer(lat, lon, LOC.current.elevation || 0);
     const now = new Date();
@@ -118,12 +120,20 @@ const Highlights = {
     let dawn = this._alt(obs, "Sun", +1, new Date(sunrise.getTime() - 4 * 3600e3), -12) || sunrise;
     if (dawn <= dusk) { dusk = sunset; dawn = sunrise; }        // polar / no real darkness
 
+    // evening only? stop at opts.untilHour (but always leave at least an hour after dusk)
+    const evening = opts.untilHour != null;
+    let stop = dawn;
+    if (evening) {
+      const cap = new Date(dusk.getFullYear(), dusk.getMonth(), dusk.getDate(), opts.untilHour, 0, 0);
+      stop = new Date(Math.min(dawn.getTime(), Math.max(cap.getTime(), dusk.getTime() + 3600e3)));
+    }
+
     // sample times across the window (every ~20 min)
     const samples = [];
-    for (let t2 = dusk.getTime(); t2 <= dawn.getTime(); t2 += 20 * 60000) samples.push(new Date(t2));
-    if (samples.length < 2) samples.push(dawn);
+    for (let t2 = dusk.getTime(); t2 <= stop.getTime(); t2 += 20 * 60000) samples.push(new Date(t2));
+    if (samples.length < 2) samples.push(stop);
 
-    const mid = new Date((dusk.getTime() + dawn.getTime()) / 2);
+    const mid = new Date((dusk.getTime() + stop.getTime()) / 2);
     const moonFrac = (() => { try { return Astronomy.Illumination(Astronomy.Body.Moon, mid).phase_fraction; } catch (e) { return 0; } })();
 
     const cands = [];
@@ -134,7 +144,7 @@ const Highlights = {
       const best = this._track(samples, lat, lon, (d) => {
         const eq = Astronomy.Equator(Astronomy.Body[body], d, obs, true, true);
         return { ra: eq.ra, dec: eq.dec };
-      });
+      }, evening);
       if (best.alt < 8) continue;
       let mag = null; try { mag = Astronomy.Illumination(Astronomy.Body[body], best.time).mag; } catch (e) {}
       const score = info.base * (0.45 + 0.55 * Math.min(best.alt / 55, 1));
@@ -145,7 +155,7 @@ const Highlights = {
 
     // ---- Deep-sky objects ----
     for (const o of HL_DSO) {
-      const best = this._track(samples, lat, lon, () => ({ ra: o.ra, dec: o.dec }));
+      const best = this._track(samples, lat, lon, () => ({ ra: o.ra, dec: o.dec }), evening);
       if (best.alt < 12) continue;
       // Moon glare penalty for faint objects
       let moonPen = 1;
@@ -170,14 +180,21 @@ const Highlights = {
     return { list, milkyway };
   },
 
-  // track an object's highest point across the sample times
-  _track(samples, lat, lon, getEq) {
+  // track an object's highest point across the sample times. With `early` (the
+  // evening-only newsletter) return instead the first time it is well placed —
+  // 30° up, or within 5° of its highest if it never gets that high — so the times
+  // read "from 21:40" rather than all landing on the end of the window.
+  _track(samples, lat, lon, getEq, early) {
     let best = { alt: -90, az: 0, time: samples[0] };
+    const pts = [];
     for (const d of samples) {
       const eq = getEq(d);
       const h = U.eqToHoriz(eq.ra, eq.dec, lat, U.lst(d, lon));
-      if (h.alt > best.alt) best = { alt: h.alt, az: h.az, time: d };
+      const p = { alt: h.alt, az: h.az, time: d };
+      pts.push(p);
+      if (h.alt > best.alt) best = p;
     }
+    if (early) return pts.find(p => p.alt >= Math.min(best.alt - 5, 30)) || best;
     return best;
   },
 

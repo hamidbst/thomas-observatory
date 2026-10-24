@@ -373,7 +373,10 @@ const Sky = {
   },
 
   dsoType(type) {
-    const map = { gg:"Galaxy", g:"Galaxy", gc:"Globular cluster", oc:"Open cluster",
+    // the catalog also uses s / sd / i for galaxies (M31, M33, the Magellanic Clouds)
+    // and en for emission nebulae (η Car)
+    const map = { gg:"Galaxy", g:"Galaxy", s:"Galaxy", sd:"Galaxy", i:"Galaxy", en:"Nebula",
+      gc:"Globular cluster", oc:"Open cluster",
       pn:"Planetary nebula", dn:"Nebula", bn:"Nebula", sfr:"Star-forming region",
       snr:"Supernova remnant" };
     return I18N.dsotypeName(map[type] || "Deep-sky object");

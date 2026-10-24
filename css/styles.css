@@ -491,4 +491,18 @@ a { color: var(--accent); }
   color: var(--lc); margin-bottom: 8px; }
 .quiz-scores { display: flex; gap: 16px; }
 
+/* ---------- Newsletter sign-up (under every tab) ---------- */
+.subscribe-wrap { margin-top: 26px; }
+.sub-panel { background: linear-gradient(160deg, rgba(125,180,255,0.10), var(--panel)); }
+.sub-head { display: flex; gap: 14px; align-items: flex-start; }
+.sub-emoji { font-size: 30px; line-height: 1; }
+.sub-pitch { margin: 0; font-size: 14px; color: var(--text-dim); line-height: 1.55; }
+.sub-form { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; margin-top: 14px; }
+.sub-send { justify-self: stretch; }
+.sub-consent { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center;
+  font-size: 13.5px; color: var(--text-dim); cursor: pointer; }
+.sub-status { margin-top: 8px; }
+.sub-privacy { margin: 6px 0 0; }
+@media (max-width: 600px) { .sub-form { grid-template-columns: 1fr; } }
+
 footer.site { text-align:center; color: var(--text-faint); font-size: 12px; padding: 30px 0 10px; }

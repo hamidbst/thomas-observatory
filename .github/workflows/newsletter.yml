@@ -1,0 +1,63 @@
+# Weekly newsletter — every Friday morning, builds "Your sky this week" (FR + EN)
+# with the website's own code and creates both as DRAFTS in Brevo, plus a test copy
+# to NEWSLETTER_EMAIL. Nothing reaches subscribers until you click Send in Brevo.
+# Manual runs (Actions tab → Weekly newsletter → Run workflow) default to
+# "preview", which only builds the emails (download them from the run's page).
+
+name: Weekly newsletter
+
+on:
+  schedule:
+    - cron: "0 6 * * 5"   # Fridays 06:00 UTC = 07:00 (winter) / 08:00 (summer) in France
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "preview = only build the emails · draft = also create the drafts in Brevo and send you a test copy"
+        type: choice
+        options: [preview, draft]
+        default: preview
+
+permissions:
+  contents: write         # only to commit newsletter/last-run.json once a month (keep-alive)
+
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TZ: Europe/Paris
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build the newsletter (and create the Brevo drafts)
+        run: node newsletter/send.js
+        env:
+          NL_MODE: ${{ github.event_name == 'schedule' && 'draft' || inputs.mode }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          NEWSLETTER_EMAIL: ${{ secrets.NEWSLETTER_EMAIL }}
+
+      - name: Keep the emails (downloadable from this run's page)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-${{ github.run_number }}
+          path: newsletter/out/
+          if-no-files-found: ignore
+          retention-days: 30
+
+      # GitHub pauses scheduled jobs after 60 days without any change to the repo.
+      # On the first Friday of each month, record the last run so that never happens.
+      - name: Keep the weekly schedule alive
+        if: github.event_name == 'schedule'
+        run: |
+          if [ "$(date +%-d)" -le 7 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add newsletter/last-run.json
+            git commit -m "newsletter: monthly keep-alive" || true
+            git push || true
+          fi
