@@ -74,7 +74,7 @@ const Subscribe = {
     const post = document.createElement("form");
     post.method = "POST"; post.action = this.forms()[lang]; post.target = "sub-frame"; post.hidden = true;
     const add = (name, value) => { const i = document.createElement("input"); i.type = "hidden"; i.name = name; i.value = value; post.appendChild(i); };
-    add("EMAIL", email); add("OPT_IN", "1"); add("email_address_check", ""); add("locale", lang);
+    add("EMAIL", email); add("email_address_check", ""); add("locale", lang);
     document.body.appendChild(post);
     post.submit();
     post.remove();
