@@ -128,6 +128,21 @@ const U = {
 
   el(id) { return document.getElementById(id); },
   esc(str) { return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); },
+
+  // A centred pop-up message (closes with its button, ✕, Escape or a click outside).
+  popup(html, okLabel) {
+    const modal = document.createElement("div");
+    modal.className = "loc-modal sub-modal";
+    modal.innerHTML = `<div class="loc-box sub-done" role="dialog" aria-modal="true">
+        <button class="loc-x" aria-label="${U.esc(okLabel)}">✕</button>${html}
+        <button class="btn cf-send sub-done-ok">${U.esc(okLabel)}</button></div>`;
+    const close = () => { modal.remove(); document.removeEventListener("keydown", esc); };
+    const esc = (e) => { if (e.key === "Escape") close(); };
+    modal.addEventListener("click", (e) => { if (e.target === modal || e.target.closest(".loc-x, .sub-done-ok")) close(); });
+    document.addEventListener("keydown", esc);
+    document.body.appendChild(modal);
+    modal.querySelector(".sub-done-ok").focus();
+  },
 };
 
 window.U = U;

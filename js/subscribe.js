@@ -105,18 +105,7 @@ const Subscribe = {
       <p class="sub-done-step">👉 ${t("sub.doneStep")}</p>
       <p class="small muted">${t("sub.doneSpam")}</p>`;
     U.el("subscribe-app").querySelector(".sub-panel").innerHTML = `<div class="sub-done">${msg}</div>`;
-
-    const modal = document.createElement("div");
-    modal.className = "loc-modal sub-modal";
-    modal.innerHTML = `<div class="loc-box sub-done" role="dialog" aria-modal="true">
-        <button class="loc-x" aria-label="${U.esc(t("sub.doneClose"))}">✕</button>${msg}
-        <button class="btn cf-send sub-done-ok">${t("sub.doneClose")}</button></div>`;
-    const close = () => { modal.remove(); document.removeEventListener("keydown", esc); };
-    const esc = (e) => { if (e.key === "Escape") close(); };
-    modal.addEventListener("click", (e) => { if (e.target === modal || e.target.closest(".loc-x, .sub-done-ok")) close(); });
-    document.addEventListener("keydown", esc);
-    document.body.appendChild(modal);
-    modal.querySelector(".sub-done-ok").focus();
+    U.popup(msg, t("sub.doneClose"));
   }
 };
 

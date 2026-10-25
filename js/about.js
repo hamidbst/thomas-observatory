@@ -39,7 +39,10 @@ const About = {
           <div class="section-title">${t("about.contactTitle")}</div>
           <form id="contact-form" class="contact-form" novalidate>
             <input class="cf-input" name="name" required maxlength="60" placeholder="${U.esc(t("about.fName"))}" />
-            <input class="cf-input" name="email" type="email" maxlength="120" placeholder="${U.esc(t("about.fEmail"))}" />
+            <div>
+              <input class="cf-input" name="email" type="email" maxlength="120" placeholder="${U.esc(t("about.fEmail"))}" style="width:100%;" />
+              <div class="small muted cf-hint">${U.esc(t("about.emailHint"))}</div>
+            </div>
             <input class="cf-input" name="from" maxlength="80" placeholder="${U.esc(t("about.fFrom"))}" />
             <textarea class="cf-input" name="message" required rows="5" maxlength="1500" placeholder="${U.esc(t("about.fMsg"))}"></textarea>
             <div class="cf-captcha" id="cf-captcha"></div>
@@ -108,8 +111,9 @@ const About = {
       "h-captcha-response": token
     };
     // If they left an email, use it as the reply-to so you can reply directly.
+    const validEmail = /^\S+@\S+\.\S+$/.test(email);
     if (email) {
-      if (/^\S+@\S+\.\S+$/.test(email)) { payload.email = email; payload.replyto = email; }
+      if (validEmail) { payload.email = email; payload.replyto = email; }
       else { payload.message += `\n\n(Contact they typed: ${email})`; }
     }
     try {
@@ -119,8 +123,15 @@ const About = {
         body: JSON.stringify(payload)
       });
       const j = await r.json();
-      if (j.success) { status.className = "cf-status ok"; status.textContent = t("about.thanks"); f.reset(); }
-      else throw new Error(j.message || "failed");
+      if (!j.success) throw new Error(j.message || "failed");
+      status.className = "cf-status ok"; status.textContent = t("about.thanks"); f.reset();
+      U.popup(`
+        <div class="sub-done-icon">🚀</div>
+        <div class="sub-done-title">${U.esc(t("about.sentTitle"))}</div>
+        <p>${U.esc(t("about.sentThanks", { name }))}</p>
+        <p class="sub-done-step">${validEmail
+          ? t("about.sentReply", { email: `<b>${U.esc(email)}</b>` })
+          : U.esc(t("about.sentNoEmail"))}</p>`, t("about.sentOk"));
     } catch (err) {
       status.className = "cf-status err"; status.textContent = t("about.errorMsg");
     } finally {
