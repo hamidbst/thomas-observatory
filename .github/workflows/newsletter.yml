@@ -1,8 +1,9 @@
-# Weekly newsletter — every Friday morning, builds "Your sky this week" (FR + EN)
-# with the website's own code and creates both as DRAFTS in Brevo, plus a test copy
-# to NEWSLETTER_EMAIL. Nothing reaches subscribers until you click Send in Brevo.
-# Manual runs (Actions tab → Weekly newsletter → Run workflow) default to
-# "preview", which only builds the emails (download them from the run's page).
+# Weekly newsletter — every Friday morning, builds "Cap sur l'espace" (FR + EN)
+# with the website's own code, creates both campaigns in Brevo, sends a test copy
+# to NEWSLETTER_EMAIL, and SCHEDULES them for 17:00 French time the same day
+# (with a note telling you so — unschedule in Brevo before then to stop it).
+# Manual runs (Actions tab → Weekly newsletter → Run workflow) never schedule:
+# "preview" only builds the emails, "draft" also creates drafts + a test copy.
 
 name: Weekly newsletter
 
@@ -33,10 +34,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Build the newsletter (and create the Brevo drafts)
+      - name: Build the newsletter (and create / schedule the Brevo campaigns)
         run: node newsletter/send.js
         env:
-          NL_MODE: ${{ github.event_name == 'schedule' && 'draft' || inputs.mode }}
+          NL_MODE: ${{ github.event_name == 'schedule' && 'auto' || inputs.mode }}
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           NEWSLETTER_EMAIL: ${{ secrets.NEWSLETTER_EMAIL }}
 
