@@ -87,7 +87,7 @@ const I18N = {
       },
 
       sub: {
-        title: "Weekly sky guide",
+        title: "Destination Space",
         pitch: "A free email every Friday: what you can see in the sky that week, the Moon, events, space news and a quiz — for families and stargazers in France.",
         email: "Your email address", lang: "Language",
         consent: "I'm a parent, or I'm 15 or older",
@@ -314,7 +314,7 @@ const I18N = {
       },
 
       sub: {
-        title: "Le guide du ciel de la semaine",
+        title: "Cap sur l'espace",
         pitch: "Un e-mail gratuit chaque vendredi : ce que tu peux voir dans le ciel cette semaine-là, la Lune, les événements, l'actu spatiale et un quiz — pour les familles et les curieux du ciel en France.",
         email: "Ton adresse e-mail", lang: "Langue",
         consent: "Je suis un parent, ou j'ai 15 ans ou plus",

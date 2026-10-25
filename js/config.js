@@ -35,7 +35,7 @@ const CONFIG = {
   CONTACT_KEY: "6fe3049e-2088-42b8-882c-36659cb2e0f6",
 
   // --- Newsletter sign-up (Brevo) -------------------------------------------------
-  // The "Weekly sky guide" box at the bottom of every page. Each value is the address
+  // The "Destination Space" (Cap sur l'espace) box at the bottom of every page. Each value is the address
   // of a Brevo subscription form (one per language, each adding people to its own
   // list and sending the confirmation email). In Brevo: open the form → Share /
   // Embed → copy the form's action address (https://…sibforms.com/serve/…).

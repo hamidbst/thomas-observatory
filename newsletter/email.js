@@ -13,7 +13,7 @@ const NL_PLACE = { lat: 46.6, lon: 2.4, elevation: 150 };
 
 const NL_STR = {
   en: {
-    brand: "Thomas Nima's Observatory", kicker: "Weekly sky guide",
+    brand: "Thomas Nima's Observatory", kicker: "Destination Space",
     title: "Your sky this week", place: "central France", forPlace: "times for {place}",
     hello: "Hello, stargazers! Here's what's worth looking up at this week — most of it needs no telescope at all.",
     sights: "Tonight's best sights", from: "From {t}",
@@ -32,11 +32,11 @@ const NL_STR = {
     lastAnswer: "Last week's answer",
     cta: "Open the live sky map",
     footer: "You're receiving this because you signed up at thomasnima.com.", unsub: "Unsubscribe",
-    subject: "🔭 Your sky this week · {range}",
+    subject: "🚀 Destination Space · your sky this week, {range}",
     preheader: "{lead} — plus the Moon, this week's events, space news and a quiz.",
   },
   fr: {
-    brand: "L'Observatoire de Thomas Nima", kicker: "Le guide du ciel de la semaine",
+    brand: "L'Observatoire de Thomas Nima", kicker: "Cap sur l'espace",
     title: "Ton ciel cette semaine", place: "le centre de la France", forPlace: "heures pour {place}",
     hello: "Bonjour les astronomes en herbe ! Voici ce qui vaut le coup d'œil cette semaine — la plupart sans télescope.",
     sights: "Les plus beaux objets ce soir", from: "Dès {t}",
@@ -55,7 +55,7 @@ const NL_STR = {
     lastAnswer: "Réponse de la semaine dernière",
     cta: "Ouvrir la carte du ciel en direct",
     footer: "Cet e-mail t'est envoyé suite à ton inscription sur thomasnima.com.", unsub: "Se désinscrire",
-    subject: "🔭 Ton ciel cette semaine · {range}",
+    subject: "🚀 Cap sur l'espace · ton ciel du {range}",
     preheader: "{lead} — et aussi la Lune, les événements, l'actu spatiale et un quiz.",
   },
 };

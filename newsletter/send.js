@@ -81,7 +81,7 @@ async function main() {
   for (const lang of ["fr", "en"]) {
     const e = emails[lang];
     const body = {
-      name: `Weekly sky ${stamp} (${lang.toUpperCase()})`,
+      name: `Destination Space ${stamp} (${lang.toUpperCase()})`,
       subject: e.subject,
       previewText: e.preheader,
       sender: { name: e.fromName, email: SENDER_EMAIL },

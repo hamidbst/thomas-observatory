@@ -1,5 +1,5 @@
 /* =============================================================================
-   subscribe.js  —  "Weekly sky guide" sign-up box, shown under every tab
+   subscribe.js  —  "Destination Space" (Cap sur l'espace) sign-up box, shown under every tab
    Sends the address to the Brevo subscription form for the chosen language
    (CONFIG.NEWSLETTER_FORMS). Brevo stores it and emails a confirmation link
    (double opt-in) — nobody is subscribed until they click it, so a clear
