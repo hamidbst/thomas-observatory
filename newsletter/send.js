@@ -10,7 +10,7 @@
    Environment:
      NL_MODE           "auto" | "draft" (default) | "preview" (only build the HTML files)
      BREVO_API_KEY     GitHub secret — the Brevo API key
-     NEWSLETTER_EMAIL  GitHub secret — your address: test copy + "reply to"
+     NEWSLETTER_EMAIL  GitHub secret — your address: test copies + the Friday note
    Output: newsletter/out/<date>-fr.html and -en.html, newsletter/last-run.json
    ============================================================================= */
 
@@ -20,7 +20,7 @@ const path = require("path");
 const vm = require("vm");
 
 const ROOT = path.join(__dirname, "..");
-const SENDER_EMAIL = "ciel@thomasnima.com";
+const SENDER_EMAIL = "astro@thomasnima.com";                  // sender + reply-to address (forwards to you)
 const LISTS = { fr: 3, en: 4 };                       // Brevo list IDs
 const SEND_HOUR = 17;                                 // Friday runs go out at 17:00 French time
 const SITE_FILES = [
@@ -96,7 +96,7 @@ async function main() {
       htmlContent: e.html,
       recipients: { listIds: [LISTS[lang]] },
     };
-    if (me) body.replyTo = me;
+    body.replyTo = SENDER_EMAIL;                       // replies reach you through the forwarding, your own address stays private
     let camp, empty = false;
     try {
       camp = await brevo(key, "POST", "/emailCampaigns", body);
