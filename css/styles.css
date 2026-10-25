@@ -504,6 +504,9 @@ a { color: var(--accent); }
 .sub-status { margin-top: 8px; }
 .sub-privacy { margin: 6px 0 0; }
 @media (max-width: 600px) { .sub-form { grid-template-columns: 1fr; } }
+/* the opened language list is drawn by the browser: keep it dark with light text */
+.sub-lang { color-scheme: dark; }
+.sub-lang option { background: var(--panel-solid); color: var(--text); }
 .sub-modal { align-items: center; padding: 16px; }
 .sub-done { text-align: center; line-height: 1.55; }
 .sub-done p { margin: 10px 0; }
