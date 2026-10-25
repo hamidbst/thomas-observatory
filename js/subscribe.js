@@ -2,8 +2,8 @@
    subscribe.js  —  "Weekly sky guide" sign-up box, shown under every tab
    Sends the address to the Brevo subscription form for the chosen language
    (CONFIG.NEWSLETTER_FORMS). Brevo stores it and emails a confirmation link
-   (double opt-in) — nobody is subscribed until they click it. The post goes
-   through a hidden iframe so the visitor stays on the page.
+   (double opt-in) — nobody is subscribed until they click it, so a clear
+   pop-up tells the visitor to go and check their inbox.
    Hidden until both form addresses are set in config.js.
    ============================================================================= */
 
@@ -64,25 +64,59 @@ const Subscribe = {
     if (!f.consent.checked) return fail("sub.errConsent", f.consent);
 
     const lang = f.lang.value === "en" ? "en" : "fr";
+    // the same fields Brevo's own embedded form sends
+    const fields = { EMAIL: email, email_address_check: "", locale: lang };
+    const btn = f.querySelector("button");
+    btn.disabled = true; btn.textContent = "…";
+    status.textContent = "";
+    fetch(this.forms()[lang], { method: "POST", body: new URLSearchParams(fields) })
+      .then(r => r.json())
+      .then(res => {
+        if (res && res.success) return this.done(email);
+        btn.disabled = false; btn.textContent = t("sub.button");
+        fail("sub.errSend");
+      })
+      .catch(() => { this.postFrame(this.forms()[lang], fields); this.done(email); });   // reply unreadable: send it the classic way
+  },
+
+  // Fallback: a normal form post into a hidden iframe (the reply can't be read).
+  postFrame(action, fields) {
     let frame = document.getElementById("sub-frame");
     if (!frame) {
       frame = document.createElement("iframe");
       frame.name = frame.id = "sub-frame"; frame.hidden = true; frame.title = "subscribe";
       document.body.appendChild(frame);
     }
-    // the same fields Brevo's own embedded form sends
     const post = document.createElement("form");
-    post.method = "POST"; post.action = this.forms()[lang]; post.target = "sub-frame"; post.hidden = true;
-    const add = (name, value) => { const i = document.createElement("input"); i.type = "hidden"; i.name = name; i.value = value; post.appendChild(i); };
-    add("EMAIL", email); add("email_address_check", ""); add("locale", lang);
+    post.method = "POST"; post.action = action; post.target = "sub-frame"; post.hidden = true;
+    for (const k in fields) { const i = document.createElement("input"); i.type = "hidden"; i.name = k; i.value = fields[k]; post.appendChild(i); }
     document.body.appendChild(post);
     post.submit();
     post.remove();
+  },
 
+  // Signed up: a pop-up that can't be missed, and the box itself keeps the reminder.
+  done(email) {
     this.sent = true;
-    f.querySelectorAll("input, select, button").forEach(x => { x.disabled = true; });
-    status.className = "cf-status sub-status ok";
-    status.textContent = t("sub.ok");
+    const msg = `
+      <div class="sub-done-icon">📩</div>
+      <div class="sub-done-title">${t("sub.doneTitle")}</div>
+      <p>${t("sub.doneSent", { email: `<b>${U.esc(email)}</b>` })}</p>
+      <p class="sub-done-step">👉 ${t("sub.doneStep")}</p>
+      <p class="small muted">${t("sub.doneSpam")}</p>`;
+    U.el("subscribe-app").querySelector(".sub-panel").innerHTML = `<div class="sub-done">${msg}</div>`;
+
+    const modal = document.createElement("div");
+    modal.className = "loc-modal sub-modal";
+    modal.innerHTML = `<div class="loc-box sub-done" role="dialog" aria-modal="true">
+        <button class="loc-x" aria-label="${U.esc(t("sub.doneClose"))}">✕</button>${msg}
+        <button class="btn cf-send sub-done-ok">${t("sub.doneClose")}</button></div>`;
+    const close = () => { modal.remove(); document.removeEventListener("keydown", esc); };
+    const esc = (e) => { if (e.key === "Escape") close(); };
+    modal.addEventListener("click", (e) => { if (e.target === modal || e.target.closest(".loc-x, .sub-done-ok")) close(); });
+    document.addEventListener("keydown", esc);
+    document.body.appendChild(modal);
+    modal.querySelector(".sub-done-ok").focus();
   }
 };
 

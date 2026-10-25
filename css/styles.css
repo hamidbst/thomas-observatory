@@ -504,5 +504,13 @@ a { color: var(--accent); }
 .sub-status { margin-top: 8px; }
 .sub-privacy { margin: 6px 0 0; }
 @media (max-width: 600px) { .sub-form { grid-template-columns: 1fr; } }
+.sub-modal { align-items: center; padding: 16px; }
+.sub-done { text-align: center; line-height: 1.55; }
+.sub-done p { margin: 10px 0; }
+.sub-done-icon { font-size: 52px; line-height: 1; margin-bottom: 8px; }
+.sub-done-title { font-size: 20px; font-weight: 700; color: var(--accent-3); }
+.sub-done-step { font-weight: 600; color: var(--text); background: rgba(125,180,255,0.10);
+  border: 1px solid var(--border-hi); border-radius: 10px; padding: 10px 12px; }
+.sub-done-ok { margin-top: 6px; min-width: 140px; }
 
 footer.site { text-align:center; color: var(--text-faint); font-size: 12px; padding: 30px 0 10px; }
