@@ -16,8 +16,7 @@ const About = {
   },
 
   render() {
-    // fresh "are you human?" maths question + a start timestamp each render
-    this.hc = { a: 1 + Math.floor(Math.random() * 8), b: 1 + Math.floor(Math.random() * 8), t0: Date.now() };
+    this.t0 = Date.now();                                  // start time, to spot instant bot submissions
     let cover = I18N.t("about.cover");
     if (!Array.isArray(cover)) cover = [];
     U.el("about-app").innerHTML = `
@@ -43,10 +42,7 @@ const About = {
             <input class="cf-input" name="email" type="email" maxlength="120" placeholder="${U.esc(t("about.fEmail"))}" />
             <input class="cf-input" name="from" maxlength="80" placeholder="${U.esc(t("about.fFrom"))}" />
             <textarea class="cf-input" name="message" required rows="5" maxlength="1500" placeholder="${U.esc(t("about.fMsg"))}"></textarea>
-            <div class="cf-human">
-              <label for="cf-human-in">${U.esc(t("about.human", { a: this.hc.a, b: this.hc.b }))}</label>
-              <input class="cf-input cf-num" id="cf-human-in" name="human" type="text" inputmode="numeric" maxlength="3" autocomplete="off" />
-            </div>
+            <div class="cf-captcha" id="cf-captcha"></div>
             <input type="checkbox" name="botcheck" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <button type="submit" class="btn cf-send">${t("about.send")}</button>
             <div class="cf-status" id="cf-status" role="status"></div>
@@ -54,6 +50,28 @@ const About = {
         </div>
       </div>`;
     U.el("contact-form").addEventListener("submit", (e) => this.submit(e));
+    this.captcha();
+  },
+
+  // "I am human" check by hCaptcha. Web3Forms verifies it on its side and rejects
+  // any message without it, so robots can't skip the page and post directly.
+  CAPTCHA_SITEKEY: "50b2fe65-b00b-4b9e-ad62-3ba471098be2",   // Web3Forms' shared key for free plans
+  widget: null,
+
+  captcha() {
+    const box = U.el("cf-captcha");
+    if (!box) return;
+    if (window.hcaptcha && window.hcaptcha.render) {
+      this.widget = window.hcaptcha.render(box, { sitekey: this.CAPTCHA_SITEKEY, theme: "dark" });
+      return;
+    }
+    if (this.captchaLoading) return;
+    this.captchaLoading = true;
+    window.aboutCaptchaReady = () => this.captcha();
+    const s = document.createElement("script");
+    s.src = "https://js.hcaptcha.com/1/api.js?render=explicit&onload=aboutCaptchaReady&hl=" + (I18N.lang === "fr" ? "fr" : "en");
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
   },
 
   async submit(e) {
@@ -61,7 +79,7 @@ const About = {
     const f = e.target;
     const status = U.el("cf-status");
     if (f.botcheck.checked) return;                       // honeypot: silently ignore bots
-    if (Date.now() - this.hc.t0 < 2500) return;           // submitted implausibly fast = bot
+    if (Date.now() - this.t0 < 2500) return;              // submitted implausibly fast = bot
 
     const key = (CONFIG.CONTACT_KEY || "").trim();
     if (!key) { status.className = "cf-status err"; status.textContent = t("about.notSet"); return; }
@@ -71,11 +89,10 @@ const About = {
 
     // required name
     if (!name) { status.className = "cf-status err"; status.textContent = t("about.errName"); f.name.focus(); return; }
-    // human check (simple maths)
-    if (parseInt(f.human.value, 10) !== this.hc.a + this.hc.b) {
-      status.className = "cf-status err"; status.textContent = t("about.errHuman"); f.human.focus(); return;
-    }
     if (!message) return;
+    // human check (hCaptcha)
+    const token = (window.hcaptcha && this.widget != null) ? window.hcaptcha.getResponse(this.widget) : "";
+    if (!token) { status.className = "cf-status err"; status.textContent = t("about.errHuman"); return; }
 
     const btn = f.querySelector(".cf-send");
     btn.disabled = true;
@@ -87,7 +104,8 @@ const About = {
       from_name: "Observatory contact form",
       name: name,
       from_where: from || "—",
-      message
+      message,
+      "h-captcha-response": token
     };
     // If they left an email, use it as the reply-to so you can reply directly.
     if (email) {
@@ -107,6 +125,7 @@ const About = {
       status.className = "cf-status err"; status.textContent = t("about.errorMsg");
     } finally {
       btn.disabled = false;
+      if (window.hcaptcha && this.widget != null) window.hcaptcha.reset(this.widget);   // a token works only once
     }
   }
 };
