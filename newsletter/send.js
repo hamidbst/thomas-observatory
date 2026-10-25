@@ -23,7 +23,7 @@ const SENDER_EMAIL = "ciel@thomasnima.com";
 const LISTS = { fr: 3, en: 4 };                       // Brevo list IDs
 const SITE_FILES = [
   "vendor/astronomy.browser.min.js", "js/config.js", "js/i18n.js", "js/util.js", "js/facts.js",
-  "js/events.js", "js/tonight.js", "js/highlights.js", "js/skymap.js", "js/quiz.js", "newsletter/email.js",
+  "js/events.js", "js/tonight.js", "js/highlights.js", "js/skymap.js", "js/quiz.js", "newsletter/extras.js", "newsletter/email.js",
 ];
 
 // Load the site's browser scripts into one sandbox, like <script> tags on a page.

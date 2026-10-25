@@ -4,7 +4,7 @@
    (newsletter/preview.html) and on GitHub's servers for the Friday job.
    It reuses the site's own modules, which must be loaded first: Astronomy,
    CONFIG, I18N/t, U, FACTS_EN/FR, Events, Tonight, Highlights (HL_DSO), Sky
-   (CONS_FR, DSO_INFO, EXTRA_DSOS) and QUIZ_BANK — so the email always says the
+   (CONS_FR, DSO_INFO, EXTRA_DSOS), QUIZ_BANK and newsletter/extras.js — so the email always says the
    same thing as the website.
    ============================================================================= */
 
@@ -30,6 +30,10 @@ const NL_STR = {
     fact: "Fact of the week",
     quiz: "Quiz of the week", quizHint: "Think you know? The answer is in next week's email.",
     lastAnswer: "Last week's answer",
+    challenge: "Challenge of the week",
+    anniv: "This week in space history", annivAgo: "{n} years ago · {date}",
+    reader: "Your sky", readerBy: "By {who}",
+    readerAsk: "Took a photo of the sky, or drew the Moon, a planet or a constellation? Just reply to this email with it attached! From time to time we'll show one here (first name and age only, with a parent's OK).",
     cta: "Open the live sky map",
     footer: "You're receiving this because you signed up at thomasnima.com.", unsub: "Unsubscribe",
     subject: "🚀 Destination Space · your sky this week, {range}",
@@ -53,6 +57,10 @@ const NL_STR = {
     fact: "Le fait de la semaine",
     quiz: "Le quiz de la semaine", quizHint: "Tu crois savoir ? La réponse sera dans l'e-mail de la semaine prochaine.",
     lastAnswer: "Réponse de la semaine dernière",
+    challenge: "Le défi de la semaine",
+    anniv: "Cette semaine dans l'histoire de l'espace", annivAgo: "Il y a {n} ans · {date}",
+    reader: "Ton ciel", readerBy: "Par {who}",
+    readerAsk: "Tu as pris une photo du ciel, ou dessiné la Lune, une planète ou une constellation ? Réponds simplement à cet e-mail en la joignant ! De temps en temps, nous en montrerons une ici (prénom et âge seulement, avec l'accord d'un parent).",
     cta: "Ouvrir la carte du ciel en direct",
     footer: "Cet e-mail t'est envoyé suite à ton inscription sur thomasnima.com.", unsub: "Se désinscrire",
     subject: "🚀 Cap sur l'espace · ton ciel du {range}",
@@ -120,6 +128,9 @@ const NL = {
     const quiz = this.quiz(week, lang);
     const facts = lang === "fr" ? FACTS_FR : FACTS_EN;
     const fact = facts.length ? facts[this.mod(week, facts.length)] : "";
+    const challenge = this.challenge(start, moon, week);
+    const anniv = this.anniversary(start, end, week);
+    const reader = this.reader(start, end);
 
     const range = this.range(start, this.dayAt(date, 6, 0), loc);
     const lead = ev.week[0] ? ev.week[0].title : (sights.list[0] ? this.cap(sights.list[0].name) : S.title);
@@ -153,6 +164,12 @@ const NL = {
         <div style="font-size:16px;color:${C.text};"><span style="font-size:26px;vertical-align:middle;">${moon.emoji}</span>&nbsp; ${E(s("moonTonight", { phase: moon.phase, pct: moon.pct }))}</div>
         ${qs}${P(E(darkTxt), "margin-top:10px;")}`));
     }
+
+    // 🎯 challenge of the week — a small observing mission that works this month
+    if (challenge) sections.push(this.card("🎯", S.challenge, `
+      <div style="font-size:17px;font-weight:800;color:${C.gold};">${challenge.emoji} ${E(challenge.title[lang])}
+        <span style="font-size:11px;font-weight:700;color:${C.accent};text-transform:uppercase;letter-spacing:1px;">&nbsp;${E(t("hl.inst_" + challenge.inst))}</span></div>
+      <div style="font-size:14.5px;line-height:1.6;color:${C.text};margin-top:8px;">${E(challenge.how[lang])}</div>`));
 
     // 📅 events this week (+ what's coming next)
     {
@@ -195,6 +212,11 @@ const NL = {
         + (d.apod.media_type === "image" ? "" : P(`<a href="${E(page)}" style="color:${C.accent};">${E(S.apodVideo)} →</a>`, "font-size:13px;margin-top:4px;"))));
     }
 
+    // 🧑‍🚀 this week in space history
+    if (anniv) sections.push(this.card("🧑‍🚀", S.anniv, `
+      <div style="font-size:13px;font-weight:700;color:${C.accent};">${E(s("annivAgo", { n: anniv.ago, date: anniv.date.toLocaleDateString(loc, { day: "numeric", month: "long", year: "numeric" }) }))}</div>
+      <div style="font-size:15px;line-height:1.6;color:${C.text};margin-top:6px;">${anniv.a.emoji} ${E(anniv.a[lang])}</div>`));
+
     // ✨ fact (site content — contains <b> tags, so not escaped)
     if (fact) sections.push(this.card("✨", S.fact, `<div style="font-size:15px;line-height:1.6;color:${C.text};">${fact}</div>`));
 
@@ -215,6 +237,13 @@ const NL = {
           ${P(E(L(prev.q.exp)), "font-size:13px;margin-top:2px;")}
         </div>`));
     }
+
+    // 📸 your sky — a reader's photo/drawing when there is one, and always the invitation
+    sections.push(this.card("📸", S.reader, (reader ? `
+      <img src="${E(reader.image)}" alt="${E(reader.caption[lang])}" width="540" style="display:block;width:100%;max-width:540px;height:auto;border-radius:10px;border:0;">
+      <div style="font-size:15px;font-weight:700;color:${C.text};margin-top:10px;">${E(reader.caption[lang])}</div>
+      <div style="font-size:13px;color:${C.gold};margin:2px 0 12px;">${E(s("readerBy", { who: reader.who[lang] }))}</div>` : "")
+      + P(E(S.readerAsk))));
 
     const html = this.page(lang, subject, preheader, `
       <tr><td style="padding:8px 4px 20px;font-family:${NL_F};">
@@ -320,6 +349,48 @@ const NL = {
       return { q, order, correctPos: order.indexOf(q.answer) };
     };
     return { cur: pick(week), prev: pick(week - 1) };
+  },
+
+  // an observing challenge that works this month (and with this week's Moon),
+  // rotating every week
+  challenge(start, moon, week) {
+    if (typeof NL_CHALLENGES === "undefined") return null;
+    const month = this.dayAt(start, 3, 0).getMonth() + 1;
+    const moonOut = moon.pct >= 15 && moon.dark.length < 7;     // a lit Moon in some evenings
+    const dark = moon.dark.length >= 2;                          // at least two Moon-free evenings
+    const ok = NL_CHALLENGES.filter(c => (!c.months || c.months.includes(month))
+      && (c.needs !== "moon" || moonOut) && (c.needs !== "dark" || dark));
+    // two weeks out of three, prefer a seasonal one (it's only possible right now)
+    const seasonal = ok.filter(c => c.months);
+    const pool = seasonal.length && this.mod(week, 3) ? seasonal : ok;
+    return pool.length ? pool[this.mod(week, pool.length)] : null;
+  },
+
+  // a moment of space history whose anniversary falls this week (rounder
+  // anniversaries first: 50, 25, 10, 5 years)
+  anniversary(start, end, week) {
+    if (typeof NL_ANNIV === "undefined") return null;
+    const hits = [];
+    for (const a of NL_ANNIV) {
+      for (const yr of [start.getFullYear(), start.getFullYear() + 1]) {
+        const date = new Date(a.y, a.m - 1, a.d), when = new Date(yr, a.m - 1, a.d);
+        if (when >= start && when < end && yr > a.y) hits.push({ a, date, ago: yr - a.y });
+      }
+    }
+    if (!hits.length) return null;
+    const round = (h) => [50, 25, 10, 5].findIndex(n => h.ago % n === 0);
+    const score = (h) => { const r = round(h); return r < 0 ? 9 : r; };
+    const best = Math.min(...hits.map(score));
+    const top = hits.filter(h => score(h) === best);
+    return top[this.mod(week, top.length)];
+  },
+
+  // the reader photo for this week, if one is set in extras.js
+  reader(start, end) {
+    if (typeof NL_READER === "undefined" || !NL_READER) return null;
+    const [y, m, d] = NL_READER.date.split("-").map(Number);
+    const when = new Date(y, m - 1, d);
+    return when >= start && when < end ? NL_READER : null;
   },
 
   // ---- layout ----
