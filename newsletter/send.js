@@ -151,7 +151,8 @@ async function sendReminder(key, me, report, sendAt, scheduled) {
     <p>You should also have received the two test copies (subjects starting with "TEST").</p>
     <p>${report.map(line).join("<br>")}</p>
     ${scheduled ? `<p><b>Something wrong?</b> Before ${hhmm}, open <a href="https://app.brevo.com">Brevo</a> → Marketing → Campaigns, open this week's campaign and choose <b>Unschedule</b> (or edit it). If you do nothing, it goes out by itself.</p>` : ""}
-    <p style="color:#6b7590;font-size:13px;">Sent by the Friday job on GitHub (Actions → Weekly newsletter).</p></div>`;
+    ${await subscriberSummary(key)}
+    <p style="color:#6b7590;font-size:13px;">Sent only to you by the Friday job on GitHub (Actions → Weekly newsletter).</p></div>`;
   try {
     await brevo(key, "POST", "/smtp/email", {
       sender: { name: "Observatory newsletter robot", email: SENDER_EMAIL },
@@ -161,6 +162,42 @@ async function sendReminder(key, me, report, sendAt, scheduled) {
     });
     console.log("reminder sent to you");
   } catch (err) { console.log(`could not send the reminder: ${err.message}`); }
+}
+
+// For the Friday note: who joined each list in the last 7 days, and the totals.
+// Only confirmed subscribers are on the lists; unsubscribed ones are left out.
+async function subscriberSummary(key) {
+  const since = Date.now() - 7 * 864e5;
+  const esc = (s) => String(s).replace(/[<>&"]/g, "");
+  try {
+    const per = {};
+    for (const lang of ["fr", "en"]) {
+      const all = [];
+      for (let offset = 0; offset < 10000; offset += 500) {
+        const r = await brevo(key, "GET", `/contacts/lists/${LISTS[lang]}/contacts?limit=500&offset=${offset}`);
+        const page = r.contacts || [];
+        all.push(...page);
+        if (page.length < 500) break;
+      }
+      const active = all.filter(c => !c.emailBlacklisted);
+      per[lang] = { total: active.length,
+        fresh: active.filter(c => new Date(c.createdAt) >= since).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)) };
+    }
+    const fresh = ["fr", "en"].flatMap(l => per[l].fresh.map(c => ({ ...c, lang: l.toUpperCase() })));
+    const day = (c) => new Date(c.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+    const list = fresh.length
+      ? fresh.map(c => `• ${esc(c.email)} <span style="color:#6b7590;">(${c.lang} · ${day(c)})</span>`).join("<br>")
+      : `<span style="color:#6b7590;">No new subscribers this week.</span>`;
+    return `<div style="margin:18px 0;padding:14px 16px;border-radius:10px;background:#f2f5fc;">
+      <div style="font-weight:700;">👋 New subscribers this week: ${fresh.length}
+        <span style="font-weight:400;color:#6b7590;">(FR: ${per.fr.fresh.length} · EN: ${per.en.fresh.length})</span></div>
+      <div style="margin-top:6px;">${list}</div>
+      <div style="margin-top:8px;font-weight:700;">Total: ${per.fr.total + per.en.total}
+        <span style="font-weight:400;color:#6b7590;">(FR: ${per.fr.total} · EN: ${per.en.total})</span></div></div>`;
+  } catch (err) {
+    console.log(`could not read the subscriber lists: ${err.message}`);
+    return `<p style="color:#6b7590;">(Couldn't read the subscriber lists this week.)</p>`;
+  }
 }
 
 main().catch((err) => { console.error(err.message || err); process.exit(1); });
