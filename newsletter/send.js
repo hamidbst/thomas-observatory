@@ -20,7 +20,8 @@ const path = require("path");
 const vm = require("vm");
 
 const ROOT = path.join(__dirname, "..");
-const SENDER_EMAIL = "astro@thomasnima.com";                  // sender + reply-to address (forwards to you)
+const SENDER_EMAIL = "astro@thomasnima.com";          // the newsletter's sender address
+const NO_REPLY = "noreply@thomasnima.com";            // reply-to: not a real mailbox, replies aren't read
 const LISTS = { fr: 3, en: 4 };                       // Brevo list IDs
 const SEND_HOUR = 17;                                 // Friday runs go out at 17:00 French time
 const SITE_FILES = [
@@ -96,7 +97,7 @@ async function main() {
       htmlContent: e.html,
       recipients: { listIds: [LISTS[lang]] },
     };
-    body.replyTo = SENDER_EMAIL;                       // replies reach you through the forwarding, your own address stays private
+    body.replyTo = NO_REPLY;                           // the email asks readers to use the website form instead
     let camp, empty = false;
     try {
       camp = await brevo(key, "POST", "/emailCampaigns", body);

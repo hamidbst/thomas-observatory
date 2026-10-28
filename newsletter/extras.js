@@ -4,7 +4,6 @@
                     tagged with the months it works in from France (evenings) and
                     whether it needs the Moon out or dark skies.
    · NL_ANNIV       dated moments of space history, for "On this week in history".
-   · NL_READER      the reader photo/drawing to feature (null = just the invitation).
    ============================================================================= */
 
 // months: 1–12 when it works in the evening from France (omit = all year)
@@ -200,10 +199,3 @@ const NL_ANNIV = [
   { m: 12, d: 2, y: 1995, emoji: "☀️", en: "The SOHO observatory was launched to watch the Sun non-stop. It has also discovered over 5,000 comets!", fr: "L'observatoire SOHO était lancé pour surveiller le Soleil sans arrêt. Il a aussi découvert plus de 5 000 comètes !" },
   { m: 12, d: 21, y: 1968, emoji: "🚀", en: "Apollo 8 was launched: the first time humans left Earth's orbit and travelled to the Moon.", fr: "Apollo 8 décollait : pour la première fois, des humains quittaient l'orbite terrestre pour aller vers la Lune." },
 ];
-
-// A reader's photo or drawing to feature (sent in by replying to the newsletter).
-// Shown only in the email for the week that contains `date`. Keep it to a first
-// name and age, with the parent's permission. Example:
-// const NL_READER = { date: "2026-11-06", image: "https://thomasnima.com/assets/readers/lea-moon.jpg",
-//   who: { en: "Léa, 9", fr: "Léa, 9 ans" }, caption: { en: "The Moon through binoculars", fr: "La Lune aux jumelles" } };
-const NL_READER = null;

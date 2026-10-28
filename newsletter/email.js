@@ -32,8 +32,7 @@ const NL_STR = {
     lastAnswer: "Last week's answer",
     challenge: "Challenge of the week",
     anniv: "This week in space history", annivAgo: "{n} years ago · {date}",
-    reader: "Your sky", readerBy: "By {who}",
-    readerAsk: "Took a photo of the sky, or drew the Moon, a planet or a constellation? Just reply to this email with it attached! From time to time we'll show one here (first name and age only, with a parent's OK).",
+    noReply: "Please don't reply to this email, replies aren't read. To write to us, use the “Write to me” form on the About page at",
     cta: "Open the live sky map",
     footer: "You're receiving this because you signed up at thomasnima.com.", unsub: "Unsubscribe",
     subject: "🚀 Destination Space · your sky this week, {range}",
@@ -59,8 +58,7 @@ const NL_STR = {
     lastAnswer: "Réponse de la semaine dernière",
     challenge: "Le défi de la semaine",
     anniv: "Cette semaine dans l'histoire de l'espace", annivAgo: "Il y a {n} ans · {date}",
-    reader: "Ton ciel", readerBy: "Par {who}",
-    readerAsk: "Tu as pris une photo du ciel, ou dessiné la Lune, une planète ou une constellation ? Réponds simplement à cet e-mail en la joignant ! De temps en temps, nous en montrerons une ici (prénom et âge seulement, avec l'accord d'un parent).",
+    noReply: "Merci de ne pas répondre à cet e-mail : les réponses ne sont pas lues. Pour nous écrire, utilise le formulaire « Écris-moi » de la page À propos sur",
     cta: "Ouvrir la carte du ciel en direct",
     footer: "Cet e-mail t'est envoyé suite à ton inscription sur thomasnima.com.", unsub: "Se désinscrire",
     subject: "🚀 Cap sur l'espace · ton ciel du {range}",
@@ -130,7 +128,6 @@ const NL = {
     const fact = facts.length ? facts[this.mod(week, facts.length)] : "";
     const challenge = this.challenge(start, moon, week);
     const anniv = this.anniversary(start, end, week);
-    const reader = this.reader(start, end);
 
     const range = this.range(start, this.dayAt(date, 6, 0), loc);
     const lead = ev.week[0] ? ev.week[0].title : (sights.list[0] ? this.cap(sights.list[0].name) : S.title);
@@ -238,13 +235,6 @@ const NL = {
         </div>`));
     }
 
-    // 📸 your sky — a reader's photo/drawing when there is one, and always the invitation
-    sections.push(this.card("📸", S.reader, (reader ? `
-      <img src="${E(reader.image)}" alt="${E(reader.caption[lang])}" width="540" style="display:block;width:100%;max-width:540px;height:auto;border-radius:10px;border:0;">
-      <div style="font-size:15px;font-weight:700;color:${C.text};margin-top:10px;">${E(reader.caption[lang])}</div>
-      <div style="font-size:13px;color:${C.gold};margin:2px 0 12px;">${E(s("readerBy", { who: reader.who[lang] }))}</div>` : "")
-      + P(E(S.readerAsk))));
-
     const html = this.page(lang, subject, preheader, `
       <tr><td style="padding:8px 4px 20px;font-family:${NL_F};">
         <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:${C.dim};font-weight:700;">🔭 ${E(S.brand)} · ${E(S.kicker)}</div>
@@ -257,6 +247,7 @@ const NL = {
         <a href="${E(d.siteUrl)}" style="display:inline-block;background:${C.accent};color:${C.bg};text-decoration:none;font-weight:700;font-size:15px;padding:13px 22px;border-radius:10px;">🌌 ${E(S.cta)}</a>
       </td></tr>
       <tr><td align="center" style="padding:0 10px 30px;font-family:${NL_F};font-size:12px;line-height:1.6;color:${C.faint};">
+        ${E(S.noReply)} <a href="${E(d.siteUrl)}" style="color:${C.accent};text-decoration:underline;">thomasnima.com</a>.<br>
         ${E(S.footer)}<br><a href="${E(d.unsubscribeUrl)}" style="color:${C.faint};text-decoration:underline;">${E(S.unsub)}</a>
       </td></tr>`);
 
@@ -383,14 +374,6 @@ const NL = {
     const best = Math.min(...hits.map(score));
     const top = hits.filter(h => score(h) === best);
     return top[this.mod(week, top.length)];
-  },
-
-  // the reader photo for this week, if one is set in extras.js
-  reader(start, end) {
-    if (typeof NL_READER === "undefined" || !NL_READER) return null;
-    const [y, m, d] = NL_READER.date.split("-").map(Number);
-    const when = new Date(y, m - 1, d);
-    return when >= start && when < end ? NL_READER : null;
   },
 
   // ---- layout ----
