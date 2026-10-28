@@ -92,8 +92,11 @@ const About = {
 
     // required name
     if (!name) { status.className = "cf-status err"; status.textContent = t("about.errName"); f.name.focus(); return; }
-    // required email: must look real (we can't check it exists, but obvious fakes are refused)
-    if (!this.emailLooksReal(email)) { status.className = "cf-status err"; status.textContent = t("about.errEmail"); f.email.focus(); return; }
+    // required email: must look real (we can't check it exists, but obvious fakes are refused).
+    // Thomas's friends without an email address (FRIENDS) may leave it empty.
+    const friend = this.FRIENDS.includes(name.toLowerCase());
+    const hasEmail = this.emailLooksReal(email);
+    if (!hasEmail && !friend) { status.className = "cf-status err"; status.textContent = t("about.errEmail"); f.email.focus(); return; }
     if (!message) return;
     // human check (hCaptcha)
     const token = (window.hcaptcha && this.widget != null) ? window.hcaptcha.getResponse(this.widget) : "";
@@ -110,9 +113,9 @@ const About = {
       name: name,
       from_where: from || "—",
       message,
-      email, replyto: email,                               // so you can reply directly
       "h-captcha-response": token
     };
+    if (hasEmail) { payload.email = email; payload.replyto = email; }   // so you can reply directly
     try {
       const r = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -126,7 +129,9 @@ const About = {
         <div class="sub-done-icon">🚀</div>
         <div class="sub-done-title">${U.esc(t("about.sentTitle"))}</div>
         <p>${U.esc(t("about.sentThanks", { name }))}</p>
-        <p class="sub-done-step">${t("about.sentReply", { email: `<b>${U.esc(email)}</b>` })}</p>`, t("about.sentOk"));
+        <p class="sub-done-step">${hasEmail
+          ? t("about.sentReply", { email: `<b>${U.esc(email)}</b>` })
+          : U.esc(t("about.sentFriend"))}</p>`, t("about.sentOk"));
     } catch (err) {
       status.className = "cf-status err"; status.textContent = t("about.errorMsg");
     } finally {
@@ -134,6 +139,9 @@ const About = {
       if (window.hcaptcha && this.widget != null) window.hcaptcha.reset(this.widget);   // a token works only once
     }
   },
+
+  // first names (lower case) that may write without an email address
+  FRIENDS: ["gogo"],
 
   // name@domain.tld, and not one of the throwaway addresses people type to skip the field
   FAKE_DOMAINS: ["example.com", "example.org", "example.net", "example.fr", "test.com", "test.fr", "test.org",
