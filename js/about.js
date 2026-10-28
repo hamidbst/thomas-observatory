@@ -40,7 +40,7 @@ const About = {
           <form id="contact-form" class="contact-form" novalidate>
             <input class="cf-input" name="name" required maxlength="60" placeholder="${U.esc(t("about.fName"))}" />
             <div>
-              <input class="cf-input" name="email" type="email" maxlength="120" placeholder="${U.esc(t("about.fEmail"))}" style="width:100%;" />
+              <input class="cf-input" name="email" type="email" required maxlength="120" placeholder="${U.esc(t("about.fEmail"))}" style="width:100%;" />
               <div class="small muted cf-hint">${U.esc(t("about.emailHint"))}</div>
             </div>
             <input class="cf-input" name="from" maxlength="80" placeholder="${U.esc(t("about.fFrom"))}" />
@@ -92,6 +92,8 @@ const About = {
 
     // required name
     if (!name) { status.className = "cf-status err"; status.textContent = t("about.errName"); f.name.focus(); return; }
+    // required email: must look real (we can't check it exists, but obvious fakes are refused)
+    if (!this.emailLooksReal(email)) { status.className = "cf-status err"; status.textContent = t("about.errEmail"); f.email.focus(); return; }
     if (!message) return;
     // human check (hCaptcha)
     const token = (window.hcaptcha && this.widget != null) ? window.hcaptcha.getResponse(this.widget) : "";
@@ -108,14 +110,9 @@ const About = {
       name: name,
       from_where: from || "—",
       message,
+      email, replyto: email,                               // so you can reply directly
       "h-captcha-response": token
     };
-    // If they left an email, use it as the reply-to so you can reply directly.
-    const validEmail = /^\S+@\S+\.\S+$/.test(email);
-    if (email) {
-      if (validEmail) { payload.email = email; payload.replyto = email; }
-      else { payload.message += `\n\n(Contact they typed: ${email})`; }
-    }
     try {
       const r = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -129,15 +126,28 @@ const About = {
         <div class="sub-done-icon">🚀</div>
         <div class="sub-done-title">${U.esc(t("about.sentTitle"))}</div>
         <p>${U.esc(t("about.sentThanks", { name }))}</p>
-        <p class="sub-done-step">${validEmail
-          ? t("about.sentReply", { email: `<b>${U.esc(email)}</b>` })
-          : U.esc(t("about.sentNoEmail"))}</p>`, t("about.sentOk"));
+        <p class="sub-done-step">${t("about.sentReply", { email: `<b>${U.esc(email)}</b>` })}</p>`, t("about.sentOk"));
     } catch (err) {
       status.className = "cf-status err"; status.textContent = t("about.errorMsg");
     } finally {
       btn.disabled = false;
       if (window.hcaptcha && this.widget != null) window.hcaptcha.reset(this.widget);   // a token works only once
     }
+  },
+
+  // name@domain.tld, and not one of the throwaway addresses people type to skip the field
+  FAKE_DOMAINS: ["example.com", "example.org", "example.net", "example.fr", "test.com", "test.fr", "test.org",
+    "fake.com", "fake.fr", "nomail.com", "noemail.com", "none.com", "aaa.com", "abc.com", "asdf.com", "azerty.com",
+    "qwerty.com", "xxx.com", "mail.mail", "email.email", "toto.com", "toto.fr", "truc.com", "bidon.com", "bidon.fr",
+    "mailinator.com", "yopmail.com", "yopmail.fr", "guerrillamail.com", "10minutemail.com", "trashmail.com"],
+  emailLooksReal(email) {
+    const m = /^([^\s@]+)@([^\s@]+\.[a-z]{2,})$/i.exec(email);
+    if (!m) return false;
+    const user = m[1].toLowerCase(), domain = m[2].toLowerCase();
+    if (this.FAKE_DOMAINS.includes(domain)) return false;
+    if (/^(.)\1*$/.test(user) && user.length < 4) return false;       // a@…, aaa@…
+    if (["test", "fake", "none", "no", "nobody", "personne", "rien", "toto"].includes(user)) return false;
+    return true;
   }
 };
 
