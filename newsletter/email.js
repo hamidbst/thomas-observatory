@@ -32,6 +32,7 @@ const NL_STR = {
     lastAnswer: "Last week's answer",
     challenge: "Challenge of the week",
     anniv: "This week in space history", annivAgo: "{n} years ago · {date}",
+    thomas: "A note from Thomas", thomasThings: "What caught my eye this week", readMore: "Read more", inFrench: "(in French)",
     noReply: "Please don't reply to this email, replies aren't read. To write to us, use the “Write to me” form on the About page at",
     cta: "Open the live sky map",
     footer: "You're receiving this because you signed up at thomasnima.com.", unsub: "Unsubscribe",
@@ -58,6 +59,7 @@ const NL_STR = {
     lastAnswer: "Réponse de la semaine dernière",
     challenge: "Le défi de la semaine",
     anniv: "Cette semaine dans l'histoire de l'espace", annivAgo: "Il y a {n} ans · {date}",
+    thomas: "Le mot de Thomas", thomasThings: "Ce qui m'a intéressé cette semaine", readMore: "En savoir plus", inFrench: "",
     noReply: "Merci de ne pas répondre à cet e-mail : les réponses ne sont pas lues. Pour nous écrire, utilise le formulaire « Écris-moi » de la page À propos sur",
     cta: "Ouvrir la carte du ciel en direct",
     footer: "Cet e-mail t'est envoyé suite à ton inscription sur thomasnima.com.", unsub: "Se désinscrire",
@@ -82,14 +84,20 @@ const NL = {
     news: "https://api.spaceflightnewsapi.net/v4/articles/?limit=3&ordering=-published_at",
     launches: "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=3&hide_recent_previous=true",
     apod: () => `https://api.nasa.gov/planetary/apod?api_key=${encodeURIComponent(CONFIG.NASA_API_KEY)}&thumbs=true`,
+    // Thomas's weekly note: the "Newsletter" tab of the Google Form's spreadsheet,
+    // published as CSV. That tab keeps only answers sent from the parent's Google
+    // account, without the email column.
+    thomas: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-W6nGmoPuKAF47NnJtvK8IydlPe-oQ4s8wRkiHPfkwbF9gT-PIkf5kZG-x1K584dyv3F5gfegjLP-/pub?gid=2134035130&single=true&output=csv",
   },
 
-  // Fetch news/launches/APOD and normalise them. dsosJSON is the site's
+  // Fetch news/launches/APOD/Thomas's notes and normalise them. dsosJSON is the site's
   // data/dsos.bright.json (the caller loads it: fetch in a browser, a file on GitHub).
   async fetchAll(dsosJSON) {
     const get = async (url) => { try { const r = await fetch(url); return r.ok ? await r.json() : null; } catch (e) { return null; } };
-    const [nj, lj, aj] = await Promise.all([get(this.SOURCES.news), get(this.SOURCES.launches), get(this.SOURCES.apod())]);
+    const text = async (url) => { try { const r = await fetch(url); return r.ok ? await r.text() : ""; } catch (e) { return ""; } };
+    const [nj, lj, aj, tc] = await Promise.all([get(this.SOURCES.news), get(this.SOURCES.launches), get(this.SOURCES.apod()), text(this.SOURCES.thomas)]);
     return {
+      thomas: this.csv(tc).slice(1),                    // rows without the header line
       dsos: ((dsosJSON && dsosJSON.features) || []).concat(EXTRA_DSOS),
       news: ((nj && nj.results) || []).map(a => ({ title: a.title, url: a.url, site: a.news_site })),
       launches: ((lj && lj.results) || []).map(l => ({ name: l.name, net: l.net,
@@ -99,13 +107,13 @@ const NL = {
     };
   },
 
-  build({ lang = "en", date = new Date(), dsos = [], news = [], launches = [], apod = null,
+  build({ lang = "en", date = new Date(), dsos = [], news = [], launches = [], apod = null, thomas = [],
           siteUrl = "https://thomasnima.com", unsubscribeUrl = "#" } = {}) {
     globalThis.LOC = globalThis.LOC || {};
     const prevLang = I18N.lang, prevLoc = LOC.current;
     I18N.lang = lang;
     LOC.current = { ...NL_PLACE, name: NL_STR[lang].place };   // highlights.js reads LOC.current
-    try { return this._build(lang, date, { dsos, news, launches, apod, siteUrl, unsubscribeUrl }); }
+    try { return this._build(lang, date, { dsos, news, launches, apod, thomas, siteUrl, unsubscribeUrl }); }
     finally { I18N.lang = prevLang; LOC.current = prevLoc; }
   },
 
@@ -128,6 +136,7 @@ const NL = {
     const fact = facts.length ? facts[this.mod(week, facts.length)] : "";
     const challenge = this.challenge(start, moon, week);
     const anniv = this.anniversary(start, end, week);
+    const note = this.thomasNote(d.thomas, date);
 
     const range = this.range(start, this.dayAt(date, 6, 0), loc);
     const lead = ev.week[0] ? ev.week[0].title : (sights.list[0] ? this.cap(sights.list[0].name) : S.title);
@@ -138,6 +147,28 @@ const NL = {
     const C = NL_C;
     const P = (txt, extra = "") => `<div style="font-size:14px;line-height:1.6;color:${C.dim};${extra}">${txt}</div>`;
     const sections = [];
+
+    // ✍️ Thomas's own words, first — only when he wrote something this week.
+    // His English box is optional: if it's empty, the French text is shown, marked as such.
+    if (note) {
+      const pick = (fr, en) => lang === "en" && en ? { txt: en, fr: false } : { txt: fr, fr: lang === "en" && !!fr };
+      const lines = (txt) => E(txt).replace(/\r?\n/g, "<br>");
+      const inFr = (p) => p.fr ? ` <span style="font-size:12px;color:${C.faint};">${E(S.inFrench)}</span>` : "";
+      const msg = pick(note.fr, note.en);
+      const things = note.things.map(th => {
+        const p = pick(th.fr, th.en);
+        if (!p.txt) return "";
+        const [title, ...rest] = p.txt.trim().split(/\r?\n/);
+        return `<div style="margin-top:12px;padding:12px 14px;border-radius:10px;background:#0e1326;border:1px solid ${C.border};">
+          <div style="font-size:15px;font-weight:700;color:${C.text};">${E(title)}${inFr(p)}</div>
+          ${rest.join("").trim() ? P(lines(rest.join("\n").trim()), "margin-top:4px;") : ""}
+          ${th.link ? `<div style="margin-top:6px;font-size:13px;"><a href="${E(th.link)}" style="color:${C.accent};">${E(S.readMore)} →</a></div>` : ""}</div>`;
+      }).join("");
+      sections.push(this.card("✍️", S.thomas, `
+        <div style="font-size:15.5px;line-height:1.65;color:${C.text};">${lines(msg.txt)}${inFr(msg)}</div>
+        <div style="font-size:14px;color:${C.gold};font-weight:700;margin-top:8px;">— Thomas</div>
+        ${things ? `<div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${C.faint};font-weight:700;margin:16px 0 0;">🔎 ${E(S.thomasThings)}</div>${things}` : ""}`));
+    }
 
     // 🔭 tonight's best sights — the same ranking as the website's Tonight tab
     if (sights.list.length) {
@@ -374,6 +405,41 @@ const NL = {
     const best = Math.min(...hits.map(score));
     const top = hits.filter(h => score(h) === best);
     return top[this.mod(week, top.length)];
+  },
+
+  // Thomas's note for this edition: the latest form answer sent in the 7 days
+  // before the newsletter goes out. Columns (see the "Newsletter" tab): time,
+  // note FR, note EN, thing 1 FR, thing 1 EN, link 1, thing 2 FR, thing 2 EN, link 2.
+  thomasNote(rows, date) {
+    const from = date.getTime() - 7 * 864e5;
+    const when = (s) => { const m = /^(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d)/.exec(s || ""); return m ? new Date(+m[1], m[2] - 1, +m[3], +m[4], +m[5]).getTime() : NaN; };
+    const link = (s) => /^https?:\/\/\S+$/i.test((s || "").trim()) ? s.trim() : "";   // web links only
+    const row = (rows || []).filter(r => { const t = when(r[0]); return t > from && t <= date.getTime() && (r[1] || "").trim(); })
+      .sort((a, b) => when(b[0]) - when(a[0]))[0];
+    if (!row) return null;
+    const v = (i) => (row[i] || "").trim();
+    return { fr: v(1), en: v(2),
+      things: [{ fr: v(3), en: v(4), link: link(v(5)) }, { fr: v(6), en: v(7), link: link(v(8)) }] };
+  },
+
+  // Small CSV reader (quoted fields may contain commas, quotes and line breaks).
+  csv(text) {
+    const rows = []; let row = [], cell = "", q = false;
+    for (let i = 0; i < (text || "").length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+        else if (c === '"') q = false;
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(cell); cell = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        row.push(cell); rows.push(row); row = []; cell = "";
+      } else cell += c;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
   },
 
   // ---- layout ----
