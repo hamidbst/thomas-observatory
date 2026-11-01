@@ -1,6 +1,6 @@
-# Weekly newsletter — every Friday morning, builds "Cap sur l'espace" (FR + EN)
-# with the website's own code, creates both campaigns in Brevo, sends a test copy
-# to NEWSLETTER_EMAIL, and SCHEDULES them for 17:00 French time the same day
+# Weekly newsletter — every Friday evening, builds Saturday's "Cap sur l'espace"
+# (FR + EN) with the website's own code, creates both campaigns in Brevo, sends a
+# test copy to NEWSLETTER_EMAIL, and SCHEDULES them for Saturday 09:00 French time
 # (with a note telling you so — unschedule in Brevo before then to stop it).
 # Manual runs (Actions tab → Weekly newsletter → Run workflow) never schedule:
 # "preview" only builds the emails, "draft" also creates drafts + a test copy.
@@ -9,7 +9,9 @@ name: Weekly newsletter
 
 on:
   schedule:
-    - cron: "0 6 * * 5"   # Fridays 06:00 UTC = 07:00 (winter) / 08:00 (summer) in France
+    # Fridays 19:17 UTC = 20:17 (winter) / 21:17 (summer) in France. GitHub often starts
+    # scheduled jobs late (hours, at busy times), so this leaves a wide margin before 09:00.
+    - cron: "17 19 * * 5"
   workflow_dispatch:
     inputs:
       mode:

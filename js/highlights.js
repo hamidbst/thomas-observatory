@@ -109,7 +109,7 @@ const Highlights = {
   compute(opts = {}) {
     const lat = LOC.current.lat, lon = LOC.current.lon;
     const obs = new Astronomy.Observer(lat, lon, LOC.current.elevation || 0);
-    const now = new Date();
+    const now = opts.date || new Date();                 // opts.date: plan for that day's evening (newsletter)
 
     // tonight's dark window (dusk .. dawn), falling back sensibly
     const noon = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0);

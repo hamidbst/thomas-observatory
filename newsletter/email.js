@@ -1,7 +1,7 @@
 /* =============================================================================
    newsletter/email.js  —  builds the weekly "Your sky this week" email (EN/FR)
    Pure string-building (no DOM), so the same code runs in the browser preview
-   (newsletter/preview.html) and on GitHub's servers for the Friday job.
+   (newsletter/preview.html) and on GitHub's servers for the weekly job.
    It reuses the site's own modules, which must be loaded first: Astronomy,
    CONFIG, I18N/t, U, FACTS_EN/FR, Events, Tonight, Highlights (HL_DSO), Sky
    (CONS_FR, DSO_INFO, EXTRA_DSOS), QUIZ_BANK and newsletter/extras.js — so the email always says the
@@ -118,7 +118,7 @@ const NL = {
     const obs = new Astronomy.Observer(NL_PLACE.lat, NL_PLACE.lon, NL_PLACE.elevation);
 
     let sights = { list: [], milkyway: false };
-    try { sights = Highlights.compute({ untilHour: 23 }); } catch (e) {}   // family-friendly: evening only
+    try { sights = Highlights.compute({ untilHour: 23, date }); } catch (e) {}   // family-friendly: evening only
     sights.list = sights.list.slice(0, 6);
     const moon = this.moon(start, obs);
     const ev = this.events(start, end);
