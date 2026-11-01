@@ -448,6 +448,22 @@ const Sky = {
         if (this.toggles.labels) this.label(p, I18N.body(body), rad);
       } catch(e){}
     }
+
+    // Voyager 1 & 2: their direction in the sky (see probes.js)
+    try {
+      for (const m of Probes.skyMarks(date, lat, lst)) {
+        if (m.alt <= 0) continue;
+        const p = this.project(m.alt, m.az);
+        if (!p) continue;
+        ctx.save();
+        ctx.translate(p.x, p.y); ctx.rotate(Math.PI / 4);
+        ctx.strokeStyle = m.color; ctx.lineWidth = 1.5; ctx.strokeRect(-3.5, -3.5, 7, 7);
+        ctx.restore();
+        this.drawn.push({ x:p.x, y:p.y, name:m.name, meta:`${m.alt.toFixed(0)}° ${U.compass(m.az)}`, desc:m.desc });
+        if (this.toggles.labels) { ctx.fillStyle = m.color; ctx.font = "600 11px Segoe UI, sans-serif";
+          ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.fillText(m.name, p.x + 9, p.y); }
+      }
+    } catch(e){}
   },
 
   disk(p, r, fill, ring) {

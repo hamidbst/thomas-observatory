@@ -22,8 +22,10 @@ const App = {
     LOC.wire();
     LOC._render();
 
-    // Sky map loads its catalogs and draws (default active tab)
+    // Sky map loads its catalogs and draws (default active tab); the Voyagers'
+    // positions join it once their small data file has loaded
     Sky.init();
+    Probes.load().then(() => { if (U.el("tab-sky").classList.contains("active")) Sky.render(); });
 
     // Re-render location-dependent panels when the place changes
     document.addEventListener("location-changed", () => {
@@ -82,6 +84,7 @@ const App = {
       case "events":  if (!Events.shown) Events.render(); break;
       case "iss":     ISS.init().then(() => ISS.start()); break;
       case "live":    Live.enter(); break;
+      case "probes":  Probes.enter(); break;
       case "news":    News.loadAll(); break;
       case "quiz":    Quiz.enter(); break;
       case "learn":   Learn.enter(); break;

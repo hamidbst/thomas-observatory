@@ -21,7 +21,7 @@ const I18N = {
                current: "Currently showing", change: "change", denied: "Location unavailable — using the default city." },
       fact:  { loading: "Loading a cosmic fact…", another: "Another →" },
       nav:   { sky: "Live Sky", tonight: "Tonight", events: "Events", iss: "ISS",
-               live: "Space Live", news: "News & APOD", quiz: "Quiz", learn: "Learn", history: "History", about: "About Me" },
+               live: "Space Live", probes: "Probes & Telescopes", news: "News & APOD", quiz: "Quiz", learn: "Learn", history: "History", about: "About Me" },
 
       common:{ up: "UP", down: "down", telescope: "telescope", min: "min", now: "now",
                rises: "rises", sets: "sets", altitude: "Altitude", lit: "lit", loadingGeneric: "loading…" },
@@ -255,7 +255,7 @@ const I18N = {
                current: "Affichage actuel", change: "changer", denied: "Position indisponible — utilisation de la ville par défaut." },
       fact:  { loading: "Chargement d'un fait cosmique…", another: "Un autre →" },
       nav:   { sky: "Ciel en direct", tonight: "Ce soir", events: "Événements", iss: "ISS",
-               live: "Espace en direct", news: "Actus & Image", quiz: "Quiz", learn: "Apprendre", history: "Histoire", about: "À propos" },
+               live: "Espace en direct", probes: "Sondes & télescopes", news: "Actus & Image", quiz: "Quiz", learn: "Apprendre", history: "Histoire", about: "À propos" },
 
       common:{ up: "AU-DESSUS", down: "sous l'horizon", telescope: "télescope", min: "min", now: "maintenant",
                rises: "se lève", sets: "se couche", altitude: "Hauteur", lit: "éclairée", loadingGeneric: "chargement…" },
