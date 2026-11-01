@@ -23,6 +23,7 @@ const PR_TXT = {
     sky: "In the sky: towards the constellation <b>{con}</b>.",
     up: "It's above your horizon right now ({alt}°, {dir}): find it on the Live Sky map!",
     down: "It's below your horizon right now.",
+    never: "From where you are, it never rises above the horizon: it's too far {side} in the sky. To see it, you'd have to travel {side} of latitude {lim}.",
     v1status: "In interstellar space since 25 August 2012: the first human-made object to get there.",
     v2status: "In interstellar space since 5 November 2018. The only probe to have visited Uranus and Neptune.",
     mapTitle: "Their journey through the Solar System",
@@ -62,6 +63,7 @@ const PR_TXT = {
     sky: "Dans le ciel : en direction de la constellation <b>{con}</b>.",
     up: "Elle est au-dessus de ton horizon en ce moment ({alt}°, {dir}) : repère-la sur la carte du ciel !",
     down: "Elle est sous ton horizon en ce moment.",
+    never: "D'où tu es, elle ne se lève jamais au-dessus de l'horizon : elle est trop au {side} dans le ciel. Pour la voir, il faudrait voyager au {side} de la latitude {lim}.",
     v1status: "Dans l'espace interstellaire depuis le 25 août 2012 : le premier objet humain à y arriver.",
     v2status: "Dans l'espace interstellaire depuis le 5 novembre 2018. La seule sonde à avoir visité Uranus et Neptune.",
     mapTitle: "Leur voyage à travers le système solaire",
@@ -235,6 +237,14 @@ const Probes = {
   nowYear(d = new Date()) { return 2000 + (d - Date.UTC(2000, 0, 1, 12)) / (365.25 * 864e5); },
 
   // the live numbers on the two Voyager cards
+  // a direction that never clears the horizon from this latitude gets an explanation instead of "below right now"
+  neverUp(dec, lat) {
+    if (dec > lat - 90 && dec < lat + 90) return "";
+    const south = dec < 0, lim = Math.round(south ? dec + 90 : dec - 90);
+    const fr = I18N.lang === "fr", side = south ? (fr ? "sud" : "south") : (fr ? "nord" : "north");
+    return this.T("never", { side, lim: Math.abs(lim) + "° " + (lim >= 0 ? "N" : "S") });
+  },
+
   tick() {
     const now = new Date(), fr = I18N.lang === "fr";
     const lat = LOC.current.lat, lst = U.lst(now, LOC.current.lon);
@@ -250,7 +260,7 @@ const Probes = {
         this.T("light", { h: Math.floor(lt), m: Math.floor((lt % 1) * 60) }),
         this.T("speed", { v: nf(st.v, 1), kmh: nf(Math.round(st.v * 3600 / 1000) * 1000) }),
         this.T("sky", { con: U.esc(this.con(st.ra, st.dec)) }) + " "
-          + U.esc(h.alt > 0 ? this.T("up", { alt: Math.round(h.alt), dir: U.compass(h.az) }) : this.T("down")),
+          + U.esc(h.alt > 0 ? this.T("up", { alt: Math.round(h.alt), dir: U.compass(h.az) }) : this.neverUp(st.dec, lat) || this.T("down")),
       ].map(x => `<div>${x}</div>`).join("");
     }
   },
