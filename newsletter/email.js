@@ -16,6 +16,7 @@ const NL_STR = {
     brand: "Thomas Nima's Observatory", kicker: "Destination Space",
     title: "Your sky this week", place: "central France", forPlace: "times for {place}",
     hello: "Hello, stargazers! Here's what's worth looking up at this week — most of it needs no telescope at all.",
+    helloNote: "Here's what's worth looking up at this week — most of it needs no telescope at all.",
     sights: "Tonight's best sights", from: "From {t}",
     sightsFoot: "Picked for the evening, before 23:00. Stars and deep-sky objects rise about 4 minutes earlier each night, so these stay well placed all week; the Moon and planets move more.",
     moon: "The Moon this week", moonTonight: "Tonight: {phase}, {pct}% lit.",
@@ -43,6 +44,7 @@ const NL_STR = {
     brand: "L'Observatoire de Thomas Nima", kicker: "Cap sur l'espace",
     title: "Ton ciel cette semaine", place: "le centre de la France", forPlace: "heures pour {place}",
     hello: "Bonjour les astronomes en herbe ! Voici ce qui vaut le coup d'œil cette semaine — la plupart sans télescope.",
+    helloNote: "Voici ce qui vaut le coup d'œil cette semaine — la plupart sans télescope.",
     sights: "Les plus beaux objets ce soir", from: "Dès {t}",
     sightsFoot: "Choisis pour la soirée, avant 23:00. Les étoiles et les objets du ciel profond se lèvent environ 4 minutes plus tôt chaque soir : ils restent bien placés toute la semaine ; la Lune et les planètes bougent davantage.",
     moon: "La Lune cette semaine", moonTonight: "Ce soir : {phase}, éclairée à {pct} %.",
@@ -271,7 +273,7 @@ const NL = {
         <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:${C.dim};font-weight:700;">🔭 ${E(S.brand)} · ${E(S.kicker)}</div>
         <div style="font-size:30px;font-weight:800;color:${C.text};margin:8px 0 4px;line-height:1.15;">${E(S.title)}</div>
         <div style="font-size:14px;color:${C.accent};">${E(this.cap(range))} · ${E(s("forPlace", { place: S.place }))}</div>
-        <div style="font-size:15px;color:${C.dim};margin-top:14px;line-height:1.55;">${E(S.hello)}</div>
+        <div style="font-size:15px;color:${C.dim};margin-top:14px;line-height:1.55;">${E(note ? S.helloNote : S.hello)}</div>
       </td></tr>
       ${sections.join("")}
       <tr><td align="center" style="padding:10px 0 26px;font-family:${NL_F};">
