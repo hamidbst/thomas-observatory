@@ -15,9 +15,9 @@ const NL_STR = {
   en: {
     brand: "Thomas Nima's Observatory", kicker: "Destination Space",
     title: "Your sky this week", place: "central France", forPlace: "times for {place}",
-    hello: "Hello, stargazers! Here's what's worth looking up at this week — most of it needs no telescope at all.",
-    helloNote: "Here's what's worth looking up at this week — most of it needs no telescope at all.",
-    sights: "Tonight's best sights", from: "From {t}",
+    hello: "Hello, stargazers! Here's your programme for the week.",
+    skyIntro: "Most of these wonders need no telescope at all.",
+    sights: "The best sights to look for", from: "From {t}",
     sightsFoot: "Picked for the evening, before 23:00. Stars and deep-sky objects rise about 4 minutes earlier each night, so these stay well placed all week; the Moon and planets move more.",
     moon: "The Moon this week", moonTonight: "Tonight: {phase}, {pct}% lit.",
     dark: "Darkest evenings for faint objects: {days}.",
@@ -43,9 +43,9 @@ const NL_STR = {
   fr: {
     brand: "L'Observatoire de Thomas Nima", kicker: "Cap sur l'espace",
     title: "Ton ciel cette semaine", place: "le centre de la France", forPlace: "heures pour {place}",
-    hello: "Bonjour les astronomes en herbe ! Voici ce qui vaut le coup d'œil cette semaine — la plupart sans télescope.",
-    helloNote: "Voici ce qui vaut le coup d'œil cette semaine — la plupart sans télescope.",
-    sights: "Les plus beaux objets ce soir", from: "Dès {t}",
+    hello: "Bonjour les astronomes en herbe ! Voici ton programme de la semaine.",
+    skyIntro: "La plupart de ces merveilles se voient sans télescope.",
+    sights: "Les plus beaux objets à observer", from: "Dès {t}",
     sightsFoot: "Choisis pour la soirée, avant 23:00. Les étoiles et les objets du ciel profond se lèvent environ 4 minutes plus tôt chaque soir : ils restent bien placés toute la semaine ; la Lune et les planètes bougent davantage.",
     moon: "La Lune cette semaine", moonTonight: "Ce soir : {phase}, éclairée à {pct} %.",
     dark: "Soirées les plus sombres pour les objets faibles : {days}.",
@@ -172,14 +172,20 @@ const NL = {
         ${things ? `<div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${C.faint};font-weight:700;margin:16px 0 0;">🔎 ${E(S.thomasThings)}</div>${things}` : ""}`));
     }
 
-    // 🔭 tonight's best sights — the same ranking as the website's Tonight tab
+    // heading for the sky part of the email (best sights to object of the week)
+    sections.push(`<tr><td style="padding:12px 4px 16px;font-family:${NL_F};">
+      <div style="font-size:24px;font-weight:800;color:${C.text};line-height:1.2;">🔭 ${E(S.title)}</div>
+      <div style="font-size:14px;color:${C.dim};margin-top:6px;line-height:1.55;">${E(S.skyIntro)} ${E(this.cap(s("forPlace", { place: S.place })))}.</div>
+    </td></tr>`);
+
+    // 🌟 the best sights — the same ranking as the website's Tonight tab
     if (sights.list.length) {
       const rows = sights.list.map(o => this.row(o.emoji, `
         <div style="font-size:15px;font-weight:700;color:${C.text};">${E(this.cap(o.name))}
           <span style="font-size:11px;font-weight:700;color:${C.gold};text-transform:uppercase;letter-spacing:1px;">&nbsp;${E(t("hl.inst_" + o.inst))}</span></div>
         ${P(E(this.cap(o.blurb)), "font-size:13px;margin-top:2px;")}
         <div style="font-size:12.5px;color:${C.accent};margin-top:4px;">🕒 ${E(s("from", { t: U.timeHMS(o.bestTime).slice(0, 5) }))} · 🧭 ${E(t("hl.look", { dir: U.compass(o.bestAz), alt: Math.round(o.bestAlt) }))}</div>`)).join("");
-      sections.push(this.card("🔭", S.sights, rows
+      sections.push(this.card("🌟", S.sights, rows
         + (sights.milkyway ? P("🌌 " + E(t("hl.milkyway")), "font-size:13px;margin-top:12px;") : "")
         + P(E(S.sightsFoot), `font-size:12px;color:${C.faint};margin-top:12px;`)));
     }
@@ -270,10 +276,10 @@ const NL = {
 
     const html = this.page(lang, subject, preheader, `
       <tr><td style="padding:8px 4px 20px;font-family:${NL_F};">
-        <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:${C.dim};font-weight:700;">🔭 ${E(S.brand)} · ${E(S.kicker)}</div>
-        <div style="font-size:30px;font-weight:800;color:${C.text};margin:8px 0 4px;line-height:1.15;">${E(S.title)}</div>
-        <div style="font-size:14px;color:${C.accent};">${E(this.cap(range))} · ${E(s("forPlace", { place: S.place }))}</div>
-        <div style="font-size:15px;color:${C.dim};margin-top:14px;line-height:1.55;">${E(note ? S.helloNote : S.hello)}</div>
+        <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:${C.dim};font-weight:700;">🔭 ${E(S.brand)}</div>
+        <div style="font-size:30px;font-weight:800;color:${C.text};margin:8px 0 4px;line-height:1.15;">${E(S.kicker)}</div>
+        <div style="font-size:14px;color:${C.accent};">${E(this.weekLabel(start, this.dayAt(date, 6, 0), lang, loc))}</div>
+        ${note ? "" : `<div style="font-size:15px;color:${C.dim};margin-top:14px;line-height:1.55;">${E(S.hello)}</div>`}
       </td></tr>
       ${sections.join("")}
       <tr><td align="center" style="padding:10px 0 26px;font-family:${NL_F};">
@@ -285,6 +291,14 @@ const NL = {
       </td></tr>`);
 
     return { subject, preheader, html, fromName: S.brand };
+  },
+
+  // "Semaine du 7 au 13 novembre" / "Week of November 7–13", for the top of the email
+  weekLabel(a, b, lang, loc) {
+    const mon = (x) => x.toLocaleDateString(loc, { month: "long" }), same = a.getMonth() === b.getMonth();
+    if (lang === "en") return `Week of ${mon(a)} ${a.getDate()}${same ? "–" : ` – ${mon(b)} `}${b.getDate()}`;
+    const day = (x) => x.getDate() === 1 ? "1er" : x.getDate();
+    return `Semaine du ${day(a)}${same ? "" : " " + mon(a)} au ${day(b)} ${mon(b)}`;
   },
 
   // ---- content ----

@@ -1,9 +1,9 @@
 /* =============================================================================
-   newsletter/send.js  —  the weekly job, Friday afternoon (run by .github/workflows/newsletter.yml)
+   newsletter/send.js  —  the weekly job, Friday evening (run by .github/workflows/newsletter.yml)
    Builds this week's newsletter in French and English with the website's own
    code (newsletter/email.js + the site's js/ files), creates both as campaigns
    in Brevo and sends a test copy to NEWSLETTER_EMAIL.
-   · "auto" (the Friday-afternoon run): also schedules both for Saturday 09:00 and
+   · "auto" (the Friday-evening run): also schedules both for Saturday 09:00 and
      emails you a short note saying so; cancel in Brevo before then if needed.
    · "draft" (manual test): leaves them as drafts. Nothing reaches subscribers.
 
@@ -86,7 +86,7 @@ async function main() {
   const me = (process.env.NEWSLETTER_EMAIL || "").trim();
   if (!key) throw new Error("BREVO_API_KEY is missing — add it under the repo's Settings → Secrets and variables → Actions.");
 
-  // "auto" (the Friday-afternoon run): schedule both campaigns for Saturday at SEND_HOUR,
+  // "auto" (the Friday-evening run): schedule both campaigns for Saturday at SEND_HOUR,
   // French time, unless that's too close. Manual "draft" runs never schedule anything.
   const sendAt = edition;
   const canSchedule = mode === "auto" && sendAt - Date.now() > 30 * 60e3;
