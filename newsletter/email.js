@@ -434,8 +434,9 @@ const NL = {
       .sort((a, b) => when(b[0]) - when(a[0]))[0];
     if (!row) return null;
     const v = (i) => (row[i] || "").trim();
-    return { fr: v(1), en: v(2),
-      things: [{ fr: v(3), en: v(4), link: link(v(5)) }, { fr: v(6), en: v(7), link: link(v(8)) }] };
+    const fr = (i) => v(i).replace(/"([^"\n]+)"/g, "« $1 »");   // French text gets guillemets
+    return { fr: fr(1), en: v(2),
+      things: [{ fr: fr(3), en: v(4), link: link(v(5)) }, { fr: fr(6), en: v(7), link: link(v(8)) }] };
   },
 
   // Small CSV reader (quoted fields may contain commas, quotes and line breaks).
